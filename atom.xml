@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Endless</title>
+  <subtitle>Endless</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="morganwu277.github.io/"/>
+  <updated>2017-06-08T01:30:32.000Z</updated>
+  <id>morganwu277.github.io/</id>
+  
+  <author>
+    <name>Morgan Wu</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Transfer 15TB of Tiny Files</title>
+    <link href="morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/"/>
+    <id>morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/</id>
+    <published>2017-06-05T23:15:46.000Z</published>
+    <updated>2017-06-08T01:30:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Days ago, when I was setting up an Internet Cafe System, I met a problem of transferring 600+ GB gaming files from one machine to another.</p>
+<p>Most of them are <code>small files</code>, I have two options:</p>
+<ol>
+<li>Compress and then transfer, which will cost lots of CPU, and of course time.</li>
+<li>Directly transfer these files, which will be very slow since too many tiny files.</li>
+</ol>
+<p>In the End, I used the <code>rsync</code> method.</p>
+<a id="more"></a>
+<p><img src="https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/stuck_out_tongue_winking_eye.png" alt="">Relax time, here is the Windows start animation.</p>
+<div class="video-container"><iframe src="//www.youtube.com/embed/nCobAnhWr-c" frameborder="0" allowfullscreen></iframe></div>
+<h1 id="So-How">1. So, How?</h1><h2 id="The-Rsync-method">1.1. The Rsync method</h2><p>My scenario was transferring files from Windows XP to a Linux Server. About how to setup <code>Cygwin in Windows XP/2003</code>, please review <a href="/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/" title="Setup Cygwin in Windows XP/2003">Setup Cygwin in Windows XP/2003</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ rsync -a -z -vvv -S -e <span class="string">'ssh -o "ServerAliveInterval 7200"'</span> \ </div><div class="line">	/path/of/source_dir root@destination_server:/path/of/destination_dir</div></pre></td></tr></table></figure>
+<p>This will transfer <code>/path/of/source_dir</code> to <code>/path/of/destination_dir</code> by using SSH tunnel and keep alive for 2 hours, using <a href="https://rsync.samba.org/tech_report/" target="_blank" rel="external">Rsync algorithm</a>.</p>
+<h2 id="Compress-amp-Package-amp-Transfer">1.2. Compress &amp; Package &amp; Transfer</h2><p>As above, we mentioned that we would like to compress these files and then transfer. Here is how we implement it by using <code>tar</code> and <code>pigz</code>(parallel gzip) command which wins over the rsync method.</p>
+<p><strong>Source Machine</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -cf - -C /path/of/small/files . | pigz | nc -l 9876</div></pre></td></tr></table></figure></p>
+<p><strong>Destination Machine (Download)</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nc source_machine_ip 9876 | pigz -d | tar -xf - -C /put/stuff/here</div></pre></td></tr></table></figure></p>
+<p><strong>Destination Machine (Archive)</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nc source_machine_ip 9876 &gt; smallstuff.tar.gz</div></pre></td></tr></table></figure></p>
+<h1 id="But-which-one-is-better">2. But which one is better?</h1><p>The result is <code>nc + pigz</code> solution always win for the first time transfer, no matters for large files or small files.</p>
+<p>My laptop has 4 CPU cores built-in, so the <code>rsync</code> solution is about 3-4 times slower than the <code>nc + pigz</code> solution for the first-time transfer.</p>
+<p>However, for incremental files update, of course, <code>rsync</code> wins over another since it only compute the changes by using modification timestamp and size .</p>
+<p>Here is the script I used to generate <code>640,000</code> files with each as size of <code>8 kb</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..10&#125;; <span class="keyword">do</span> </div><div class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> &#123;1..10&#125;; <span class="keyword">do</span> </div><div class="line">    mkdir -p <span class="string">"test_<span class="variable">$i</span>/test_<span class="variable">$j</span>"</span></div><div class="line">    <span class="built_in">cd</span> <span class="string">"test_<span class="variable">$i</span>/test_<span class="variable">$j</span>"</span></div><div class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> &#123;1..6400&#125;; <span class="keyword">do</span> </div><div class="line">      dd <span class="keyword">if</span>=/dev/zero of=test_<span class="string">"<span class="variable">$k</span>"</span> bs=1024 count=8 &gt; /dev/null 2&gt;&amp;1 &amp; </div><div class="line">    <span class="keyword">done</span></div><div class="line">    <span class="built_in">cd</span> -</div><div class="line">  <span class="keyword">done</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h1 id="Conclusion">3. Conclusion</h1><ol>
+<li>First Time Transfer, use <code>pigz + nc</code></li>
+<li>Incremental Files Update, use <code>rsync</code></li>
+</ol>
+<hr>
+<p>References:</p>
+<ul>
+<li><a href="https://serverfault.com/questions/721223/transfer-15tb-of-tiny-files" target="_blank" rel="external">Transfer 15 TB of Tiny Files</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Days ago, when I was setting up an Internet Cafe System, I met a problem of transferring 600+ GB gaming files from one machine to another.&lt;/p&gt;
+&lt;p&gt;Most of them are &lt;code&gt;small files&lt;/code&gt;, I have two options:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Compress and then transfer, which will cost lots of CPU, and of course time.&lt;/li&gt;
+&lt;li&gt;Directly transfer these files, which will be very slow since too many tiny files.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In the End, I used the &lt;code&gt;rsync&lt;/code&gt; method.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+    
+      <category term="DevOps" scheme="morganwu277.github.io/categories/Tool-Skill/DevOps/"/>
+    
+      <category term="Backup" scheme="morganwu277.github.io/categories/Tool-Skill/DevOps/Backup/"/>
+    
+    
+      <category term="Rsync" scheme="morganwu277.github.io/tags/Rsync/"/>
+    
+      <category term="transfer" scheme="morganwu277.github.io/tags/transfer/"/>
+    
+      <category term="copy" scheme="morganwu277.github.io/tags/copy/"/>
+    
+      <category term="nc" scheme="morganwu277.github.io/tags/nc/"/>
+    
+      <category term="many" scheme="morganwu277.github.io/tags/many/"/>
+    
+      <category term="tiny" scheme="morganwu277.github.io/tags/tiny/"/>
+    
+      <category term="file" scheme="morganwu277.github.io/tags/file/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Setup Cygwin in Windows XP/2003</title>
+    <link href="morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/"/>
+    <id>morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/</id>
+    <published>2017-06-05T03:07:00.000Z</published>
+    <updated>2017-06-08T01:19:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Everyone should know how to setup <a href="https://cygwin.com/" target="_blank" rel="external"><code>Cygwin</code></a> under Windows 7/10, however, if you do it in Windows XP/2003, it will failed.<br>Why? Because the latest packages are only compatible with Windows 7 or higher.<br>In other words, the Cygwin respository doesn’t have a mechanism to maintain different version of these binaries. </p>
+<p>So, how to setup Cygwin under Windows XP then? </p>
+<a id="more"></a>
+<p>The good news is that someone keeps it. </p>
+<h1 id="Download-the-setup-exe">1. Download the setup.exe</h1><p>32-bit: <a href="http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/setup/snapshots/setup-x86-2.874.exe" target="_blank" rel="external">setup-x86-2.874.exe</a><br>64-bit: <a href="http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/setup/snapshots/setup-x86_64-2.874.exe" target="_blank" rel="external">setup-x86_64-2.874.exe</a></p>
+<h1 id="Run-the-setup-exe-with-X-option">2. Run the setup.exe with -X option</h1><p>Please open the cmd to run with <code>-X</code> option</p>
+<pre><code class="cmd">setup-x86-<span class="number">2</span>.<span class="number">874</span>.exe -X
+</code></pre>
+<h1 id="Use-the-legacy-repositories">3. Use the legacy repositories</h1><p>32-bit: <a href="http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223" target="_blank" rel="external">http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223</a><br>64-bit: <a href="http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/64bit/2016/08/30/104235" target="_blank" rel="external">http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/64bit/2016/08/30/104235</a></p>
+<p>Here are the full list of <code>Cygwin Time Machine Repository</code>, please use the corresponding respository as the version of <code>setup.exe</code><br>32-bit: <a href="http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/index.html" target="_blank" rel="external">http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/index.html</a><br>64-bit: <a href="http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/64bit/index.html" target="_blank" rel="external">http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/64bit/index.html</a></p>
+<p>Then always use this repository instead of others to install packages. </p>
+<p>Engjoy!!!</p>
+<hr>
+<p>References: </p>
+<ul>
+<li><a href="http://www.crouchingtigerhiddenfruitbat.org/Cygwin/timemachine.html#cygwintimemachine" target="_blank" rel="external"><strong>Cygwin Time Machine</strong>, TL;DR</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Everyone should know how to setup &lt;a href=&quot;https://cygwin.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;Cygwin&lt;/code&gt;&lt;/a&gt; under Windows 7/10, however, if you do it in Windows XP/2003, it will failed.&lt;br&gt;Why? Because the latest packages are only compatible with Windows 7 or higher.&lt;br&gt;In other words, the Cygwin respository doesn’t have a mechanism to maintain different version of these binaries. &lt;/p&gt;
+&lt;p&gt;So, how to setup Cygwin under Windows XP then? &lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+    
+      <category term="Windows" scheme="morganwu277.github.io/categories/Tool-Skill/Windows/"/>
+    
+    
+      <category term="Cygwin" scheme="morganwu277.github.io/tags/Cygwin/"/>
+    
+      <category term="Windows XP" scheme="morganwu277.github.io/tags/Windows-XP/"/>
+    
+      <category term="Windows 2003" scheme="morganwu277.github.io/tags/Windows-2003/"/>
+    
+      <category term="Package" scheme="morganwu277.github.io/tags/Package/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Useful Links</title>
+    <link href="morganwu277.github.io/2017/06/03/Useful-Links/"/>
+    <id>morganwu277.github.io/2017/06/03/Useful-Links/</id>
+    <published>2017-06-03T19:14:37.000Z</published>
+    <updated>2017-06-08T01:19:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>This is an assembly of useful links.</p>
+<a id="more"></a>
+<ul>
+<li>Those Linux Command Example</li>
+<li>Explain Shell</li>
+</ul>
+<hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;This is an assembly of useful links.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+    
+      <category term="Knowledge Base" scheme="morganwu277.github.io/categories/Tool-Skill/Knowledge-Base/"/>
+    
+    
+      <category term="Tools" scheme="morganwu277.github.io/tags/Tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Straight Through and Crossover Cable</title>
+    <link href="morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/"/>
+    <id>morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/</id>
+    <published>2017-05-27T19:14:12.000Z</published>
+    <updated>2017-06-08T01:09:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Recently I went Halifax to help a friend to setup Internet Cafe System, including the hardware and software. And I met the problem of make Internet Cables, i.e, Straight Through and Crossover and T568A/B color orders.</p>
+<p>There are two kinds of network cable that we already know, <strong><code>Straight Through</code></strong> and <strong><code>Crossover</code></strong> Cable. This article will give an summary of the differences and how to setup a connection in real by giving photos.</p>
+<a id="more"></a>
+<h1 id="Straight-Through-and-Crossover">1. Straight Through and Crossover</h1><h2 id="T568A-and-T568B-Standards">1.1. T568A and T568B Standards</h2><p>Please note the only differences are the sequences order of different lines with different colors.</p>
+<center><img src="T568A-T568B-Wiring-Standard.png" alt="T568A-T568B-Wiring-Standard" title="T568A-T568B-Wiring-Standard"></center>
+
+
+<h2 id="Straight-Through-and-Crossover-1">1.2. Straight Through and Crossover</h2><p>The <code>Straight Through</code> cable will use the same sequence order in both side of a cable, either use the same T568A or T568B order.<br>Normally, T568B order has a better performance. Next picture is the <code>Straight Through</code> with T568B order.</p>
+<center><img src="Straight-Through-Cable.png" alt="Straight-Through-Cable" title="Straight-Through-Cable"></center>
+
+
+<p>The Crossover cable will use the opposite sequence order in different sides, i.e., one side use T568A and another use T568A, or vice versa.<br>Next shows a crossover example.</p>
+<center><img src="crossover-cable.png" alt="Crossover Cable" title="Crossover-Cable"></center>
+
+
+<h2 id="When-to-use-which-cable">1.3. When to use which cable?</h2><p><code>Straight Through</code> cable is primarily used for connecting unlike devices, and <code>Crossover</code> cable is used for connecting alike devices.<br>Use straight through cable for the following cabling:</p>
+<ul>
+<li>Switch to router</li>
+<li>Switch to PC or server</li>
+<li>Hub to PC or server</li>
+<li>Home Router to PC (a <code>Home Router</code> normally contains a switch and a router)</li>
+</ul>
+<p>Use crossover cables for the following cabling:</p>
+<ul>
+<li>Switch to switch</li>
+<li>Switch to hub</li>
+<li>Hub to hub (<code>Switch and Hub are alike devices</code>)</li>
+<li>Router to router</li>
+<li>Router Ethernet port to PC NIC</li>
+<li>PC to PC</li>
+</ul>
+<h1 id="How-to-Setup">2. How to Setup?</h1><h2 id="Things-You-Need">2.1. Things You Need</h2><center><img src="1_tools_cable.jpg" alt="Cable" title="Cable"></center>
+
+<center><img src="1_tools_pliers.jpg" alt="Pilers" title="Pilers"></center>
+
+<center><img src="1_tools_RJ45ports.jpg" alt="RJ45 Ports" title="RJ45 Ports"></center>
+
+<h2 id="Take-off-the-Skin-of-the-Cable">2.2. Take off the Skin of the Cable</h2><center><img src="2_take_over_skin.jpg" alt="Take off Skin of Cable" title="Take off Skin of Cable"></center>
+
+<center><img src="2_take_over_skin2.jpg" alt="Take off Skin of Cable" title="Take off Skin of Cable"></center>
+
+<center><img src="2_take_over_skin3.jpg" alt="Take off Skin of Cable" title="Take off Skin of Cable"></center>
+
+<h2 id="Places-the-Lines-as-T568A-T568B-Order">2.3. Places the Lines as T568A/T568B Order</h2><center><img src="4_place_order.jpg" alt="Places the Lines" title="Places the Lines"></center>
+
+<center><img src="4_place_order2.jpg" alt="Places the Lines" title="Places the Lines"></center>
+
+<h2 id="Cut-Cable-to-Make-Lines-Neat">2.4. Cut Cable to Make Lines Neat</h2><center><img src="3_cut_lines1.jpg" alt="Cut Cable to Make Lines Neat" title="Cut Cable to Make Lines Neat"></center>
+
+<center><img src="3_cut_lines2.jpg" alt="Cut Cable to Make Lines Neat" title="Cut Cable to Make Lines Neat"></center>
+
+<h2 id="Push-Lines-into-RJ45-Port">2.5. Push Lines into RJ45 Port</h2><center><img src="5_push_into_RJ45.jpg" alt="Push Lines into RJ45 Port" title="Push Lines into RJ45 Port"></center>
+
+<center><img src="5_push_into_RJ45_3.jpg" alt="Push Lines into RJ45 Port" title="Push Lines into RJ45 Port"></center>
+
+<h2 id="Use-Piller-to-Hold-Down-the-Metel-Sheets-on-RJ45">2.6. Use Piller to Hold Down the Metel Sheets on RJ45</h2><center><img src="6_Piller.jpg" alt="Use Piller to Hold Down" title="Use Piller to Hold Down"></center>
+
+<center><img src="6_Piller_2.jpg" alt="Use Piller to Hold Down" title="Use Piller to Hold Down"></center>
+
+
+<hr>
+<p>References:</p>
+<ul>
+<li><a href="http://www.cables-solutions.com/difference-between-straight-through-and-crossover-cable.html" target="_blank" rel="external">Difference Between Straight Through and Crossover Cable</a></li>
+<li><a href="http://jingyan.baidu.com/article/ce09321b756c062bff858f17.html" target="_blank" rel="external">How to make Network Cable</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Recently I went Halifax to help a friend to setup Internet Cafe System, including the hardware and software. And I met the problem of make Internet Cables, i.e, Straight Through and Crossover and T568A/B color orders.&lt;/p&gt;
+&lt;p&gt;There are two kinds of network cable that we already know, &lt;strong&gt;&lt;code&gt;Straight Through&lt;/code&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;code&gt;Crossover&lt;/code&gt;&lt;/strong&gt; Cable. This article will give an summary of the differences and how to setup a connection in real by giving photos.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+    
+      <category term="Gaming Club Ops" scheme="morganwu277.github.io/categories/Tool-Skill/Gaming-Club-Ops/"/>
+    
+    
+      <category term="Network" scheme="morganwu277.github.io/tags/Network/"/>
+    
+      <category term="Cable" scheme="morganwu277.github.io/tags/Cable/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSH Tricks</title>
+    <link href="morganwu277.github.io/2017/05/18/SSH-Tricks/"/>
+    <id>morganwu277.github.io/2017/05/18/SSH-Tricks/</id>
+    <published>2017-05-18T19:13:39.000Z</published>
+    <updated>2017-06-08T01:11:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>You sometimes would see somebody doing something cool with SSH(<a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="external">Secure Shell</a>), like without password, or even without key, or even more, port forwarding to break the firewall restrictions.</p>
+<p>This post will discuss ssh tricks of authentications methods and port forwarding approaches.</p>
+<p>Three kinds of SSH authentication methods:</p>
+<ul>
+<li>Password</li>
+<li>Public/private key pair</li>
+<li>Host-based authentication</li>
+</ul>
+<p>There are three kinds of SSH Forwarding:</p>
+<ul>
+<li>Local Port Forwarding</li>
+<li>Remote Reverse Forwarding</li>
+<li>Dynamic Port Forwarding</li>
+</ul>
+<p>This post will make these stuff more clear.</p>
+<a id="more"></a>
+<h1 id="SSH-Authentication-Methods">1. SSH Authentication Methods</h1><p>We won’t talk about the password methods since it’s too easy.</p>
+<h2 id="Public-Private-Keypair-free-password">1.1. Public/Private Keypair, free password</h2><ol>
+<li>Step 1: Genrate Keys by typing <code>ssh-keygen</code> from you <code>server1</code>.<ul>
+<li>It will generate <code>~/.ssh/id_rsa</code> and <code>~/.ssh/id_rsa.pub</code> key pairs which are private key/public keys of your <code>server1</code> of the user whom you’re currently logged as.</li>
+<li>private key should be kept secret</li>
+<li>public key is meant to be shared</li>
+</ul>
+</li>
+<li>Step 2: Copy the content of public key to <code>remote</code> server’s <code>~/.ssh/authorized_keys</code>, by appending this file.</li>
+<li>Step 3: Login from <code>server1</code> to <code>remote</code> server, you don’t need password now!</li>
+</ol>
+<h2 id="Host-based-Authentication">1.2. Host-based Authentication</h2><ul>
+<li>Doesn’t need user credentials(password or key), actually we just write it in a configuration file, it’s kind of alias</li>
+<li>Provides trust based on hostname and userid</li>
+<li>Userid on both system has to be the same</li>
+</ul>
+<p>Here is an example that login into <code>server1</code> vagrant box:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Here we list the hostname and its config</span></div><div class="line">[09:51 PM morganwu@morgan-yinnut ~]$ cat ~/.ssh/config  |grep -A6 srv1 </div><div class="line">Host srv1</div><div class="line">    User vagrant</div><div class="line">    Port 2222</div><div class="line">    Hostname 127.0.0.1</div><div class="line">    IdentityFile /Users/morganwu/Developer/workspace/ssh_port_forward/server1/.vagrant/machines/default/virtualbox/private_key</div><div class="line">    StrictHostKeyChecking no</div><div class="line"></div><div class="line"><span class="comment"># Here we just ssh with an alias without username and hostname</span></div><div class="line">[09:51 PM morganwu@morgan-yinnut ~]$ ssh srv1</div><div class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</div><div class="line">@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @</div><div class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</div><div class="line">IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</div><div class="line">Someone could be eavesdropping on you right now (man-in-the-middle attack)!</div><div class="line">It is also possible that a host key has just been changed.</div><div class="line">The fingerprint <span class="keyword">for</span> the ECDSA key sent by the remote host is</div><div class="line">SHA256:jYEhZ8yXtOJFowmQnMyA+bHshrhX7H30vVQF9UyND48.</div><div class="line">Please contact your system administrator.</div><div class="line">Add correct host key <span class="keyword">in</span> /Users/morganwu/.ssh/known_hosts to get rid of this message.</div><div class="line">Offending ECDSA key <span class="keyword">in</span> /Users/morganwu/.ssh/known_hosts:247</div><div class="line">Password authentication is disabled to avoid man-in-the-middle attacks.</div><div class="line">Keyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.</div><div class="line">Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 3.13.0-112-generic x86_64)</div><div class="line"></div><div class="line"> * Documentation:  https://help.ubuntu.com/</div><div class="line"></div><div class="line">  System information as of Fri May 19 01:50:52 UTC 2017</div><div class="line"></div><div class="line">  System load:  0.28              Processes:           78</div><div class="line">  Usage of /:   3.6% of 39.34GB   Users logged <span class="keyword">in</span>:     0</div><div class="line">  Memory usage: 25%               IP address <span class="keyword">for</span> eth0: 10.0.2.15</div><div class="line">  Swap usage:   0%</div><div class="line"></div><div class="line">  Graph this data and manage this system at:</div><div class="line">    https://landscape.canonical.com/</div><div class="line"></div><div class="line">  Get cloud support with Ubuntu Advantage Cloud Guest:</div><div class="line">    http://www.ubuntu.com/business/services/cloud</div><div class="line"></div><div class="line">0 packages can be updated.</div><div class="line">0 updates are security updates.</div><div class="line"></div><div class="line">New release <span class="string">'16.04.2 LTS'</span> available.</div><div class="line">Run <span class="string">'do-release-upgrade'</span> to upgrade to it.</div><div class="line"></div><div class="line"></div><div class="line">Last login: Fri May 19 01:50:53 2017 from 10.0.2.2</div><div class="line">vagrant@vagrant-ubuntu-trusty-64:~$</div></pre></td></tr></table></figure></p>
+<h1 id="SSH-Forwarding">2. SSH Forwarding</h1><h2 id="SSH-Local-Normal-Port-Forwarding">2.1. SSH Local Normal Port Forwarding</h2><p>Here is the scenario why we need Port Forwarding: bypass the private network, or using the <a href="https://en.wikipedia.org/wiki/Jump_server" target="_blank" rel="external">Jumpbox</a>.</p>
+<center><img src="local_port_forward.png" alt="SSH Local Port Forwarding Scenario" title="SSH Local Port Forwarding Scenario"><br></center>
+
+<p>Now we want to access web server on <code>box2 via box1</code>. Here is how we create a local port forward.</p>
+<center><img src="create_local_port_forward.png" alt="Create a Tunnel from client to box 1" title="Create a Tunnel from client to box 1"></center>
+
+<p>Now we can type <code>localhost:8000</code> from <code>your-box</code>, this will forward the request to <code>box-2:80</code> via <code>box-1</code> ssh tunnel created above!<br>If we have multiple <code>box-2</code> here, this is the <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing)" target="_blank" rel="external">load balancing</a> model.</p>
+<p>We call this as <code>local port forwarding</code> instead of <code>remote port forwarding</code>, since the setup direction is the same as the resource access direction. This is also called the <code>normal tunnel</code> instead of the <code>reverse tunnel</code> via ssh. This can be done by following three steps:</p>
+<ul>
+<li>setup ssh connection from <code>your-box</code> to <code>box-1</code></li>
+<li><code>box-1</code> forward the requets to <code>box-2</code></li>
+<li>so you can access <code>box-2</code> from <code>your-box</code> now even <code>box-2</code> is in the internal network</li>
+</ul>
+<p>Run the command <code>ssh -L localport:DEST_HOST:DEST_PORT VIA_HOST</code> locally and then access local <code>localport</code> to get the <code>DEST_HOST:DEST_PORT</code> content.<br>This will open a <code>localport</code> listened locally, to serve all requests from local and then forward them to <code>DEST_HOST:DEST_PORT</code> by using the ssh tunnel from local to the <code>VIA_HOST</code>.</p>
+<h3 id="Share-Your-SSH-Local-Forwarding">2.1.1. Share Your SSH Local Forwarding</h3><p>We could enable <code>localport</code> to be accessed by other machines by appending the <code>-g</code> switch.</p>
+<p>Next we enable local port forwarding from <code>localhost:8000</code> to <code>ece.uwaterloo.ca:80</code> via <code>ecelinux4.uwaterloo.ca:22</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[11:23 PM morganwu@morgan-yinnut proxies]$ ssh -L 8000:ece.uwaterloo.ca:80 -g  m92wu@ecelinux4.uwaterloo.ca</div><div class="line">Last login: Thu May 18 23:23:43 2017 from cpebc4dfb93ed53-cmbc4dfb93ed50.cpe.net.cable.rogers.com</div><div class="line">ECE Department Linux NoMachine Server</div><div class="line"></div><div class="line">This server is ONLY to be used to access other Linux servers.</div><div class="line">Course software should NOT be run on this server.</div><div class="line"></div><div class="line">PLEASE USE ssh -X eceLinuxN TO LOG INTO OTHER LINUX SERVERS SUCH AS</div><div class="line">  eceLinux1, eceLinux2, eceLinux3, eceLinux5 .. eceLinux11 and run</div><div class="line">  course software there.</div><div class="line"></div><div class="line">*** THANK YOU TO WEEF <span class="keyword">for</span> purchasing this server! ***</div><div class="line">This machine is a NoMachine server with a 4-core 3.8GHz AMD FX CPU with 32G of ECC RAM</div><div class="line"></div><div class="line">The login password is synchronized with Nexus.</div><div class="line"></div><div class="line">Forward any questions to Eric <span class="keyword">in</span> E2-2357 or sysadmins@ecemail.uwaterloo.ca</div><div class="line"></div><div class="line">[m92wu@ecelinux4 ~]$</div></pre></td></tr></table></figure>
+<p>Here lists the port information, we can see 8080 is bound to all inet interfaces.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[11:23 PM morganwu@morgan-yinnut proxies]$ netstat -na|grep tcp|grep 8000</div><div class="line">tcp4       0      0  *.8000                 *.*                    LISTEN     </div><div class="line">tcp6       0      0  *.8000                 *.*                    LISTEN</div></pre></td></tr></table></figure>
+<p>Now let’s access the <code>ece.uwaterloo.ca:80</code> page from another private virtual machine on my local computer. We can see it could have access to that page now.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vagrant@vagrant-ubuntu-trusty-64:~$ curl 192.168.0.12:8000</div><div class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//IETF//DTD HTML 2.0//EN"</span>&gt;</div><div class="line">&lt;html&gt;&lt;head&gt;</div><div class="line">&lt;title&gt;302 Found&lt;/title&gt;</div><div class="line">&lt;/head&gt;&lt;body&gt;</div><div class="line">&lt;h1&gt;Found&lt;/h1&gt;</div><div class="line">&lt;p&gt;The document has moved &lt;a href=<span class="string">"https://ece.uwaterloo.ca/"</span>&gt;here&lt;/a&gt;.&lt;/p&gt;</div><div class="line">&lt;/body&gt;&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>Here is an image for demonstrating this:</p>
+<center><img src="share_ssh_local_tunnel.png" alt="Share a Tunnel from Your Computer to Others" title="Share a Tunnel from Your Computer to Others"></center>
+
+<h3 id="Use-Compression-via-this-tunnel">2.1.2. Use Compression via this tunnel</h3><p>By using <code>-C</code> together with <code>-L</code> option.</p>
+<h2 id="SSH-Remote-Reverse-Port-Forwarding">2.2. SSH Remote Reverse Port Forwarding</h2><p>Local Port Forwarding has the same direction of SSH tunnel as the request forwarding, while Remote Reverse Forwarding does the opposite direction.</p>
+<center><img src="remote_port_forward.png" alt="Create a Tunnel from your-box to box-1" title="Create a Tunnel from your-box to box-1"></center>
+
+<p>So you setup a ssh tunnel from <code>your-box</code> to <code>box-1</code> which has a public address while <code>your-box</code> doesn’t. But you would like to access <code>your-box</code> from <code>box-2</code> which is outside. Now you can only do this via <code>box-1</code>.</p>
+<p>If we have multiple <code>your-box</code> here, this is the so-called <code>reverse proxy</code> <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing)" target="_blank" rel="external">load balancing</a> model.</p>
+<p>So our command format is <code>ssh -R VIA_LISTEN_PORT:DEST_HOST:DEST_PORT VIA_HOST</code>,<br>This command will:</p>
+<ul>
+<li>open a ssh tunnel from <code>DEST_HOST</code> to <code>VIA_HOST</code></li>
+<li>listen a <code>VIA_LISTEN_PORT</code> on the <code>VIA_HOST</code></li>
+<li>forward all requests from <code>VIA_HOST:VIA_LISTEN_PORT</code> to <code>DEST_HOST:DEST_PORT</code></li>
+</ul>
+<p>Also, the <code>-C</code> option will work here.</p>
+<h2 id="SSH-Dynamic-Port-Forwarding">2.3. SSH Dynamic Port Forwarding</h2><p>In the <a href="#SSH-Local-Normal-Port-Forwarding" title="SSH-Local-Normal-Port-Forwarding">SSH-Local-Normal-Port-Forwarding</a>, we already know we can forward <code>localhost:8000</code> request to <code>remote_server:port</code> via a <code>remote public server</code>, but this is only for specific port.</p>
+<p>What if we want to forward every kind of requests? This is the idea of dynamic port forwarding, which is also be called as a <code>proxy</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -D 9999 -C m92wu@ecelinux4.uwaterloo.ca</div></pre></td></tr></table></figure>
+<p>The above command will forward every requests from localhost if you setup this socks proxy as the proxy of your client.</p>
+<hr>
+<p>References: </p>
+<ul>
+<li><a href="https://www.slideshare.net/zdennis/ssh-9115832" target="_blank" rel="external">https://www.slideshare.net/zdennis/ssh-9115832</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;You sometimes would see somebody doing something cool with SSH(&lt;a href=&quot;https://en.wikipedia.org/wiki/Secure_Shell&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Secure Shell&lt;/a&gt;), like without password, or even without key, or even more, port forwarding to break the firewall restrictions.&lt;/p&gt;
+&lt;p&gt;This post will discuss ssh tricks of authentications methods and port forwarding approaches.&lt;/p&gt;
+&lt;p&gt;Three kinds of SSH authentication methods:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Password&lt;/li&gt;
+&lt;li&gt;Public/private key pair&lt;/li&gt;
+&lt;li&gt;Host-based authentication&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are three kinds of SSH Forwarding:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Local Port Forwarding&lt;/li&gt;
+&lt;li&gt;Remote Reverse Forwarding&lt;/li&gt;
+&lt;li&gt;Dynamic Port Forwarding&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This post will make these stuff more clear.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+    
+      <category term="Network" scheme="morganwu277.github.io/categories/Tool-Skill/Network/"/>
+    
+    
+      <category term="ssh" scheme="morganwu277.github.io/tags/ssh/"/>
+    
+      <category term="port forwarding" scheme="morganwu277.github.io/tags/port-forwarding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Read List</title>
+    <link href="morganwu277.github.io/2017/05/16/Read-List/"/>
+    <id>morganwu277.github.io/2017/05/16/Read-List/</id>
+    <published>2017-05-16T18:14:54.000Z</published>
+    <updated>2017-06-08T01:19:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Keep Updating to add new articles and papers to read <code>categories methodology style</code> </p>
+<ul>
+<li><a href="https://stephenholiday.com/notes/" target="_blank" rel="external">https://stephenholiday.com/notes/</a></li>
+<li><a href="https://cs.stanford.edu/~matei/courses/2015/6.S897" target="_blank" rel="external">https://cs.stanford.edu/~matei/courses/2015/6.S897</a> </li>
+</ul>
+<p>Distributed System<br>If can’t find something <code>new to read</code>, consider these sites:</p>
+<ul>
+<li><a href="https://cs.stanford.edu/~matei/courses/2015/6.S897/" target="_blank" rel="external">https://cs.stanford.edu/~matei/courses/2015/6.S897/</a></li>
+<li><a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="external">https://pdos.csail.mit.edu/6.824/schedule.html</a></li>
+<li><a href="https://dancres.github.io/Pages/" target="_blank" rel="external">https://dancres.github.io/Pages/</a></li>
+</ul>
+<a id="more"></a>
+<h1 id="Language">1. Language</h1><h2 id="Java">1.1. Java</h2><p><code>Java 8 Labmda, Streams</code></p>
+<ul>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html" target="_blank" rel="external">https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html" target="_blank" rel="external">https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html</a></li>
+<li><a href="http://www.oracle.com/technetwork/articles/java/architect-lambdas-part1-2080972.html" target="_blank" rel="external">http://www.oracle.com/technetwork/articles/java/architect-lambdas-part1-2080972.html</a></li>
+<li><a href="http://www.oracle.com/technetwork/articles/java/architect-lambdas-part2-2081439.html" target="_blank" rel="external">http://www.oracle.com/technetwork/articles/java/architect-lambdas-part2-2081439.html</a></li>
+<li><a href="https://www.ibm.com/developerworks/java/library/j-java-streams-1-brian-goetz/index.html" target="_blank" rel="external">https://www.ibm.com/developerworks/java/library/j-java-streams-1-brian-goetz/index.html</a></li>
+<li><a href="http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html" target="_blank" rel="external">http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html</a></li>
+<li><a href="http://www.oracle.com/technetwork/articles/java/architect-streams-pt2-2227132.html" target="_blank" rel="external">http://www.oracle.com/technetwork/articles/java/architect-streams-pt2-2227132.html</a></li>
+</ul>
+<h1 id="Network">2. Network</h1><p><code>BBR</code></p>
+<ul>
+<li><a href="http://queue.acm.org/detail.cfm?id=3022184" target="_blank" rel="external">http://queue.acm.org/detail.cfm?id=3022184</a></li>
+<li><a href="https://www.ietf.org/proceedings/97/slides/slides-97-iccrg-bbr-congestion-control-02.pdf" target="_blank" rel="external">https://www.ietf.org/proceedings/97/slides/slides-97-iccrg-bbr-congestion-control-02.pdf</a></li>
+<li><a href="https://www.zhihu.com/question/53559433" target="_blank" rel="external">https://www.zhihu.com/question/53559433</a></li>
+<li><a href="https://www.zhihu.com/question/53858229" target="_blank" rel="external">https://www.zhihu.com/question/53858229</a></li>
+</ul>
+<h1 id="Recovery">3. Recovery</h1><p><code>BookKeeper and HedWig</code></p>
+<ul>
+<li><a href="http://dl.acm.org/citation.cfm?id=2433144" target="_blank" rel="external">http://dl.acm.org/citation.cfm?id=2433144</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/BOOKKEEPER/BookKeeper" target="_blank" rel="external">https://cwiki.apache.org/confluence/display/BOOKKEEPER/BookKeeper</a></li>
+<li><a href="http://bookkeeper.apache.org/" target="_blank" rel="external">http://bookkeeper.apache.org/</a></li>
+<li><a href="http://blog.csdn.net/liuhong1123/article/details/8945456" target="_blank" rel="external">http://blog.csdn.net/liuhong1123/article/details/8945456</a></li>
+<li><a href="http://dockone.io/article/78" target="_blank" rel="external">http://dockone.io/article/78</a></li>
+</ul>
+<h1 id="Streaming">4. Streaming</h1><p><code>Kafka: a Distributed Messaging System for Log Processing - LinkedIn 2011</code>, notes</p>
+<ul>
+<li><a href="http://people.csail.mit.edu/matei/courses/2015/6.S897/readings/kafka.pdf" target="_blank" rel="external">http://people.csail.mit.edu/matei/courses/2015/6.S897/readings/kafka.pdf</a></li>
+</ul>
+<h1 id="Container-amp-DevOps">5. Container &amp; DevOps</h1><p><code>Borg, Omega, and Kubernets</code></p>
+<ul>
+<li><a href="http://www.e-wilkes.com/john/papers/2016-Queue-Kubernetes.pdf" target="_blank" rel="external">http://www.e-wilkes.com/john/papers/2016-Queue-Kubernetes.pdf</a></li>
+</ul>
+<h1 id="Consistency-and-Locks">6. Consistency and Locks</h1><p><code>基于Redis的分布式锁到底安全么？</code></p>
+<ul>
+<li><a href="http://zhangtielei.com/posts/blog-redlock-reasoning.html" target="_blank" rel="external">http://zhangtielei.com/posts/blog-redlock-reasoning.html</a></li>
+</ul>
+<p><code>Consistency: From Chubby to Paxos and Raft</code> </p>
+<h1 id="Cache">7. Cache</h1><p><code>Guava Cache</code></p>
+<h1 id="OLTP-OLAP-Database">8. OLTP, OLAP, Database</h1><p><code>Hybrid Transactional/Analytical Processing: A Survey</code></p>
+<ul>
+<li><a href="http://delivery.acm.org/10.1145/3060000/3054784/p1771-ozcan.pdf" target="_blank" rel="external">http://delivery.acm.org/10.1145/3060000/3054784/p1771-ozcan.pdf</a></li>
+</ul>
+<p><code>Kudu: Storage for Fast Analytics on Fast Data</code></p>
+<ul>
+<li><a href="https://kudu.apache.org/kudu.pdf" target="_blank" rel="external">https://kudu.apache.org/kudu.pdf</a></li>
+</ul>
+<h1 id="Time-Series-Database">9. Time Series Database</h1><p><code>TSDB, OpenTSDB</code></p>
+<ul>
+<li><a href="http://btw2017.informatik.uni-stuttgart.de/slidesandpapers/E4-14-109/paper_web.pdf" target="_blank" rel="external">http://btw2017.informatik.uni-stuttgart.de/slidesandpapers/E4-14-109/paper_web.pdf</a></li>
+<li>ftp://ftp.informatik.uni-stuttgart.de/pub/library/medoc.ustuttgart_fi/DIP-3729/DIP-3729.pdf</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Keep Updating to add new articles and papers to read &lt;code&gt;categories methodology style&lt;/code&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://stephenholiday.com/notes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://stephenholiday.com/notes/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://cs.stanford.edu/~matei/courses/2015/6.S897&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://cs.stanford.edu/~matei/courses/2015/6.S897&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Distributed System&lt;br&gt;If can’t find something &lt;code&gt;new to read&lt;/code&gt;, consider these sites:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://cs.stanford.edu/~matei/courses/2015/6.S897/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://cs.stanford.edu/~matei/courses/2015/6.S897/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://pdos.csail.mit.edu/6.824/schedule.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://pdos.csail.mit.edu/6.824/schedule.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://dancres.github.io/Pages/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://dancres.github.io/Pages/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Read &amp; Think" scheme="morganwu277.github.io/categories/Read-Think/"/>
+    
+      <category term="Knowledge Base" scheme="morganwu277.github.io/categories/Read-Think/Knowledge-Base/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka: a Distributed Messaging System for Log Processing - LinkedIn 2011</title>
+    <link href="morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/"/>
+    <id>morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/</id>
+    <published>2017-05-14T16:07:06.000Z</published>
+    <updated>2017-06-07T23:49:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Not complete yet.</p>
+<blockquote>
+<p><a href="https://kafka.apache.org/" target="_blank" rel="external">Kafka</a> is a Distributed Streaming platform. Kafka™ is used for building real-time data pipelines and streaming apps. It is <strong>horizontally scalable, fault-tolerant, wicked fast</strong>, and runs in production in thousands of companies. The Kafka site said it has three main functionalities:</p>
+<ul>
+<li><code>PUBLISH &amp; SUBSCRIBE</code> to streams of data like a messaging system</li>
+<li><code>PROCESS</code> streams of data efficiently and in real time</li>
+<li><code>STORE</code> streams of data safely in a distributed replicated cluster </li>
+</ul>
+</blockquote>
+<hr>
+<p>References: </p>
+<ul>
+<li><a href="http://people.csail.mit.edu/matei/courses/2015/6.S897/readings/kafka.pdf" target="_blank" rel="external">http://people.csail.mit.edu/matei/courses/2015/6.S897/readings/kafka.pdf</a> </li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Not complete yet.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://kafka.apache.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Kafka&lt;/a&gt; is a Distributed Strea
+    
+    </summary>
+    
+      <category term="Read &amp; Think" scheme="morganwu277.github.io/categories/Read-Think/"/>
+    
+      <category term="Message Passing" scheme="morganwu277.github.io/categories/Read-Think/Message-Passing/"/>
+    
+    
+      <category term="Kafka" scheme="morganwu277.github.io/tags/Kafka/"/>
+    
+      <category term="Message Queue" scheme="morganwu277.github.io/tags/Message-Queue/"/>
+    
+      <category term="Streaming" scheme="morganwu277.github.io/tags/Streaming/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="morganwu277.github.io/2017/04/29/hello-world/"/>
+    <id>morganwu277.github.io/2017/04/29/hello-world/</id>
+    <published>2017-04-30T03:07:00.000Z</published>
+    <updated>2017-06-07T20:15:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h1 id="Quick-Start">1. Quick Start</h1><h2 id="Create-a-new-post">1.1. Create a new post</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h2 id="Run-server">1.2. Run server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h2 id="Generate-static-files">1.3. Generate static files</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h2 id="Deploy-to-remote-sites">1.4. Deploy to remote sites</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

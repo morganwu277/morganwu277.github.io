@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Transfer 15TB of Tiny Files]]></title>
+    <url>%2F2017%2F06%2F05%2FTransfer-15TB-of-Tiny-Files%2F</url>
+    <content type="text"><![CDATA[Days ago, when I was setting up an Internet Cafe System, I met a problem of transferring 600+ GB gaming files from one machine to another. Most of them are small files, I have two options: Compress and then transfer, which will cost lots of CPU, and of course time. Directly transfer these files, which will be very slow since too many tiny files. In the End, I used the rsync method. Relax time, here is the Windows start animation. 1. So, How?1.1. The Rsync methodMy scenario was transferring files from Windows XP to a Linux Server. About how to setup Cygwin in Windows XP/2003, please review Setup Cygwin in Windows XP/2003 12$ rsync -a -z -vvv -S -e 'ssh -o "ServerAliveInterval 7200"' \ /path/of/source_dir root@destination_server:/path/of/destination_dir This will transfer /path/of/source_dir to /path/of/destination_dir by using SSH tunnel and keep alive for 2 hours, using Rsync algorithm. 1.2. Compress &amp; Package &amp; TransferAs above, we mentioned that we would like to compress these files and then transfer. Here is how we implement it by using tar and pigz(parallel gzip) command which wins over the rsync method. Source Machine1$ tar -cf - -C /path/of/small/files . | pigz | nc -l 9876 Destination Machine (Download)1$ nc source_machine_ip 9876 | pigz -d | tar -xf - -C /put/stuff/here Destination Machine (Archive)1$ nc source_machine_ip 9876 &gt; smallstuff.tar.gz 2. But which one is better?The result is nc + pigz solution always win for the first time transfer, no matters for large files or small files. My laptop has 4 CPU cores built-in, so the rsync solution is about 3-4 times slower than the nc + pigz solution for the first-time transfer. However, for incremental files update, of course, rsync wins over another since it only compute the changes by using modification timestamp and size . Here is the script I used to generate 640,000 files with each as size of 8 kb. 1234567891011#!/bin/bashfor i in &#123;1..10&#125;; do for j in &#123;1..10&#125;; do mkdir -p "test_$i/test_$j" cd "test_$i/test_$j" for k in &#123;1..6400&#125;; do dd if=/dev/zero of=test_"$k" bs=1024 count=8 &gt; /dev/null 2&gt;&amp;1 &amp; done cd - donedone 3. Conclusion First Time Transfer, use pigz + nc Incremental Files Update, use rsync References: Transfer 15 TB of Tiny Files]]></content>
+      <categories>
+        <category>Tool &amp; Skill</category>
+        <category>DevOps</category>
+        <category>Backup</category>
+      </categories>
+      <tags>
+        <tag>Rsync</tag>
+        <tag>transfer</tag>
+        <tag>copy</tag>
+        <tag>nc</tag>
+        <tag>many</tag>
+        <tag>tiny</tag>
+        <tag>file</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Setup Cygwin in Windows XP/2003]]></title>
+    <url>%2F2017%2F06%2F04%2FSetup-Cygwin-in-Windows-XP-2003%2F</url>
+    <content type="text"><![CDATA[Everyone should know how to setup Cygwin under Windows 7/10, however, if you do it in Windows XP/2003, it will failed.Why? Because the latest packages are only compatible with Windows 7 or higher.In other words, the Cygwin respository doesn’t have a mechanism to maintain different version of these binaries. So, how to setup Cygwin under Windows XP then? The good news is that someone keeps it. 1. Download the setup.exe32-bit: setup-x86-2.874.exe64-bit: setup-x86_64-2.874.exe 2. Run the setup.exe with -X optionPlease open the cmd to run with -X option setup-x86-2.874.exe -X 3. Use the legacy repositories32-bit: http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/10422364-bit: http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/64bit/2016/08/30/104235 Here are the full list of Cygwin Time Machine Repository, please use the corresponding respository as the version of setup.exe32-bit: http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/index.html64-bit: http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/64bit/index.html Then always use this repository instead of others to install packages. Engjoy!!! References: Cygwin Time Machine, TL;DR]]></content>
+      <categories>
+        <category>Tool &amp; Skill</category>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Cygwin</tag>
+        <tag>Windows XP</tag>
+        <tag>Windows 2003</tag>
+        <tag>Package</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Useful Links]]></title>
+    <url>%2F2017%2F06%2F03%2FUseful-Links%2F</url>
+    <content type="text"><![CDATA[This is an assembly of useful links. Those Linux Command Example Explain Shell]]></content>
+      <categories>
+        <category>Tool &amp; Skill</category>
+        <category>Knowledge Base</category>
+      </categories>
+      <tags>
+        <tag>Tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Straight Through and Crossover Cable]]></title>
+    <url>%2F2017%2F05%2F27%2FStraight-Through-and-Crossover-Cable%2F</url>
+    <content type="text"><![CDATA[Recently I went Halifax to help a friend to setup Internet Cafe System, including the hardware and software. And I met the problem of make Internet Cables, i.e, Straight Through and Crossover and T568A/B color orders. There are two kinds of network cable that we already know, Straight Through and Crossover Cable. This article will give an summary of the differences and how to setup a connection in real by giving photos. 1. Straight Through and Crossover1.1. T568A and T568B StandardsPlease note the only differences are the sequences order of different lines with different colors. 1.2. Straight Through and CrossoverThe Straight Through cable will use the same sequence order in both side of a cable, either use the same T568A or T568B order.Normally, T568B order has a better performance. Next picture is the Straight Through with T568B order. The Crossover cable will use the opposite sequence order in different sides, i.e., one side use T568A and another use T568A, or vice versa.Next shows a crossover example. 1.3. When to use which cable?Straight Through cable is primarily used for connecting unlike devices, and Crossover cable is used for connecting alike devices.Use straight through cable for the following cabling: Switch to router Switch to PC or server Hub to PC or server Home Router to PC (a Home Router normally contains a switch and a router) Use crossover cables for the following cabling: Switch to switch Switch to hub Hub to hub (Switch and Hub are alike devices) Router to router Router Ethernet port to PC NIC PC to PC 2. How to Setup?2.1. Things You Need 2.2. Take off the Skin of the Cable 2.3. Places the Lines as T568A/T568B Order 2.4. Cut Cable to Make Lines Neat 2.5. Push Lines into RJ45 Port 2.6. Use Piller to Hold Down the Metel Sheets on RJ45 References: Difference Between Straight Through and Crossover Cable How to make Network Cable]]></content>
+      <categories>
+        <category>Tool &amp; Skill</category>
+        <category>Gaming Club Ops</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
+        <tag>Cable</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SSH Tricks]]></title>
+    <url>%2F2017%2F05%2F18%2FSSH-Tricks%2F</url>
+    <content type="text"><![CDATA[You sometimes would see somebody doing something cool with SSH(Secure Shell), like without password, or even without key, or even more, port forwarding to break the firewall restrictions. This post will discuss ssh tricks of authentications methods and port forwarding approaches. Three kinds of SSH authentication methods: Password Public/private key pair Host-based authentication There are three kinds of SSH Forwarding: Local Port Forwarding Remote Reverse Forwarding Dynamic Port Forwarding This post will make these stuff more clear. 1. SSH Authentication MethodsWe won’t talk about the password methods since it’s too easy. 1.1. Public/Private Keypair, free password Step 1: Genrate Keys by typing ssh-keygen from you server1. It will generate ~/.ssh/id_rsa and ~/.ssh/id_rsa.pub key pairs which are private key/public keys of your server1 of the user whom you’re currently logged as. private key should be kept secret public key is meant to be shared Step 2: Copy the content of public key to remote server’s ~/.ssh/authorized_keys, by appending this file. Step 3: Login from server1 to remote server, you don’t need password now! 1.2. Host-based Authentication Doesn’t need user credentials(password or key), actually we just write it in a configuration file, it’s kind of alias Provides trust based on hostname and userid Userid on both system has to be the same Here is an example that login into server1 vagrant box:1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950# Here we list the hostname and its config[09:51 PM morganwu@morgan-yinnut ~]$ cat ~/.ssh/config |grep -A6 srv1 Host srv1 User vagrant Port 2222 Hostname 127.0.0.1 IdentityFile /Users/morganwu/Developer/workspace/ssh_port_forward/server1/.vagrant/machines/default/virtualbox/private_key StrictHostKeyChecking no# Here we just ssh with an alias without username and hostname[09:51 PM morganwu@morgan-yinnut ~]$ ssh srv1@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!Someone could be eavesdropping on you right now (man-in-the-middle attack)!It is also possible that a host key has just been changed.The fingerprint for the ECDSA key sent by the remote host isSHA256:jYEhZ8yXtOJFowmQnMyA+bHshrhX7H30vVQF9UyND48.Please contact your system administrator.Add correct host key in /Users/morganwu/.ssh/known_hosts to get rid of this message.Offending ECDSA key in /Users/morganwu/.ssh/known_hosts:247Password authentication is disabled to avoid man-in-the-middle attacks.Keyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 3.13.0-112-generic x86_64) * Documentation: https://help.ubuntu.com/ System information as of Fri May 19 01:50:52 UTC 2017 System load: 0.28 Processes: 78 Usage of /: 3.6% of 39.34GB Users logged in: 0 Memory usage: 25% IP address for eth0: 10.0.2.15 Swap usage: 0% Graph this data and manage this system at: https://landscape.canonical.com/ Get cloud support with Ubuntu Advantage Cloud Guest: http://www.ubuntu.com/business/services/cloud0 packages can be updated.0 updates are security updates.New release '16.04.2 LTS' available.Run 'do-release-upgrade' to upgrade to it.Last login: Fri May 19 01:50:53 2017 from 10.0.2.2vagrant@vagrant-ubuntu-trusty-64:~$ 2. SSH Forwarding2.1. SSH Local Normal Port ForwardingHere is the scenario why we need Port Forwarding: bypass the private network, or using the Jumpbox. Now we want to access web server on box2 via box1. Here is how we create a local port forward. Now we can type localhost:8000 from your-box, this will forward the request to box-2:80 via box-1 ssh tunnel created above!If we have multiple box-2 here, this is the load balancing model. We call this as local port forwarding instead of remote port forwarding, since the setup direction is the same as the resource access direction. This is also called the normal tunnel instead of the reverse tunnel via ssh. This can be done by following three steps: setup ssh connection from your-box to box-1 box-1 forward the requets to box-2 so you can access box-2 from your-box now even box-2 is in the internal network Run the command ssh -L localport:DEST_HOST:DEST_PORT VIA_HOST locally and then access local localport to get the DEST_HOST:DEST_PORT content.This will open a localport listened locally, to serve all requests from local and then forward them to DEST_HOST:DEST_PORT by using the ssh tunnel from local to the VIA_HOST. 2.1.1. Share Your SSH Local ForwardingWe could enable localport to be accessed by other machines by appending the -g switch. Next we enable local port forwarding from localhost:8000 to ece.uwaterloo.ca:80 via ecelinux4.uwaterloo.ca:22 12345678910111213141516171819[11:23 PM morganwu@morgan-yinnut proxies]$ ssh -L 8000:ece.uwaterloo.ca:80 -g m92wu@ecelinux4.uwaterloo.caLast login: Thu May 18 23:23:43 2017 from cpebc4dfb93ed53-cmbc4dfb93ed50.cpe.net.cable.rogers.comECE Department Linux NoMachine ServerThis server is ONLY to be used to access other Linux servers.Course software should NOT be run on this server.PLEASE USE ssh -X eceLinuxN TO LOG INTO OTHER LINUX SERVERS SUCH AS eceLinux1, eceLinux2, eceLinux3, eceLinux5 .. eceLinux11 and run course software there.*** THANK YOU TO WEEF for purchasing this server! ***This machine is a NoMachine server with a 4-core 3.8GHz AMD FX CPU with 32G of ECC RAMThe login password is synchronized with Nexus.Forward any questions to Eric in E2-2357 or sysadmins@ecemail.uwaterloo.ca[m92wu@ecelinux4 ~]$ Here lists the port information, we can see 8080 is bound to all inet interfaces. 123[11:23 PM morganwu@morgan-yinnut proxies]$ netstat -na|grep tcp|grep 8000tcp4 0 0 *.8000 *.* LISTEN tcp6 0 0 *.8000 *.* LISTEN Now let’s access the ece.uwaterloo.ca:80 page from another private virtual machine on my local computer. We can see it could have access to that page now. 12345678vagrant@vagrant-ubuntu-trusty-64:~$ curl 192.168.0.12:8000&lt;!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;302 Found&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Found&lt;/h1&gt;&lt;p&gt;The document has moved &lt;a href="https://ece.uwaterloo.ca/"&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; Here is an image for demonstrating this: 2.1.2. Use Compression via this tunnelBy using -C together with -L option. 2.2. SSH Remote Reverse Port ForwardingLocal Port Forwarding has the same direction of SSH tunnel as the request forwarding, while Remote Reverse Forwarding does the opposite direction. So you setup a ssh tunnel from your-box to box-1 which has a public address while your-box doesn’t. But you would like to access your-box from box-2 which is outside. Now you can only do this via box-1. If we have multiple your-box here, this is the so-called reverse proxy load balancing model. So our command format is ssh -R VIA_LISTEN_PORT:DEST_HOST:DEST_PORT VIA_HOST,This command will: open a ssh tunnel from DEST_HOST to VIA_HOST listen a VIA_LISTEN_PORT on the VIA_HOST forward all requests from VIA_HOST:VIA_LISTEN_PORT to DEST_HOST:DEST_PORT Also, the -C option will work here. 2.3. SSH Dynamic Port ForwardingIn the SSH-Local-Normal-Port-Forwarding, we already know we can forward localhost:8000 request to remote_server:port via a remote public server, but this is only for specific port. What if we want to forward every kind of requests? This is the idea of dynamic port forwarding, which is also be called as a proxy. 1$ ssh -D 9999 -C m92wu@ecelinux4.uwaterloo.ca The above command will forward every requests from localhost if you setup this socks proxy as the proxy of your client. References: https://www.slideshare.net/zdennis/ssh-9115832]]></content>
+      <categories>
+        <category>Tool &amp; Skill</category>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>ssh</tag>
+        <tag>port forwarding</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Read List]]></title>
+    <url>%2F2017%2F05%2F16%2FRead-List%2F</url>
+    <content type="text"><![CDATA[Keep Updating to add new articles and papers to read categories methodology style https://stephenholiday.com/notes/ https://cs.stanford.edu/~matei/courses/2015/6.S897 Distributed SystemIf can’t find something new to read, consider these sites: https://cs.stanford.edu/~matei/courses/2015/6.S897/ https://pdos.csail.mit.edu/6.824/schedule.html https://dancres.github.io/Pages/ 1. Language1.1. JavaJava 8 Labmda, Streams https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html http://www.oracle.com/technetwork/articles/java/architect-lambdas-part1-2080972.html http://www.oracle.com/technetwork/articles/java/architect-lambdas-part2-2081439.html https://www.ibm.com/developerworks/java/library/j-java-streams-1-brian-goetz/index.html http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html http://www.oracle.com/technetwork/articles/java/architect-streams-pt2-2227132.html 2. NetworkBBR http://queue.acm.org/detail.cfm?id=3022184 https://www.ietf.org/proceedings/97/slides/slides-97-iccrg-bbr-congestion-control-02.pdf https://www.zhihu.com/question/53559433 https://www.zhihu.com/question/53858229 3. RecoveryBookKeeper and HedWig http://dl.acm.org/citation.cfm?id=2433144 https://cwiki.apache.org/confluence/display/BOOKKEEPER/BookKeeper http://bookkeeper.apache.org/ http://blog.csdn.net/liuhong1123/article/details/8945456 http://dockone.io/article/78 4. StreamingKafka: a Distributed Messaging System for Log Processing - LinkedIn 2011, notes http://people.csail.mit.edu/matei/courses/2015/6.S897/readings/kafka.pdf 5. Container &amp; DevOpsBorg, Omega, and Kubernets http://www.e-wilkes.com/john/papers/2016-Queue-Kubernetes.pdf 6. Consistency and Locks基于Redis的分布式锁到底安全么？ http://zhangtielei.com/posts/blog-redlock-reasoning.html Consistency: From Chubby to Paxos and Raft 7. CacheGuava Cache 8. OLTP, OLAP, DatabaseHybrid Transactional/Analytical Processing: A Survey http://delivery.acm.org/10.1145/3060000/3054784/p1771-ozcan.pdf Kudu: Storage for Fast Analytics on Fast Data https://kudu.apache.org/kudu.pdf 9. Time Series DatabaseTSDB, OpenTSDB http://btw2017.informatik.uni-stuttgart.de/slidesandpapers/E4-14-109/paper_web.pdf ftp://ftp.informatik.uni-stuttgart.de/pub/library/medoc.ustuttgart_fi/DIP-3729/DIP-3729.pdf]]></content>
+      <categories>
+        <category>Read &amp; Think</category>
+        <category>Knowledge Base</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Kafka: a Distributed Messaging System for Log Processing - LinkedIn 2011]]></title>
+    <url>%2F2017%2F05%2F14%2FKafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011%2F</url>
+    <content type="text"><![CDATA[Not complete yet. Kafka is a Distributed Streaming platform. Kafka™ is used for building real-time data pipelines and streaming apps. It is horizontally scalable, fault-tolerant, wicked fast, and runs in production in thousands of companies. The Kafka site said it has three main functionalities: PUBLISH &amp; SUBSCRIBE to streams of data like a messaging system PROCESS streams of data efficiently and in real time STORE streams of data safely in a distributed replicated cluster References: http://people.csail.mit.edu/matei/courses/2015/6.S897/readings/kafka.pdf]]></content>
+      <categories>
+        <category>Read &amp; Think</category>
+        <category>Message Passing</category>
+      </categories>
+      <tags>
+        <tag>Kafka</tag>
+        <tag>Message Queue</tag>
+        <tag>Streaming</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F04%2F29%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. 1. Quick Start1.1. Create a new post1$ hexo new "My New Post" More info: Writing 1.2. Run server1$ hexo server More info: Server 1.3. Generate static files1$ hexo generate More info: Generating 1.4. Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
