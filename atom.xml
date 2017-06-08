@@ -4,9 +4,9 @@
   <subtitle>Endless</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="morganwu277.github.io/"/>
+  <link href="https://morganwu277.github.io/"/>
   <updated>2017-06-08T01:30:32.000Z</updated>
-  <id>morganwu277.github.io/</id>
+  <id>https://morganwu277.github.io/</id>
   
   <author>
     <name>Morgan Wu</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Transfer 15TB of Tiny Files</title>
-    <link href="morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/"/>
-    <id>morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/</id>
+    <link href="https://morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/"/>
+    <id>https://morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/</id>
     <published>2017-06-05T23:15:46.000Z</published>
     <updated>2017-06-08T01:30:32.000Z</updated>
     
@@ -67,33 +67,33 @@
     
     </summary>
     
-      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+      <category term="Tool &amp; Skill" scheme="https://morganwu277.github.io/categories/Tool-Skill/"/>
     
-      <category term="DevOps" scheme="morganwu277.github.io/categories/Tool-Skill/DevOps/"/>
+      <category term="DevOps" scheme="https://morganwu277.github.io/categories/Tool-Skill/DevOps/"/>
     
-      <category term="Backup" scheme="morganwu277.github.io/categories/Tool-Skill/DevOps/Backup/"/>
+      <category term="Backup" scheme="https://morganwu277.github.io/categories/Tool-Skill/DevOps/Backup/"/>
     
     
-      <category term="Rsync" scheme="morganwu277.github.io/tags/Rsync/"/>
+      <category term="Rsync" scheme="https://morganwu277.github.io/tags/Rsync/"/>
     
-      <category term="transfer" scheme="morganwu277.github.io/tags/transfer/"/>
+      <category term="transfer" scheme="https://morganwu277.github.io/tags/transfer/"/>
     
-      <category term="copy" scheme="morganwu277.github.io/tags/copy/"/>
+      <category term="copy" scheme="https://morganwu277.github.io/tags/copy/"/>
     
-      <category term="nc" scheme="morganwu277.github.io/tags/nc/"/>
+      <category term="nc" scheme="https://morganwu277.github.io/tags/nc/"/>
     
-      <category term="many" scheme="morganwu277.github.io/tags/many/"/>
+      <category term="many" scheme="https://morganwu277.github.io/tags/many/"/>
     
-      <category term="tiny" scheme="morganwu277.github.io/tags/tiny/"/>
+      <category term="tiny" scheme="https://morganwu277.github.io/tags/tiny/"/>
     
-      <category term="file" scheme="morganwu277.github.io/tags/file/"/>
+      <category term="file" scheme="https://morganwu277.github.io/tags/file/"/>
     
   </entry>
   
   <entry>
     <title>Setup Cygwin in Windows XP/2003</title>
-    <link href="morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/"/>
-    <id>morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/</id>
+    <link href="https://morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/"/>
+    <id>https://morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/</id>
     <published>2017-06-05T03:07:00.000Z</published>
     <updated>2017-06-08T01:19:37.000Z</updated>
     
@@ -123,25 +123,25 @@
     
     </summary>
     
-      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+      <category term="Tool &amp; Skill" scheme="https://morganwu277.github.io/categories/Tool-Skill/"/>
     
-      <category term="Windows" scheme="morganwu277.github.io/categories/Tool-Skill/Windows/"/>
+      <category term="Windows" scheme="https://morganwu277.github.io/categories/Tool-Skill/Windows/"/>
     
     
-      <category term="Cygwin" scheme="morganwu277.github.io/tags/Cygwin/"/>
+      <category term="Cygwin" scheme="https://morganwu277.github.io/tags/Cygwin/"/>
     
-      <category term="Windows XP" scheme="morganwu277.github.io/tags/Windows-XP/"/>
+      <category term="Windows XP" scheme="https://morganwu277.github.io/tags/Windows-XP/"/>
     
-      <category term="Windows 2003" scheme="morganwu277.github.io/tags/Windows-2003/"/>
+      <category term="Windows 2003" scheme="https://morganwu277.github.io/tags/Windows-2003/"/>
     
-      <category term="Package" scheme="morganwu277.github.io/tags/Package/"/>
+      <category term="Package" scheme="https://morganwu277.github.io/tags/Package/"/>
     
   </entry>
   
   <entry>
     <title>Useful Links</title>
-    <link href="morganwu277.github.io/2017/06/03/Useful-Links/"/>
-    <id>morganwu277.github.io/2017/06/03/Useful-Links/</id>
+    <link href="https://morganwu277.github.io/2017/06/03/Useful-Links/"/>
+    <id>https://morganwu277.github.io/2017/06/03/Useful-Links/</id>
     <published>2017-06-03T19:14:37.000Z</published>
     <updated>2017-06-08T01:19:47.000Z</updated>
     
@@ -160,19 +160,19 @@
     
     </summary>
     
-      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+      <category term="Tool &amp; Skill" scheme="https://morganwu277.github.io/categories/Tool-Skill/"/>
     
-      <category term="Knowledge Base" scheme="morganwu277.github.io/categories/Tool-Skill/Knowledge-Base/"/>
+      <category term="Knowledge Base" scheme="https://morganwu277.github.io/categories/Tool-Skill/Knowledge-Base/"/>
     
     
-      <category term="Tools" scheme="morganwu277.github.io/tags/Tools/"/>
+      <category term="Tools" scheme="https://morganwu277.github.io/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Straight Through and Crossover Cable</title>
-    <link href="morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/"/>
-    <id>morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/</id>
+    <link href="https://morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/"/>
+    <id>https://morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/</id>
     <published>2017-05-27T19:14:12.000Z</published>
     <updated>2017-06-08T01:09:59.000Z</updated>
     
@@ -251,21 +251,21 @@
     
     </summary>
     
-      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+      <category term="Tool &amp; Skill" scheme="https://morganwu277.github.io/categories/Tool-Skill/"/>
     
-      <category term="Gaming Club Ops" scheme="morganwu277.github.io/categories/Tool-Skill/Gaming-Club-Ops/"/>
+      <category term="Gaming Club Ops" scheme="https://morganwu277.github.io/categories/Tool-Skill/Gaming-Club-Ops/"/>
     
     
-      <category term="Network" scheme="morganwu277.github.io/tags/Network/"/>
+      <category term="Network" scheme="https://morganwu277.github.io/tags/Network/"/>
     
-      <category term="Cable" scheme="morganwu277.github.io/tags/Cable/"/>
+      <category term="Cable" scheme="https://morganwu277.github.io/tags/Cable/"/>
     
   </entry>
   
   <entry>
     <title>SSH Tricks</title>
-    <link href="morganwu277.github.io/2017/05/18/SSH-Tricks/"/>
-    <id>morganwu277.github.io/2017/05/18/SSH-Tricks/</id>
+    <link href="https://morganwu277.github.io/2017/05/18/SSH-Tricks/"/>
+    <id>https://morganwu277.github.io/2017/05/18/SSH-Tricks/</id>
     <published>2017-05-18T19:13:39.000Z</published>
     <updated>2017-06-08T01:11:36.000Z</updated>
     
@@ -370,21 +370,21 @@
     
     </summary>
     
-      <category term="Tool &amp; Skill" scheme="morganwu277.github.io/categories/Tool-Skill/"/>
+      <category term="Tool &amp; Skill" scheme="https://morganwu277.github.io/categories/Tool-Skill/"/>
     
-      <category term="Network" scheme="morganwu277.github.io/categories/Tool-Skill/Network/"/>
+      <category term="Network" scheme="https://morganwu277.github.io/categories/Tool-Skill/Network/"/>
     
     
-      <category term="ssh" scheme="morganwu277.github.io/tags/ssh/"/>
+      <category term="ssh" scheme="https://morganwu277.github.io/tags/ssh/"/>
     
-      <category term="port forwarding" scheme="morganwu277.github.io/tags/port-forwarding/"/>
+      <category term="port forwarding" scheme="https://morganwu277.github.io/tags/port-forwarding/"/>
     
   </entry>
   
   <entry>
     <title>Read List</title>
-    <link href="morganwu277.github.io/2017/05/16/Read-List/"/>
-    <id>morganwu277.github.io/2017/05/16/Read-List/</id>
+    <link href="https://morganwu277.github.io/2017/05/16/Read-List/"/>
+    <id>https://morganwu277.github.io/2017/05/16/Read-List/</id>
     <published>2017-05-16T18:14:54.000Z</published>
     <updated>2017-06-08T01:19:08.000Z</updated>
     
@@ -470,17 +470,17 @@
     
     </summary>
     
-      <category term="Read &amp; Think" scheme="morganwu277.github.io/categories/Read-Think/"/>
+      <category term="Read &amp; Think" scheme="https://morganwu277.github.io/categories/Read-Think/"/>
     
-      <category term="Knowledge Base" scheme="morganwu277.github.io/categories/Read-Think/Knowledge-Base/"/>
+      <category term="Knowledge Base" scheme="https://morganwu277.github.io/categories/Read-Think/Knowledge-Base/"/>
     
     
   </entry>
   
   <entry>
     <title>Kafka: a Distributed Messaging System for Log Processing - LinkedIn 2011</title>
-    <link href="morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/"/>
-    <id>morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/</id>
+    <link href="https://morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/"/>
+    <id>https://morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/</id>
     <published>2017-05-14T16:07:06.000Z</published>
     <updated>2017-06-07T23:49:26.000Z</updated>
     
@@ -508,23 +508,23 @@
     
     </summary>
     
-      <category term="Read &amp; Think" scheme="morganwu277.github.io/categories/Read-Think/"/>
+      <category term="Read &amp; Think" scheme="https://morganwu277.github.io/categories/Read-Think/"/>
     
-      <category term="Message Passing" scheme="morganwu277.github.io/categories/Read-Think/Message-Passing/"/>
+      <category term="Message Passing" scheme="https://morganwu277.github.io/categories/Read-Think/Message-Passing/"/>
     
     
-      <category term="Kafka" scheme="morganwu277.github.io/tags/Kafka/"/>
+      <category term="Kafka" scheme="https://morganwu277.github.io/tags/Kafka/"/>
     
-      <category term="Message Queue" scheme="morganwu277.github.io/tags/Message-Queue/"/>
+      <category term="Message Queue" scheme="https://morganwu277.github.io/tags/Message-Queue/"/>
     
-      <category term="Streaming" scheme="morganwu277.github.io/tags/Streaming/"/>
+      <category term="Streaming" scheme="https://morganwu277.github.io/tags/Streaming/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="morganwu277.github.io/2017/04/29/hello-world/"/>
-    <id>morganwu277.github.io/2017/04/29/hello-world/</id>
+    <link href="https://morganwu277.github.io/2017/04/29/hello-world/"/>
+    <id>https://morganwu277.github.io/2017/04/29/hello-world/</id>
     <published>2017-04-30T03:07:00.000Z</published>
     <updated>2017-06-07T20:15:42.000Z</updated>
     
