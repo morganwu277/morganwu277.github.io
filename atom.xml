@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://morganwu277.github.io/"/>
-  <updated>2017-06-08T01:30:32.000Z</updated>
+  <updated>2017-06-09T23:30:45.000Z</updated>
   <id>https://morganwu277.github.io/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Emoji File Name under MacOSX</title>
+    <link href="https://morganwu277.github.io/2017/06/09/Emoji-File-Name-under-MacOSX/"/>
+    <id>https://morganwu277.github.io/2017/06/09/Emoji-File-Name-under-MacOSX/</id>
+    <published>2017-06-09T22:58:31.000Z</published>
+    <updated>2017-06-09T23:30:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Recently was too busy on small stuff that I can’t focus on myself on the real thing I need to tackle. Annoying… </p>
+<p>Anyway, I still find something fun which also stimulate my mind!</p>
+<p><img src="https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/grin.png" alt=""></p>
+<p>Interesting! Ah!</p>
+<a id="more"></a>
+<center><img src="emoji_file_name1.png" alt="Emoji File Name under MacOSX" title="Emoji File Name under MacOSX"></center>
+
+<center><img src="emoji_file_name2.png" alt="Emoji File Name under MacOSX Terminal" title="Emoji File Name under MacOSX Terminal"></center>
+
+<p>Here is my code of generating this:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash </span></div><div class="line"></div><div class="line"><span class="built_in">set</span> -e </div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..20&#125;</div><div class="line"><span class="keyword">do</span> </div><div class="line">    filename=<span class="string">'👍 '</span></div><div class="line">    <span class="keyword">for</span> (( j=1;j&lt;=<span class="variable">$i</span>;j++ ))</div><div class="line">    <span class="keyword">do</span></div><div class="line">        filename+=<span class="string">'👍 '</span></div><div class="line">    <span class="keyword">done</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$filename</span></div><div class="line">    touch <span class="string">"<span class="variable">$filename</span>"</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure></p>
+<p><a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank" rel="external">More about Emoji…</a> </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Recently was too busy on small stuff that I can’t focus on myself on the real thing I need to tackle. Annoying… &lt;/p&gt;
+&lt;p&gt;Anyway, I still find something fun which also stimulate my mind!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/grin.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Interesting! Ah!&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Fun" scheme="https://morganwu277.github.io/categories/Fun/"/>
+    
+      <category term="Code" scheme="https://morganwu277.github.io/categories/Fun/Code/"/>
+    
+      <category term="Mac OSX" scheme="https://morganwu277.github.io/categories/Fun/Code/Mac-OSX/"/>
+    
+    
+      <category term="Mac OSX" scheme="https://morganwu277.github.io/tags/Mac-OSX/"/>
+    
+      <category term="Emoji" scheme="https://morganwu277.github.io/tags/Emoji/"/>
+    
+  </entry>
   
   <entry>
     <title>Transfer 15TB of Tiny Files</title>
