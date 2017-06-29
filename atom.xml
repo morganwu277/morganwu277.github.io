@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://morganwu277.github.io/"/>
-  <updated>2017-06-09T23:30:45.000Z</updated>
+  <updated>2017-06-29T07:59:03.000Z</updated>
   <id>https://morganwu277.github.io/</id>
   
   <author>
@@ -16,9 +16,126 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Debug Ansible and Tiny Introduction of PlayBook</title>
+    <link href="https://morganwu277.github.io/2017/06/30/Debug-Ansible/"/>
+    <id>https://morganwu277.github.io/2017/06/30/Debug-Ansible/</id>
+    <published>2017-06-29T18:18:34.000Z</published>
+    <updated>2017-06-29T07:59:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://docs.ansible.com" target="_blank" rel="external">Ansible</a> is a popular dev-ops tools for us to execute ad-hoc commands immediately on large mounts of machines in parallel which accelerate our working speed.  </p>
+<p>It’s simple but powerful and compatible with different OS platforms. Even more, it has lots of pre-defined modules for us to use, which significantly make the dream of <strong>reusing Dev-Ops</strong> scripts come true. </p>
+<p>However, when you’re goging to use this fantastic tool, how to debug when you’re executing the ansible play-book with flow of commands? It looks like a unstoppable flow.</p>
+<a id="more"></a>
+<p>So we need two things for debugging ansible playbook: </p>
+<ul>
+<li>Stoppable </li>
+<li>Print Debug Message </li>
+</ul>
+<p>This article will also give some tiny intro about play-book. For more info, please review the official documents. </p>
+<h1 id="Stoppable">1. Stoppable</h1><p>So, here we have a trick, using the <a href="http://docs.ansible.com/ansible/fail_module.html" target="_blank" rel="external">fail</a> module to stop the execution process.</p>
+<p>Add next code snippet at wherever you want to stop. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># more is here</span></div><div class="line"></div><div class="line">- name: <span class="string">"STOP ME"</span></div><div class="line">  fail: msg=<span class="string">"This is the debugging stop"</span></div><div class="line">  when: 1==1</div></pre></td></tr></table></figure>
+<p>After that, you could see the message like below:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># more is here </span></div><div class="line"></div><div class="line">TASK [pre-ansible : STOP ME] ******************************************************</div><div class="line">fatal: [node-1-master]: FAILED! =&gt; &#123;<span class="string">"changed"</span>: <span class="literal">false</span>, <span class="string">"failed"</span>: <span class="literal">true</span>, <span class="string">"msg"</span>: <span class="string">"This is the debugging stop"</span>&#125;</div><div class="line">fatal: [node-2-slave-1]: FAILED! =&gt; &#123;<span class="string">"changed"</span>: <span class="literal">false</span>, <span class="string">"failed"</span>: <span class="literal">true</span>, <span class="string">"msg"</span>: <span class="string">"This is the debugging stop"</span>&#125;</div><div class="line">fatal: [lcoj-judger]: FAILED! =&gt; &#123;<span class="string">"changed"</span>: <span class="literal">false</span>, <span class="string">"failed"</span>: <span class="literal">true</span>, <span class="string">"msg"</span>: <span class="string">"This is the debugging stop"</span>&#125;</div><div class="line"></div><div class="line">NO MORE HOSTS LEFT *************************************************************</div><div class="line">	to retry, use: --<span class="built_in">limit</span> @cluster.retry</div><div class="line"></div><div class="line">PLAY RECAP *********************************************************************</div><div class="line">lcoj-judger                : ok=5    changed=1    unreachable=0    failed=1   </div><div class="line">node-1-master              : ok=5    changed=1    unreachable=0    failed=1   </div><div class="line">node-2-slave-1             : ok=5    changed=1    unreachable=0    failed=1</div></pre></td></tr></table></figure></p>
+<h1 id="Print-Debugging-Message-with-Var">2. Print Debugging Message with Var</h1><p>Of course you can print debug message with the <code>fail</code> module. However, it has a born behavior: stop the process, which maybe unexpected.</p>
+<p>Here we use the <a href="http://docs.ansible.com/ansible/debug_module.html" target="_blank" rel="external">debug</a> module to print statements during execution.</p>
+<p>Next is an example of printing the <code>eth1</code> address of each nodes in the inventory file. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># more is here</span></div><div class="line"></div><div class="line">- debug:</div><div class="line">    msg: <span class="string">"hosts mapping is: &#123;&#123; hostvars[item]['ansible_eth1'].ipv4.address &#125;&#125; &#123;&#123;item&#125;&#125;"</span></div><div class="line">  with_items: <span class="string">"&#123;&#123; groups['all'] &#125;&#125;"</span></div></pre></td></tr></table></figure>
+<p>Here is the output of such debug msg:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">TASK [pre-ansible : debug] *****************************************************</div><div class="line">ok: [node-2-slave-1] =&gt; (item=node-1-master) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"node-1-master"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.10 node-1-master"</span></div><div class="line">&#125;</div><div class="line">ok: [node-2-slave-1] =&gt; (item=node-2-slave-1) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"node-2-slave-1"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.11 node-2-slave-1"</span></div><div class="line">&#125;</div><div class="line">ok: [node-2-slave-1] =&gt; (item=lcoj-judger) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"lcoj-judger"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.12 lcoj-judger"</span></div><div class="line">&#125;</div><div class="line">ok: [node-1-master] =&gt; (item=node-1-master) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"node-1-master"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.10 node-1-master"</span></div><div class="line">&#125;</div><div class="line">ok: [node-1-master] =&gt; (item=node-2-slave-1) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"node-2-slave-1"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.11 node-2-slave-1"</span></div><div class="line">&#125;</div><div class="line">ok: [node-1-master] =&gt; (item=lcoj-judger) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"lcoj-judger"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.12 lcoj-judger"</span></div><div class="line">&#125;</div><div class="line">ok: [lcoj-judger] =&gt; (item=node-1-master) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"node-1-master"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.10 node-1-master"</span></div><div class="line">&#125;</div><div class="line">ok: [lcoj-judger] =&gt; (item=node-2-slave-1) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"node-2-slave-1"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.11 node-2-slave-1"</span></div><div class="line">&#125;</div><div class="line">ok: [lcoj-judger] =&gt; (item=lcoj-judger) =&gt; &#123;</div><div class="line">    <span class="string">"item"</span>: <span class="string">"lcoj-judger"</span>, </div><div class="line">    <span class="string">"msg"</span>: <span class="string">"hosts mapping is: 192.168.33.12 lcoj-judger"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>In your play-book, please setup the <code>gather_facts</code> to be <code>true</code>. In this way, we can print the <code>ipv4.adderss</code> of this host.<br>And the <code>pre-ansible</code> is the role where the above code snippet lies in. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- hosts: all</div><div class="line">  gather_facts: <span class="literal">true</span></div><div class="line">  sudo: yes</div><div class="line">  roles:</div><div class="line">    - pre-ansible</div><div class="line">  tags:</div><div class="line">    - pre-ansible</div></pre></td></tr></table></figure>
+<p>Also, this <code>debug</code> module with msg can print an object with all its field values. So if our <code>msg</code> above changes to<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"hosts mapping is: &#123;&#123; hostvars[item]['ansible_eth1'].ipv4 &#125;&#125; &#123;&#123;item&#125;&#125;"</span></div></pre></td></tr></table></figure></p>
+<p>it will print more message. </p>
+<h1 id="Intro-about-Play-Book">3. Intro about Play-Book</h1><p>In the section of <a href="#Print-Debugging-Message-with-Var">Print Debugging Message with Var</a>, we already saw one easy <code>play</code>, here is another playbook with only one play. Please remember we do have <code>---</code> at the first line. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">- hosts: webservers</div><div class="line">  vars:</div><div class="line">    http_port: 80</div><div class="line">    max_clients: 200</div><div class="line">  remote_user: root</div><div class="line">  tasks:</div><div class="line">  - name: ensure apache is at the latest version</div><div class="line">    yum: name=httpd state=latest</div><div class="line"></div><div class="line">  - name: write the apache config file</div><div class="line">    template: src=/srv/httpd.j2 dest=/etc/httpd.conf</div><div class="line">    notify:</div><div class="line">    - restart apache</div><div class="line"></div><div class="line">  - name: ensure apache is running (and <span class="built_in">enable</span> it at boot)</div><div class="line">    service: name=httpd state=started enabled=yes</div><div class="line"></div><div class="line">  handlers:</div><div class="line">    - name: restart apache</div><div class="line">      service: name=httpd state=restarted</div></pre></td></tr></table></figure>
+<h2 id="Roles">3.1. Roles</h2><p>With Roles, we can <strong>reuse</strong> the tasks commands. For example, next play, we will execute the play with roles <code>pre-ansible</code>. Of course, we can execute more roles, just append the role directory name under <code>roles</code> field.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- hosts: all</div><div class="line">  gather_facts: <span class="literal">true</span></div><div class="line">  sudo: yes</div><div class="line">  roles:</div><div class="line">    - pre-ansible</div></pre></td></tr></table></figure></p>
+<p>Here is a glance of directory structure, we can see <code>pre-ansible</code> directory in the <code>roles</code> directory.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[03:38 PM morganwu@promote noj-deploy]$ tree  -L 2</div><div class="line">.</div><div class="line">├── ansible.cfg</div><div class="line">├── cluster.yml</div><div class="line">├── group_vars</div><div class="line">│   └── all.yml</div><div class="line">├── inventory.me</div><div class="line">├── roles</div><div class="line">│   ├── common</div><div class="line">│   ├── docker</div><div class="line">│   ├── etcd</div><div class="line">│   ├── flannel</div><div class="line">│   ├── kubernetes</div><div class="line">│   ├── kubernetes-addons</div><div class="line">│   ├── leetcode</div><div class="line">│   ├── leetcode-backend</div><div class="line">│   ├── master</div><div class="line">│   ├── nginx</div><div class="line">│   ├── node</div><div class="line">│   ├── opencontrail</div><div class="line">│   ├── opencontrail-provision</div><div class="line">│   └── pre-ansible</div><div class="line">├── setup.sh</div><div class="line">└── setup_leetcode.sh</div></pre></td></tr></table></figure></p>
+<h2 id="Tags">3.2. Tags</h2><p>With <code>Tags</code>, we can run <strong>specific</strong> <code>play</code> and it makes our dev-ops work more flexible, in a non-linear style. </p>
+<p>We will still using the example above. Here we have defined a tag <code>pre-ansible</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- hosts: all</div><div class="line">  gather_facts: <span class="literal">true</span></div><div class="line">  sudo: yes</div><div class="line">  roles:</div><div class="line">    - pre-ansible</div><div class="line">  tags:</div><div class="line">    - pre-ansible</div></pre></td></tr></table></figure></p>
+<p>When we execute playbook with <code>--tags</code>, it will only execute this play and skip all other plays without this specific tag.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[03:44 PM morganwu@promote noj-deploy]$ ansible-playbook -i inventory.me cluster.yml --tags=pre-ansible</div></pre></td></tr></table></figure></p>
+<h1 id="Conclusion">4. Conclusion</h1><p>Ansible is easy but powerful with lots of pre-defined modules. </p>
+<ul>
+<li>We can use <code>fail</code> module to stop execution process ann use <code>debug</code> module to print message with variables. </li>
+<li><code>Roles</code> are designed for <code>task</code> reuuse.</li>
+<li><code>Tags</code> are designed to execute the specific <code>Play</code>(s) in one playbook.</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://docs.ansible.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible&lt;/a&gt; is a popular dev-ops tools for us to execute ad-hoc commands immediately on large mounts of machines in parallel which accelerate our working speed.  &lt;/p&gt;
+&lt;p&gt;It’s simple but powerful and compatible with different OS platforms. Even more, it has lots of pre-defined modules for us to use, which significantly make the dream of &lt;strong&gt;reusing Dev-Ops&lt;/strong&gt; scripts come true. &lt;/p&gt;
+&lt;p&gt;However, when you’re goging to use this fantastic tool, how to debug when you’re executing the ansible play-book with flow of commands? It looks like a unstoppable flow.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="DevOps" scheme="https://morganwu277.github.io/categories/DevOps/"/>
+    
+      <category term="Ansible" scheme="https://morganwu277.github.io/categories/DevOps/Ansible/"/>
+    
+    
+      <category term="Ansible" scheme="https://morganwu277.github.io/tags/Ansible/"/>
+    
+      <category term="Debug" scheme="https://morganwu277.github.io/tags/Debug/"/>
+    
+      <category term="DevOps" scheme="https://morganwu277.github.io/tags/DevOps/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode Exercises</title>
+    <link href="https://morganwu277.github.io/2017/06/14/Leetcode-Exercise/"/>
+    <id>https://morganwu277.github.io/2017/06/14/Leetcode-Exercise/</id>
+    <published>2017-06-13T21:09:45.000Z</published>
+    <updated>2017-06-13T22:50:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>This is a leetcode algorithm list for me to track my thought and solutions. </p>
+<a id="more"></a>
+<h1 id="Two-Sum">1. Two-Sum</h1><p>Problem Description: <a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="external">1. Two-Sum</a> </p>
+<h2 id="Golang">1.1. Golang</h2><figure class="highlight golang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</div><div class="line">    size := <span class="built_in">len</span>(nums)</div><div class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; size; i++ &#123;</div><div class="line">        <span class="keyword">for</span> j := i + <span class="number">1</span>; j &lt; size; j++ &#123;</div><div class="line">            <span class="keyword">if</span> nums[i] + nums[j] == target &#123;</div><div class="line">                result := []<span class="keyword">int</span>&#123;i, j&#125;</div><div class="line">                sort.Slice(result, <span class="function"><span class="keyword">func</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</div><div class="line">                    <span class="keyword">return</span> result[i] &lt;= result[j]</div><div class="line">                &#125;)</div><div class="line">                <span class="keyword">return</span> result</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">0</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Path-Sum">2. Path Sum</h1><p>Problem Description: <a href="https://leetcode.com/problems/path-sum" target="_blank" rel="external">112. Path Sum</a></p>
+<h2 id="Java">2.1. Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * public class TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode left;</div><div class="line"> *     TreeNode right;</div><div class="line"> *     TreeNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line">    Test if there is a path from current node to leaf node</div><div class="line">    */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasPathSum</span><span class="params">(TreeNode root, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">if</span>(root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (sum == root.val) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        sum = sum - root.val; <span class="comment">// take value from current root node</span></div><div class="line">        <span class="keyword">return</span> hasPathSum(root.left, sum) || hasPathSum(root.right, sum);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Reverse-Words-in-a-String">3. Reverse Words in a String</h1><p>Problem Description: <a href="https://leetcode.com/problems/reverse-words-in-a-string" target="_blank" rel="external">151. Reverse Words in a String</a></p>
+<h2 id="Java-1">3.1. Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseWords</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        s = s.trim();</div><div class="line">        <span class="keyword">if</span>(s.equals(<span class="string">""</span>)) <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        String[] str_arr = s.split(<span class="string">"\\s+"</span>);</div><div class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">""</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = str_arr.length-<span class="number">1</span>; i&gt;<span class="number">0</span>; i--) &#123;</div><div class="line">            sb.append(str_arr[i] + <span class="string">" "</span>);</div><div class="line">        &#125;</div><div class="line">        sb.append(str_arr[<span class="number">0</span>]);</div><div class="line">        <span class="keyword">return</span> sb.toString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Combine-Two-Tables">4. Combine Two Tables</h1><p>Problem Description: <a href="https://leetcode.com/problems/combine-two-tables" target="_blank" rel="external">175. Combine Two Tables</a></p>
+<h2 id="MySQL">4.1. MySQL</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Write your MySQL query statement below</div><div class="line">select p.FirstName, p.LastName, a.City, a.State from Person as p </div><div class="line">  left join Address as a </div><div class="line">  on </div><div class="line">  p.PersonId = a.PersonId;</div></pre></td></tr></table></figure>
+<h1 id="Fizz-Buzz">5. Fizz Buzz</h1><p>Problem Description: <a href="https://leetcode.com/problems/fizz-buzz/" target="_blank" rel="external">412. Fizz Buzz</a></p>
+<h2 id="Java-2">5.1. Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">multiple</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> modValue)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> i%modValue==<span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">fizzBuzz</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</div><div class="line">            String str = String.valueOf(i);</div><div class="line">            <span class="keyword">if</span>(multiple(i,<span class="number">3</span>) &amp;&amp; multiple(i,<span class="number">5</span>)) &#123;</div><div class="line">                list.add(<span class="string">"FizzBuzz"</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(multiple(i,<span class="number">3</span>) &amp;&amp; !multiple(i,<span class="number">5</span>)) &#123;</div><div class="line">                list.add(<span class="string">"Fizz"</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(!multiple(i,<span class="number">3</span>) &amp;&amp; multiple(i,<span class="number">5</span>)) &#123;</div><div class="line">                list.add(<span class="string">"Buzz"</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                list.add(str);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> list;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;This is a leetcode algorithm list for me to track my thought and solutions. &lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Read &amp; Think" scheme="https://morganwu277.github.io/categories/Read-Think/"/>
+    
+      <category term="Algorithm" scheme="https://morganwu277.github.io/categories/Read-Think/Algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="https://morganwu277.github.io/tags/algorithm/"/>
+    
+      <category term="leetcode" scheme="https://morganwu277.github.io/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Simple Swift Intro</title>
+    <link href="https://morganwu277.github.io/2017/06/13/Simple-Swift-Intro/"/>
+    <id>https://morganwu277.github.io/2017/06/13/Simple-Swift-Intro/</id>
+    <published>2017-06-13T03:24:27.000Z</published>
+    <updated>2017-06-13T03:24:27.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Emoji File Name under MacOSX</title>
-    <link href="https://morganwu277.github.io/2017/06/09/Emoji-File-Name-under-MacOSX/"/>
-    <id>https://morganwu277.github.io/2017/06/09/Emoji-File-Name-under-MacOSX/</id>
+    <link href="https://morganwu277.github.io/2017/06/10/Emoji-File-Name-under-MacOSX/"/>
+    <id>https://morganwu277.github.io/2017/06/10/Emoji-File-Name-under-MacOSX/</id>
     <published>2017-06-09T22:58:31.000Z</published>
     <updated>2017-06-09T23:30:45.000Z</updated>
     
@@ -59,8 +176,8 @@
   
   <entry>
     <title>Transfer 15TB of Tiny Files</title>
-    <link href="https://morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/"/>
-    <id>https://morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/</id>
+    <link href="https://morganwu277.github.io/2017/06/06/Transfer-15TB-of-Tiny-Files/"/>
+    <id>https://morganwu277.github.io/2017/06/06/Transfer-15TB-of-Tiny-Files/</id>
     <published>2017-06-05T23:15:46.000Z</published>
     <updated>2017-06-08T01:30:32.000Z</updated>
     
@@ -74,7 +191,7 @@
 <a id="more"></a>
 <p><img src="https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/stuck_out_tongue_winking_eye.png" alt="">Relax time, here is the Windows start animation.</p>
 <div class="video-container"><iframe src="//www.youtube.com/embed/nCobAnhWr-c" frameborder="0" allowfullscreen></iframe></div>
-<h1 id="So-How">1. So, How?</h1><h2 id="The-Rsync-method">1.1. The Rsync method</h2><p>My scenario was transferring files from Windows XP to a Linux Server. About how to setup <code>Cygwin in Windows XP/2003</code>, please review <a href="/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/" title="Setup Cygwin in Windows XP/2003">Setup Cygwin in Windows XP/2003</a></p>
+<h1 id="So-How">1. So, How?</h1><h2 id="The-Rsync-method">1.1. The Rsync method</h2><p>My scenario was transferring files from Windows XP to a Linux Server. About how to setup <code>Cygwin in Windows XP/2003</code>, please review <a href="/2017/06/05/Setup-Cygwin-in-Windows-XP-2003/" title="Setup Cygwin in Windows XP/2003">Setup Cygwin in Windows XP/2003</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ rsync -a -z -vvv -S -e <span class="string">'ssh -o "ServerAliveInterval 7200"'</span> \ </div><div class="line">	/path/of/source_dir root@destination_server:/path/of/destination_dir</div></pre></td></tr></table></figure>
 <p>This will transfer <code>/path/of/source_dir</code> to <code>/path/of/destination_dir</code> by using SSH tunnel and keep alive for 2 hours, using <a href="https://rsync.samba.org/tech_report/" target="_blank" rel="external">Rsync algorithm</a>.</p>
 <h2 id="Compress-amp-Package-amp-Transfer">1.2. Compress &amp; Package &amp; Transfer</h2><p>As above, we mentioned that we would like to compress these files and then transfer. Here is how we implement it by using <code>tar</code> and <code>pigz</code>(parallel gzip) command which wins over the rsync method.</p>
@@ -134,8 +251,8 @@
   
   <entry>
     <title>Setup Cygwin in Windows XP/2003</title>
-    <link href="https://morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/"/>
-    <id>https://morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/</id>
+    <link href="https://morganwu277.github.io/2017/06/05/Setup-Cygwin-in-Windows-XP-2003/"/>
+    <id>https://morganwu277.github.io/2017/06/05/Setup-Cygwin-in-Windows-XP-2003/</id>
     <published>2017-06-05T03:07:00.000Z</published>
     <updated>2017-06-08T01:19:37.000Z</updated>
     
@@ -182,8 +299,8 @@
   
   <entry>
     <title>Useful Links</title>
-    <link href="https://morganwu277.github.io/2017/06/03/Useful-Links/"/>
-    <id>https://morganwu277.github.io/2017/06/03/Useful-Links/</id>
+    <link href="https://morganwu277.github.io/2017/06/04/Useful-Links/"/>
+    <id>https://morganwu277.github.io/2017/06/04/Useful-Links/</id>
     <published>2017-06-03T19:14:37.000Z</published>
     <updated>2017-06-10T17:28:18.000Z</updated>
     
@@ -213,8 +330,8 @@
   
   <entry>
     <title>Straight Through and Crossover Cable</title>
-    <link href="https://morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/"/>
-    <id>https://morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/</id>
+    <link href="https://morganwu277.github.io/2017/05/28/Straight-Through-and-Crossover-Cable/"/>
+    <id>https://morganwu277.github.io/2017/05/28/Straight-Through-and-Crossover-Cable/</id>
     <published>2017-05-27T19:14:12.000Z</published>
     <updated>2017-06-08T01:09:59.000Z</updated>
     
@@ -306,8 +423,8 @@
   
   <entry>
     <title>SSH Tricks</title>
-    <link href="https://morganwu277.github.io/2017/05/18/SSH-Tricks/"/>
-    <id>https://morganwu277.github.io/2017/05/18/SSH-Tricks/</id>
+    <link href="https://morganwu277.github.io/2017/05/19/SSH-Tricks/"/>
+    <id>https://morganwu277.github.io/2017/05/19/SSH-Tricks/</id>
     <published>2017-05-18T19:13:39.000Z</published>
     <updated>2017-06-08T01:11:36.000Z</updated>
     
@@ -425,8 +542,8 @@
   
   <entry>
     <title>Read List</title>
-    <link href="https://morganwu277.github.io/2017/05/16/Read-List/"/>
-    <id>https://morganwu277.github.io/2017/05/16/Read-List/</id>
+    <link href="https://morganwu277.github.io/2017/05/17/Read-List/"/>
+    <id>https://morganwu277.github.io/2017/05/17/Read-List/</id>
     <published>2017-05-16T18:14:54.000Z</published>
     <updated>2017-06-08T01:19:08.000Z</updated>
     
@@ -521,8 +638,8 @@
   
   <entry>
     <title>Kafka: a Distributed Messaging System for Log Processing - LinkedIn 2011</title>
-    <link href="https://morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/"/>
-    <id>https://morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/</id>
+    <link href="https://morganwu277.github.io/2017/05/15/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/"/>
+    <id>https://morganwu277.github.io/2017/05/15/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/</id>
     <published>2017-05-14T16:07:06.000Z</published>
     <updated>2017-06-07T23:49:26.000Z</updated>
     
@@ -565,8 +682,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://morganwu277.github.io/2017/04/29/hello-world/"/>
-    <id>https://morganwu277.github.io/2017/04/29/hello-world/</id>
+    <link href="https://morganwu277.github.io/2017/04/30/hello-world/"/>
+    <id>https://morganwu277.github.io/2017/04/30/hello-world/</id>
     <published>2017-04-30T03:07:00.000Z</published>
     <updated>2017-06-07T20:15:42.000Z</updated>
     
