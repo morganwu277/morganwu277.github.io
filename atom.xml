@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://morganwu277.github.io/"/>
-  <updated>2017-06-29T08:07:30.000Z</updated>
+  <updated>2017-06-29T08:34:07.000Z</updated>
   <id>https://morganwu277.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://morganwu277.github.io/2017/06/30/Debug-Ansible/"/>
     <id>https://morganwu277.github.io/2017/06/30/Debug-Ansible/</id>
     <published>2017-06-29T18:18:34.000Z</published>
-    <updated>2017-06-29T08:07:30.000Z</updated>
+    <updated>2017-06-29T08:34:07.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://docs.ansible.com" target="_blank" rel="external">Ansible</a> is a popular dev-ops tools for us to execute ad-hoc commands immediately on large mounts of machines in parallel which accelerate our working speed.  </p>
 <p>It’s simple but powerful and compatible with different OS platforms. Even more, it has lots of pre-defined modules for us to use, which significantly make the dream of <strong>reusing Dev-Ops</strong> scripts come true. </p>
@@ -70,9 +70,11 @@
     
     </summary>
     
-      <category term="DevOps" scheme="https://morganwu277.github.io/categories/DevOps/"/>
+      <category term="Tool &amp; Skill" scheme="https://morganwu277.github.io/categories/Tool-Skill/"/>
     
-      <category term="Ansible" scheme="https://morganwu277.github.io/categories/DevOps/Ansible/"/>
+      <category term="DevOps" scheme="https://morganwu277.github.io/categories/Tool-Skill/DevOps/"/>
+    
+      <category term="Ansible" scheme="https://morganwu277.github.io/categories/Tool-Skill/DevOps/Ansible/"/>
     
     
       <category term="Ansible" scheme="https://morganwu277.github.io/tags/Ansible/"/>
