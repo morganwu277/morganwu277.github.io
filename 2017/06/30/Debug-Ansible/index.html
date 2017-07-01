@@ -102,7 +102,7 @@
 <meta property="og:url" content="https://morganwu277.github.io/2017/06/30/Debug-Ansible/index.html">
 <meta property="og:site_name" content="Alice &amp;&amp; Bob">
 <meta property="og:description" content="Ansible is a popular dev-ops tools for us to execute ad-hoc commands immediately on large mounts of machines in parallel which accelerate our working speed.   It’s simple but powerful and compatible w">
-<meta property="og:updated_time" content="2017-06-29T08:48:56.000Z">
+<meta property="og:updated_time" content="2017-07-01T14:48:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Debug Ansible and Tiny Introduction of PlayBook">
 <meta name="twitter:description" content="Ansible is a popular dev-ops tools for us to execute ad-hoc commands immediately on large mounts of machines in parallel which accelerate our working speed.   It’s simple but powerful and compatible w">
@@ -474,7 +474,7 @@
 <p>We will still using the example above. Here we have defined a tag <code>pre-ansible</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- hosts: all</div><div class="line">  gather_facts: <span class="literal">true</span></div><div class="line">  sudo: yes</div><div class="line">  roles:</div><div class="line">    - pre-ansible</div><div class="line">  tags:</div><div class="line">    - pre-ansible</div></pre></td></tr></table></figure></p>
 <p>When we execute playbook with <code>--tags</code>, it will only execute this play and skip all other plays without this specific tag.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[03:44 PM morganwu@promote noj-deploy]$ ansible-playbook -i inventory.me cluster.yml --tags=pre-ansible</div></pre></td></tr></table></figure></p>
 <h3 id="Execute-Multiple-Tags">3.2.1. Execute Multiple Tags</h3><p>If you want to execute multiple tags once, just append with more tag name at the <code>--tags</code>, eg. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[03:44 PM morganwu@promote noj-deploy]$ ansible-playbook -i inventory.me cluster.yml --tags=<span class="string">"pre-ansible, etcd, docker"</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[03:44 PM morganwu@promote noj-deploy]$ ansible-playbook -i inventory.me cluster.yml --tags=<span class="string">"pre-ansible,etcd,docker"</span></div></pre></td></tr></table></figure>
 <p>This will execute the <code>pre-ansible</code>, <code>etcd</code>, <code>docker</code> tags. </p>
 <h1 id="Conclusion">4. Conclusion</h1><p>Ansible is easy but powerful with lots of pre-defined modules. </p>
 <ul>
