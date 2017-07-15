@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://morganwu277.github.io/2017/07/16/Django-Redis-Scan-Too-Long/</loc>
+    
+    <lastmod>2017-07-15T19:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://morganwu277.github.io/about/index.html</loc>
     
     <lastmod>2017-07-14T01:24:06.000Z</lastmod>
