@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://morganwu277.github.io/2017/06/30/Debug-Ansible/</loc>
+    
+    <lastmod>2017-07-16T07:14:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://morganwu277.github.io/2017/07/17/%E5%B7%A5%E4%BD%9C%E3%81%AE%E6%80%9D%E8%80%83/</loc>
     
     <lastmod>2017-07-16T07:09:57.000Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://morganwu277.github.io/about/index.html</loc>
     
     <lastmod>2017-07-14T01:24:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/2017/06/30/Debug-Ansible/</loc>
-    
-    <lastmod>2017-07-03T09:05:00.000Z</lastmod>
     
   </url>
   
