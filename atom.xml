@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://morganwu277.github.io/"/>
-  <updated>2017-07-17T14:47:52.000Z</updated>
+  <updated>2017-07-30T16:15:14.000Z</updated>
   <id>https://morganwu277.github.io/</id>
   
   <author>
@@ -16,17 +16,45 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>工作の思考</title>
-    <link href="https://morganwu277.github.io/2017/07/17/%E5%B7%A5%E4%BD%9C%E3%81%AE%E6%80%9D%E8%80%83/"/>
-    <id>https://morganwu277.github.io/2017/07/17/工作の思考/</id>
-    <published>2017-07-16T18:52:18.000Z</published>
-    <updated>2017-07-17T14:47:52.000Z</updated>
+    <title>FrontEnd Package/Module Managers Intro</title>
+    <link href="https://morganwu277.github.io/2017/07/26/FrontEnd-Package-Module-Managers-Intro/"/>
+    <id>https://morganwu277.github.io/2017/07/26/FrontEnd-Package-Module-Managers-Intro/</id>
+    <published>2017-07-26T15:38:14.000Z</published>
+    <updated>2017-07-30T16:15:14.000Z</updated>
     
-    <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" Welcome to my blog, enter password to read. "> <label for="pass"> Welcome to my blog, enter password to read. </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+    <content type="html"><![CDATA[<p>After NodeJS is created, more than 200,000 node package/modules have been developed and it’s too hard to manage such large dependencies. This is why <code>bower</code> / <code>npm</code> / <code>yarn</code> / <code>grunt</code> / <code>gulp</code> / <code>webpack</code>, etc. emerges at an unstoppable trend. </p>
+<p>However, when you step into front-end world today, are you got lost in these words? At least I was lost for a while and even complained being frustrated: I just want to build a simple stupid single web page and display my several photos, why I need too many tools?!!! I was like: </p>
+<center></center>
+
+<p>In this post, I’m gonna talk about those front-end package/module managers which may make you got lost in the undergoing front-end coding world.</p>
+<a id="more"></a>
+<h1 id="Module-Specification">1. Module Specification</h1>]]></content>
     
     <summary type="html">
     
-      Welcome to my blog, enter password to read.
+      &lt;p&gt;After NodeJS is created, more than 200,000 node package/modules have been developed and it’s too hard to manage such large dependencies. This is why &lt;code&gt;bower&lt;/code&gt; / &lt;code&gt;npm&lt;/code&gt; / &lt;code&gt;yarn&lt;/code&gt; / &lt;code&gt;grunt&lt;/code&gt; / &lt;code&gt;gulp&lt;/code&gt; / &lt;code&gt;webpack&lt;/code&gt;, etc. emerges at an unstoppable trend. &lt;/p&gt;
+&lt;p&gt;However, when you step into front-end world today, are you got lost in these words? At least I was lost for a while and even complained being frustrated: I just want to build a simple stupid single web page and display my several photos, why I need too many tools?!!! I was like: &lt;/p&gt;
+&lt;center&gt;&lt;/center&gt;
+
+&lt;p&gt;In this post, I’m gonna talk about those front-end package/module managers which may make you got lost in the undergoing front-end coding world.&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>工作の思考</title>
+    <link href="https://morganwu277.github.io/2017/07/16/%E5%B7%A5%E4%BD%9C%E3%81%AE%E6%80%9D%E8%80%83/"/>
+    <id>https://morganwu277.github.io/2017/07/16/工作の思考/</id>
+    <published>2017-07-16T18:52:18.000Z</published>
+    <updated>2017-07-28T17:56:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" No pain, no gain. "> <label for="pass"> No pain, no gain. </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+    
+    <summary type="html">
+    
+      No pain, no gain.
     
     </summary>
     
@@ -136,8 +164,8 @@
   
   <entry>
     <title>Debug Ansible and Tiny Introduction of PlayBook</title>
-    <link href="https://morganwu277.github.io/2017/06/30/Debug-Ansible/"/>
-    <id>https://morganwu277.github.io/2017/06/30/Debug-Ansible/</id>
+    <link href="https://morganwu277.github.io/2017/06/29/Debug-Ansible/"/>
+    <id>https://morganwu277.github.io/2017/06/29/Debug-Ansible/</id>
     <published>2017-06-29T18:18:34.000Z</published>
     <updated>2017-07-16T07:14:47.000Z</updated>
     
@@ -213,8 +241,8 @@
   
   <entry>
     <title>Leetcode Exercises</title>
-    <link href="https://morganwu277.github.io/2017/06/14/Leetcode-Exercise/"/>
-    <id>https://morganwu277.github.io/2017/06/14/Leetcode-Exercise/</id>
+    <link href="https://morganwu277.github.io/2017/06/13/Leetcode-Exercise/"/>
+    <id>https://morganwu277.github.io/2017/06/13/Leetcode-Exercise/</id>
     <published>2017-06-13T21:09:45.000Z</published>
     <updated>2017-06-13T22:50:27.000Z</updated>
     
@@ -250,8 +278,8 @@
   
   <entry>
     <title>Simple Swift Intro</title>
-    <link href="https://morganwu277.github.io/2017/06/13/Simple-Swift-Intro/"/>
-    <id>https://morganwu277.github.io/2017/06/13/Simple-Swift-Intro/</id>
+    <link href="https://morganwu277.github.io/2017/06/12/Simple-Swift-Intro/"/>
+    <id>https://morganwu277.github.io/2017/06/12/Simple-Swift-Intro/</id>
     <published>2017-06-13T03:24:27.000Z</published>
     <updated>2017-06-13T03:24:27.000Z</updated>
     
@@ -264,8 +292,8 @@
   
   <entry>
     <title>Emoji File Name under MacOSX</title>
-    <link href="https://morganwu277.github.io/2017/06/10/Emoji-File-Name-under-MacOSX/"/>
-    <id>https://morganwu277.github.io/2017/06/10/Emoji-File-Name-under-MacOSX/</id>
+    <link href="https://morganwu277.github.io/2017/06/09/Emoji-File-Name-under-MacOSX/"/>
+    <id>https://morganwu277.github.io/2017/06/09/Emoji-File-Name-under-MacOSX/</id>
     <published>2017-06-09T22:58:31.000Z</published>
     <updated>2017-06-09T23:30:45.000Z</updated>
     
@@ -306,8 +334,8 @@
   
   <entry>
     <title>Transfer 15TB of Tiny Files</title>
-    <link href="https://morganwu277.github.io/2017/06/06/Transfer-15TB-of-Tiny-Files/"/>
-    <id>https://morganwu277.github.io/2017/06/06/Transfer-15TB-of-Tiny-Files/</id>
+    <link href="https://morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/"/>
+    <id>https://morganwu277.github.io/2017/06/05/Transfer-15TB-of-Tiny-Files/</id>
     <published>2017-06-05T23:15:46.000Z</published>
     <updated>2017-06-08T01:30:32.000Z</updated>
     
@@ -321,7 +349,7 @@
 <a id="more"></a>
 <p><img src="https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/stuck_out_tongue_winking_eye.png" alt="">Relax time, here is the Windows start animation.</p>
 <div class="video-container"><iframe src="//www.youtube.com/embed/nCobAnhWr-c" frameborder="0" allowfullscreen></iframe></div>
-<h1 id="So-How">1. So, How?</h1><h2 id="The-Rsync-method">1.1. The Rsync method</h2><p>My scenario was transferring files from Windows XP to a Linux Server. About how to setup <code>Cygwin in Windows XP/2003</code>, please review <a href="/2017/06/05/Setup-Cygwin-in-Windows-XP-2003/" title="Setup Cygwin in Windows XP/2003">Setup Cygwin in Windows XP/2003</a></p>
+<h1 id="So-How">1. So, How?</h1><h2 id="The-Rsync-method">1.1. The Rsync method</h2><p>My scenario was transferring files from Windows XP to a Linux Server. About how to setup <code>Cygwin in Windows XP/2003</code>, please review <a href="/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/" title="Setup Cygwin in Windows XP/2003">Setup Cygwin in Windows XP/2003</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ rsync -a -z -vvv -S -e <span class="string">'ssh -o "ServerAliveInterval 7200"'</span> \ </div><div class="line">	/path/of/source_dir root@destination_server:/path/of/destination_dir</div></pre></td></tr></table></figure>
 <p>This will transfer <code>/path/of/source_dir</code> to <code>/path/of/destination_dir</code> by using SSH tunnel and keep alive for 2 hours, using <a href="https://rsync.samba.org/tech_report/" target="_blank" rel="external">Rsync algorithm</a>.</p>
 <h2 id="Compress-amp-Package-amp-Transfer">1.2. Compress &amp; Package &amp; Transfer</h2><p>As above, we mentioned that we would like to compress these files and then transfer. Here is how we implement it by using <code>tar</code> and <code>pigz</code>(parallel gzip) command which wins over the rsync method.</p>
@@ -381,8 +409,8 @@
   
   <entry>
     <title>Setup Cygwin in Windows XP/2003</title>
-    <link href="https://morganwu277.github.io/2017/06/05/Setup-Cygwin-in-Windows-XP-2003/"/>
-    <id>https://morganwu277.github.io/2017/06/05/Setup-Cygwin-in-Windows-XP-2003/</id>
+    <link href="https://morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/"/>
+    <id>https://morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/</id>
     <published>2017-06-05T03:07:00.000Z</published>
     <updated>2017-06-08T01:19:37.000Z</updated>
     
@@ -429,8 +457,8 @@
   
   <entry>
     <title>Useful Links</title>
-    <link href="https://morganwu277.github.io/2017/06/04/Useful-Links/"/>
-    <id>https://morganwu277.github.io/2017/06/04/Useful-Links/</id>
+    <link href="https://morganwu277.github.io/2017/06/03/Useful-Links/"/>
+    <id>https://morganwu277.github.io/2017/06/03/Useful-Links/</id>
     <published>2017-06-03T19:14:37.000Z</published>
     <updated>2017-06-10T17:28:18.000Z</updated>
     
@@ -460,8 +488,8 @@
   
   <entry>
     <title>Straight Through and Crossover Cable</title>
-    <link href="https://morganwu277.github.io/2017/05/28/Straight-Through-and-Crossover-Cable/"/>
-    <id>https://morganwu277.github.io/2017/05/28/Straight-Through-and-Crossover-Cable/</id>
+    <link href="https://morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/"/>
+    <id>https://morganwu277.github.io/2017/05/27/Straight-Through-and-Crossover-Cable/</id>
     <published>2017-05-27T19:14:12.000Z</published>
     <updated>2017-06-08T01:09:59.000Z</updated>
     
@@ -553,8 +581,8 @@
   
   <entry>
     <title>SSH Tricks</title>
-    <link href="https://morganwu277.github.io/2017/05/19/SSH-Tricks/"/>
-    <id>https://morganwu277.github.io/2017/05/19/SSH-Tricks/</id>
+    <link href="https://morganwu277.github.io/2017/05/18/SSH-Tricks/"/>
+    <id>https://morganwu277.github.io/2017/05/18/SSH-Tricks/</id>
     <published>2017-05-18T19:13:39.000Z</published>
     <updated>2017-06-08T01:11:36.000Z</updated>
     
@@ -672,8 +700,8 @@
   
   <entry>
     <title>Read List</title>
-    <link href="https://morganwu277.github.io/2017/05/17/Read-List/"/>
-    <id>https://morganwu277.github.io/2017/05/17/Read-List/</id>
+    <link href="https://morganwu277.github.io/2017/05/16/Read-List/"/>
+    <id>https://morganwu277.github.io/2017/05/16/Read-List/</id>
     <published>2017-05-16T18:14:54.000Z</published>
     <updated>2017-06-08T01:19:08.000Z</updated>
     
@@ -768,8 +796,8 @@
   
   <entry>
     <title>Kafka: a Distributed Messaging System for Log Processing - LinkedIn 2011</title>
-    <link href="https://morganwu277.github.io/2017/05/15/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/"/>
-    <id>https://morganwu277.github.io/2017/05/15/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/</id>
+    <link href="https://morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/"/>
+    <id>https://morganwu277.github.io/2017/05/14/Kafka-a-Distributed-Messaging-System-for-Log-Processing-LinkedIn-2011/</id>
     <published>2017-05-14T16:07:06.000Z</published>
     <updated>2017-06-07T23:49:26.000Z</updated>
     
@@ -812,8 +840,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://morganwu277.github.io/2017/04/30/hello-world/"/>
-    <id>https://morganwu277.github.io/2017/04/30/hello-world/</id>
+    <link href="https://morganwu277.github.io/2017/04/29/hello-world/"/>
+    <id>https://morganwu277.github.io/2017/04/29/hello-world/</id>
     <published>2017-04-30T03:07:00.000Z</published>
     <updated>2017-06-07T20:15:42.000Z</updated>
     
