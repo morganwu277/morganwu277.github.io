@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://morganwu277.github.io/about/index.html</loc>
+    
+    <lastmod>2017-10-31T16:38:09.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://morganwu277.github.io/2017/10/19/My-Fluentd-conf/</loc>
     
     <lastmod>2017-10-29T04:14:48.000Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>https://morganwu277.github.io/2017/06/29/Debug-Ansible/</loc>
     
     <lastmod>2017-10-13T21:32:26.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/about/index.html</loc>
-    
-    <lastmod>2017-08-18T03:15:17.000Z</lastmod>
     
   </url>
   
