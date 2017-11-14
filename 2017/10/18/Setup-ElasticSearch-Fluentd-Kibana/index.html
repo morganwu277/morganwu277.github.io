@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="Alice &amp;&amp; Bob">
 <meta property="og:description" content="Just a post about what we need to setup the ElasticSearch/Fluentd/Kibana. For detailed and how do they work, please reference the official site. Here is my final Kibana screenshot:   Beautiful, isn’t">
 <meta property="og:image" content="https://morganwu277.github.io/2017/10/18/Setup-ElasticSearch-Fluentd-Kibana/Kibana.png">
-<meta property="og:updated_time" content="2017-11-14T17:54:55.000Z">
+<meta property="og:updated_time" content="2017-11-14T19:53:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Setup ElasticSearch, Fluentd, Kibana in Kubernetes">
 <meta name="twitter:description" content="Just a post about what we need to setup the ElasticSearch/Fluentd/Kibana. For detailed and how do they work, please reference the official site. Here is my final Kibana screenshot:   Beautiful, isn’t">
@@ -465,7 +465,7 @@
 <p>Please make sure you install the latest version, which is <code>v0.12.40</code>. </p>
 <p>If you can’t get version of <code>v0.12.40</code> after your installation, please use <code>embeded gem</code> to install. Follow this <a href="https://docs.fluentd.org/v0.12/articles/install-by-gem" target="_blank" rel="external">post</a>. </p>
 <p>Here is what I do have locally:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">morganwu@localhost:~$ /opt/td-agent/embedded/bin/gem list fluentd</div><div class="line"></div><div class="line">*** LOCAL GEMS ***</div><div class="line"></div><div class="line">fluentd (0.12.40)</div><div class="line">fluentd-ui (0.4.4)</div></pre></td></tr></table></figure></p>
-<h2 id="Install-Fluentd-ElasticSearch-Plugin">3.2. Install Fluentd ElasticSearch Plugin</h2><p>Use the embedded gem to install <a href="https://github.com/uken/fluent-plugin-elasticsearch" target="_blank" rel="external"><code>fluent-plugin-elasticsearch</code></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/opt/td-agent/embedded/bin/gem install fluent-plugin-elasticsearch</div></pre></td></tr></table></figure></p>
+<h2 id="Install-Fluentd-ElasticSearch-Plugin">3.2. Install Fluentd ElasticSearch Plugin</h2><p>Use the embedded gem to install <a href="https://github.com/uken/fluent-plugin-elasticsearch" target="_blank" rel="external"><code>fluent-plugin-elasticsearch</code></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install build-essential</div><div class="line">/opt/td-agent/embedded/bin/gem install fluent-plugin-elasticsearch</div></pre></td></tr></table></figure></p>
 <h2 id="Workout-the-fluentd-conf-little-by-little">3.3. Workout the fluentd.conf little by little</h2><ol>
 <li>Use <a href="http://rubular.com/" target="_blank" rel="external">a Ruby regular expression editor</a> for testing the reqular expression. </li>
 <li>Use <a href="http://www.foragoodstrftime.com/" target="_blank" rel="external">For a Good Strftime</a> to test the time format. </li>
