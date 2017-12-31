@@ -104,7 +104,7 @@
 <meta property="og:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
 <meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/mysql-pmm.png">
 <meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/pmm-init.png">
-<meta property="og:updated_time" content="2017-12-31T05:49:45.000Z">
+<meta property="og:updated_time" content="2017-12-31T05:54:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Install Percona Monitoring and Management System">
 <meta name="twitter:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
@@ -483,7 +483,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install pmm-client</div></pre></td></tr></table></figure>
 </li>
 <li><p>Configure Client </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pmm-admin config --server 192.168.100.1</div><div class="line">OK, PMM server is alive.</div><div class="line"></div><div class="line">PMM Server      | 192.168.100.1</div><div class="line">Client Name     | ubuntu-amd641</div><div class="line">Client Address  | 192.168.200.1</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pmm-admin config --server 192.168.100.1:8081 <span class="comment"># here the port is your server port in PMM server, please notice the firewall rules</span></div><div class="line">OK, PMM server is alive.</div><div class="line"></div><div class="line">PMM Server      | 192.168.100.1</div><div class="line">Client Name     | ubuntu-amd641</div><div class="line">Client Address  | 192.168.200.1</div></pre></td></tr></table></figure>
 </li>
 <li><p>Add MySQL Instance to Monitor<br>Add the mysql instance by using <code>pmm-admin</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">pmm-admin add mysql --user root --password xxxxxxx</div><div class="line">pmm-admin list</div><div class="line">pmm-admin 1.5.3</div><div class="line"></div><div class="line">PMM Server      | ***.***.***.***:8081 </div><div class="line">Client Name     | ***.***.***.***</div><div class="line">Client Address  | ***.***.***.***</div><div class="line">Service Manager | linux-systemd</div><div class="line"></div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">SERVICE TYPE   NAME                          LOCAL PORT  RUNNING  DATA SOURCE                                 OPTIONS                                   </div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">mysql:queries  ***.***.***.***  -           YES      root:***@unix(/var/run/mysqld/mysqld.sock)  query_source=slowlog, query_examples=<span class="literal">true</span> </div><div class="line">linux:metrics  ***.***.***.***  42000       YES      -                                                                                     </div><div class="line">mysql:metrics  ***.***.***.***  42002       YES      root:***@unix(/var/run/mysqld/mysqld.sock)</div></pre></td></tr></table></figure>
@@ -692,7 +692,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -703,7 +703,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
