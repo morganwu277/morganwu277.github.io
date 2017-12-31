@@ -1,0 +1,1266 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MySQL,Percona,Monitoring," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Alice && Bob" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
+<meta name="keywords" content="MySQL,Percona,Monitoring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install Percona Monitoring and Management System">
+<meta property="og:url" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/index.html">
+<meta property="og:site_name" content="Alice &amp;&amp; Bob">
+<meta property="og:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
+<meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/mysql-pmm.png">
+<meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/pmm-init.png">
+<meta property="og:updated_time" content="2017-12-31T05:49:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Install Percona Monitoring and Management System">
+<meta name="twitter:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
+<meta name="twitter:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/mysql-pmm.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/"/>
+
+
+
+
+
+  <title>Install Percona Monitoring and Management System | Alice && Bob</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-99580993-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alice && Bob</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Alice && Bob</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morgan Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alice && Bob">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Install Percona Monitoring and Management System</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T14:03:06-05:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools-Skill/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools & Skill</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools-Skill/Monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">Monitor</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools-Skill/Monitor/Percona/" itemprop="url" rel="index">
+                    <span itemprop="name">Percona</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/26/Install-Percona-Monitoring-and-Management-System/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/26/Install-Percona-Monitoring-and-Management-System/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Recently I was exhausted about the <a href="https://bugs.mysql.com/bug.php?id=81899" target="_blank" rel="external">Page Cleaner in MySQL</a> issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple <code>show innodb engine status</code> and <code>show global variables/status</code>, etc.</p>
+<p>But the reality showed me as a fool of wasting time on just viewing numbers flipping. I learned one thing from this: never try to hack it before you really fully master it, which is only <code>WAST OF TIME</code>. Time really matters.</p>
+<p>This is a quick notes for you to quickly install PMM and start monitoring your MySQL.</p>
+<p>As usual, picture always show first!</p>
+<center><img src="/2017/12/26/Install-Percona-Monitoring-and-Management-System/mysql-pmm.png" alt="Percona Monitoring and Management System" title="Percona Monitoring and Management System"></center>
+
+<p>Beautiful, uh? <span class="github-emoji" title="grinning" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f600.png?v7">&#x1f600;</span></p>
+<a id="more"></a>
+<h1 id="Architecture-Diagram">1. Architecture Diagram</h1><h1 id="Install-PMM-Server">2. Install PMM Server</h1><p>Server could install to any server, to be able to aggregate metrics and show web page with diagrams.</p>
+<h2 id="Install-using-Docker">2.1. Install using Docker</h2><p>Before this you need a docker environment and add current user as docker group.<br>Please refer to: <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04" target="_blank" rel="external">How To Install and Use Docker on Ubuntu 16.04</a><br>After you install Docker in Ubuntu, please add <code>--iptables=false</code> to <code>ExecStart=/usr/bin/dockerd -H fd://</code> in file <code>/etc/systemd/system/multi-user.target.wants/docker.service</code>, or you can’t use UFW to control iptable rules as you would like <span class="github-emoji" title="disappointed_relieved" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f625.png?v7">&#x1f625;</span>. For more info, please review:<br><a href="https://github.com/moby/moby/issues/4737#issuecomment-232362106" target="_blank" rel="external">https://github.com/moby/moby/issues/4737#issuecomment-232362106</a></p>
+<p>For other ways to install PMM server, eg. AWS, please refer to: <a href="https://www.percona.com/doc/percona-monitoring-and-management/deploy/index.html#installing-pmm-server" target="_blank" rel="external">Installing PMM Server</a></p>
+<p>Let start! </p>
+<ol>
+<li><p>Pull the image of <code>pmm-server</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull percona/pmm-server:latest</div></pre></td></tr></table></figure>
+</li>
+<li><p>Create <code>pmm-data</code> container for persistent PMM data</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker create \</div><div class="line">   -v /opt/prometheus/data \</div><div class="line">   -v /opt/consul-data \</div><div class="line">   -v /var/lib/mysql \</div><div class="line">   -v /var/lib/grafana \</div><div class="line">   --name pmm-data \</div><div class="line">   percona/pmm-server:latest /bin/<span class="literal">true</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>Launch PMM Server</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">   -p 8081:80 \ </div><div class="line">   --volumes-from pmm-data \</div><div class="line">   --name pmm-server \</div><div class="line">   --restart always \</div><div class="line">   percona/pmm-server:latest</div></pre></td></tr></table></figure>
+<p>the above <code>-p 8081:80</code> maps local 8081 port to container 80 port. </p>
+</li>
+</ol>
+<p>After above steps, you open your <code>${IP}:8081</code>, you should be able to see start page of <code>Percona Monitoring and Management</code>. </p>
+<center><img src="/2017/12/26/Install-Percona-Monitoring-and-Management-System/pmm-init.png" alt="Percona Monitoring and Management Initial Page" title="Percona Monitoring and Management Initial Page"></center>
+
+<p>For more, please refer to:<br><a href="https://www.percona.com/doc/percona-monitoring-and-management/deploy/server/docker.setting-up.html#additional-parameters" target="_blank" rel="external">https://www.percona.com/doc/percona-monitoring-and-management/deploy/server/docker.setting-up.html#additional-parameters</a></p>
+<h1 id="Install-PMM-Client">3. Install PMM Client</h1><p>Client has to be install into the MySQL Server instance host. </p>
+<h2 id="Ubuntu">3.1. Ubuntu</h2><ol>
+<li><p>Configure Repo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb</div><div class="line">sudo dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-cache search percona</div></pre></td></tr></table></figure>
+<p>You should be able to see next output: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">percona-xtrabackup-dbg - Debug symbols <span class="keyword">for</span> Percona XtraBackup</div><div class="line">percona-xtrabackup-test - Test suite <span class="keyword">for</span> Percona XtraBackup</div><div class="line">percona-xtradb-cluster-client - Percona XtraDB Cluster database client</div><div class="line">...</div></pre></td></tr></table></figure>
+</li>
+<li><p>Install Client </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install pmm-client</div></pre></td></tr></table></figure>
+</li>
+<li><p>Configure Client </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pmm-admin config --server 192.168.100.1</div><div class="line">OK, PMM server is alive.</div><div class="line"></div><div class="line">PMM Server      | 192.168.100.1</div><div class="line">Client Name     | ubuntu-amd641</div><div class="line">Client Address  | 192.168.200.1</div></pre></td></tr></table></figure>
+</li>
+<li><p>Add MySQL Instance to Monitor<br>Add the mysql instance by using <code>pmm-admin</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">pmm-admin add mysql --user root --password xxxxxxx</div><div class="line">pmm-admin list</div><div class="line">pmm-admin 1.5.3</div><div class="line"></div><div class="line">PMM Server      | ***.***.***.***:8081 </div><div class="line">Client Name     | ***.***.***.***</div><div class="line">Client Address  | ***.***.***.***</div><div class="line">Service Manager | linux-systemd</div><div class="line"></div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">SERVICE TYPE   NAME                          LOCAL PORT  RUNNING  DATA SOURCE                                 OPTIONS                                   </div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">mysql:queries  ***.***.***.***  -           YES      root:***@unix(/var/run/mysqld/mysqld.sock)  query_source=slowlog, query_examples=<span class="literal">true</span> </div><div class="line">linux:metrics  ***.***.***.***  42000       YES      -                                                                                     </div><div class="line">mysql:metrics  ***.***.***.***  42002       YES      root:***@unix(/var/run/mysqld/mysqld.sock)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>For more commands for <code>pmm-admin</code>, please review:<br><a href="https://www.percona.com/doc/percona-monitoring-and-management/pmm-admin.html#managing-pmm-client" target="_blank" rel="external">https://www.percona.com/doc/percona-monitoring-and-management/pmm-admin.html#managing-pmm-client</a> </p>
+<h1 id="Ports-and-Set-Firewall-Rules">4. Ports and Set Firewall Rules</h1><p>Next ports has to be opened on PMM Client host to PMM Server IP. </p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>42000</td>
+<td>For PMM to collect <code>general system</code> metrics</td>
+</tr>
+<tr>
+<td>42001</td>
+<td>This port is used by a service which collects query performance data and makes it available to QAN</td>
+</tr>
+<tr>
+<td>42002</td>
+<td>For PMM to collect <code>MySQL server</code> metrics</td>
+</tr>
+<tr>
+<td>42003</td>
+<td>For PMM to collect MongoDB server metrics</td>
+</tr>
+<tr>
+<td>42004</td>
+<td>For PMM to collect ProxySQL server metrics</td>
+</tr>
+</tbody>
+</table>
+<p>These lines need to be executed in PMM client host, and <code>***.***.***.***</code> is PMM server host, to <code>only</code> enable fetching metrics by PMM Server.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42000</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42001</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42002</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42003</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42004</div></pre></td></tr></table></figure></p>
+<p>This line needs to be executed in PMM Server host, and <code>***.***.***.***</code> is the PMM client host, to <code>only</code> enable client to access PMM Server 8081 port.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 8081</div><div class="line">ufw reject proto tcp to any port 8081</div></pre></td></tr></table></figure></p>
+<p>For more info, please refer to:<br><a href="https://www.percona.com/doc/percona-monitoring-and-management/glossary.terminology.html#term-ports" target="_blank" rel="external">https://www.percona.com/doc/percona-monitoring-and-management/glossary.terminology.html#term-ports</a></p>
+<h1 id="Nginx-Forward-Port-and-Setup-HTTP-Auth">5. Nginx Forward Port and Setup HTTP Auth</h1><p>Actually we still need the HTTPS setup, but that’s beyond our topic here. </p>
+<ol>
+<li><p>Setup Nginx by using <code>apt-get install nginx</code> and then setup next site-conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">        listen 80 ;</div><div class="line">        listen [::]:80 ;</div><div class="line">        server_name ***.***.domain_name;</div><div class="line">        <span class="built_in">return</span> 301 https://***.***.domain_name<span class="variable">$request_uri</span>;</div><div class="line">&#125;</div><div class="line">server &#123;</div><div class="line">        listen 443 ssl;</div><div class="line">        listen [::]:443 ssl;</div><div class="line">        server_name ***.***.domain_name;</div><div class="line">        ssl_certificate /etc/nginx/ssl/self-domain.crt;</div><div class="line">        ssl_certificate_key /etc/nginx/ssl/self-domain.key;</div><div class="line"></div><div class="line">        access_log            /var/<span class="built_in">log</span>/nginx/pmm.access.log;</div><div class="line">        error_log            /var/<span class="built_in">log</span>/nginx/pmm.error.log;</div><div class="line"></div><div class="line">        auth_basic <span class="string">"Restricted Content"</span>;</div><div class="line">        auth_basic_user_file /etc/nginx/.htpasswd;</div><div class="line"></div><div class="line">        location / &#123;</div><div class="line">                include /etc/nginx/proxy_params;</div><div class="line">                proxy_set_header       Authorization <span class="string">""</span>;</div><div class="line">                proxy_pass          http://localhost:8081;</div><div class="line">                proxy_read_timeout  90s;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Setup http auth </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> -n <span class="string">'user1:'</span> &gt;&gt; /etc/nginx/.htpasswd</div><div class="line"><span class="comment"># input password for `user1` twice here, as `pass1`</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"pass1\npass1\n"</span> | openssl passwd -apr1 -stdin &gt;&gt; /etc/nginx/.htpasswd</div></pre></td></tr></table></figure>
+</li>
+<li><p>Reload Nginx </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nginx -t </div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Highlights-and-Conclusion">6. Highlights and Conclusion</h1><ol>
+<li><code>PMM</code> is powerful to monitor MySQL</li>
+<li>Use <code>--iptables=false</code> if you install Docker into Ubuntu OS, which again, proves, CentOS is designed for Server.</li>
+<li>We can use <code>openssl</code> to setup http password file</li>
+<li>Use <code>proxy_set_header       Authorization &quot;&quot;;</code> to remove the http auth header</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/Percona/" rel="tag"># Percona</a>
+          
+            <a href="/tags/Monitoring/" rel="tag"># Monitoring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/18/Install-Ganglia-Start/" rel="next" title="Install Ganglia - Start">
+                <i class="fa fa-chevron-left"></i> Install Ganglia - Start
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59378a9a24c914f0" async = "async" ></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Morgan Wu" />
+          <p class="site-author-name" itemprop="name">Morgan Wu</p>
+           
+              <p class="site-description motion-element" itemprop="description">此中有真意，欲辨已忘言。<br/> Just let it be. If it's meant to be, it will happen.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Architecture-Diagram"><span class="nav-text">1. Architecture Diagram</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-PMM-Server"><span class="nav-text">2. Install PMM Server</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-using-Docker"><span class="nav-text">2.1. Install using Docker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-PMM-Client"><span class="nav-text">3. Install PMM Client</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu"><span class="nav-text">3.1. Ubuntu</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ports-and-Set-Firewall-Rules"><span class="nav-text">4. Ports and Set Firewall Rules</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx-Forward-Port-and-Setup-HTTP-Auth"><span class="nav-text">5. Nginx Forward Port and Setup HTTP Auth</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Highlights-and-Conclusion"><span class="nav-text">6. Highlights and Conclusion</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Morgan Wu</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://morganwu277-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/';
+          this.page.identifier = '2017/12/26/Install-Percona-Monitoring-and-Management-System/';
+          this.page.title = 'Install Percona Monitoring and Management System';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://morganwu277-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

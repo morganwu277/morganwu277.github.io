@@ -322,6 +322,365 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morgan Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alice && Bob">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/26/Install-Percona-Monitoring-and-Management-System/" itemprop="url">Install Percona Monitoring and Management System</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T14:03:06-05:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools-Skill/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools & Skill</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools-Skill/Monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">Monitor</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools-Skill/Monitor/Percona/" itemprop="url" rel="index">
+                    <span itemprop="name">Percona</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/26/Install-Percona-Monitoring-and-Management-System/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/26/Install-Percona-Monitoring-and-Management-System/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Recently I was exhausted about the <a href="https://bugs.mysql.com/bug.php?id=81899" target="_blank" rel="external">Page Cleaner in MySQL</a> issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple <code>show innodb engine status</code> and <code>show global variables/status</code>, etc.</p>
+<p>But the reality showed me as a fool of wasting time on just viewing numbers flipping. I learned one thing from this: never try to hack it before you really fully master it, which is only <code>WAST OF TIME</code>. Time really matters.</p>
+<p>This is a quick notes for you to quickly install PMM and start monitoring your MySQL.</p>
+<p>As usual, picture always show first!</p>
+<center><img src="/2017/12/26/Install-Percona-Monitoring-and-Management-System/mysql-pmm.png" alt="Percona Monitoring and Management System" title="Percona Monitoring and Management System"></center>
+
+<p>Beautiful, uh? <span class="github-emoji" title="grinning" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f600.png?v7">&#x1f600;</span></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/26/Install-Percona-Monitoring-and-Management-System/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morgan Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alice && Bob">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/18/Install-Ganglia-Start/" itemprop="url">Install Ganglia - Start</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-18T16:15:43-05:00">
+                2017-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool-Skill/" itemprop="url" rel="index">
+                    <span itemprop="name">Tool & Skill</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool-Skill/Monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">Monitor</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool-Skill/Monitor/Ganglia/" itemprop="url" rel="index">
+                    <span itemprop="name">Ganglia</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/18/Install-Ganglia-Start/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/18/Install-Ganglia-Start/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>I have been used many monitoring tools for over 4 years, but there has never been a tool which is so strongly strike my heart and meet my needs in the just right way. Most of them are focusing more on the so-called extensible back-end storage, but not many of them has really meet the requirement of monitoring out of box. </p>
+<p>Of course, that could be the secret of their business money making. </p>
+<p>Anyway, most of this article follows <a href="https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/" target="_blank" rel="external">https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/</a> , just to give myself a quick notes to apply.</p>
+<p>For more will become later in seperate posts, topics like: </p>
+<ul>
+<li>how to read graphs </li>
+<li>ganglia level architecture setup to monitor over 1000 servers</li>
+<li>cached data to reduce IO on disk to promote disk performance</li>
+<li>RRD file format structure analysis</li>
+</ul>
+<p>Long no pictures, I love pictures. Here is one for you to enjoy: </p>
+<center><img src="/2017/12/18/Install-Ganglia-Start/Ganglia_my_cluster_Report.png" alt="My Cluster Overview Performance" title="My Cluster Overview Performance"></center>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/18/Install-Ganglia-Start/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://morganwu277.github.io/2017/11/24/MongoDB-MEM-Management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -444,7 +803,10 @@
 
       
         
-          <p>This post is about MongoDB memory management mechanism.<br>All it’s using is Page Cache of System.</p>
+          <p>NEVER USE MONGODB ON PRODUCTION. </p>
+<p>Here the guy also meet my problem: <a href="https://news.ycombinator.com/item?id=5704572" target="_blank" rel="external">https://news.ycombinator.com/item?id=5704572</a> </p>
+<p>This post is about MongoDB memory management mechanism.<br>All it’s using is Page Cache of System.</p>
+<p>This is a good experience report: <a href="https://speakerdeck.com/mitsuhiko/a-year-of-mongodb" target="_blank" rel="external">https://speakerdeck.com/mitsuhiko/a-year-of-mongodb</a></p>
 <p>This URL gives you more details<br><a href="https://www.mongodb.com/presentations/mongodb-memory-management-demystified" target="_blank" rel="external">https://www.mongodb.com/presentations/mongodb-memory-management-demystified</a></p>
 <p>OK, this post is just for me to check commands to use, to management MongoDB. </p>
           <!--noindex-->
@@ -3325,7 +3687,7 @@ Kafka is a Distributed Streaming platform. Kafka™ is used for building real-ti
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -3336,7 +3698,7 @@ Kafka is a Distributed Streaming platform. Kafka™ is used for building real-ti
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -3347,7 +3709,7 @@ Kafka is a Distributed Streaming platform. Kafka™ is used for building real-ti
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

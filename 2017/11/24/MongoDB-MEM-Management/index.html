@@ -95,17 +95,17 @@
 
 
 
-<meta name="description" content="This post is about MongoDB memory management mechanism.All it’s using is Page Cache of System. This URL gives you more detailshttps://www.mongodb.com/presentations/mongodb-memory-management-demystifie">
+<meta name="description" content="NEVER USE MONGODB ON PRODUCTION.  Here the guy also meet my problem: https://news.ycombinator.com/item?id=5704572  This post is about MongoDB memory management mechanism.All it’s using is Page Cache o">
 <meta name="keywords" content="MongoDB,Memory,PageCache">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MongoDB MEM Management">
 <meta property="og:url" content="https://morganwu277.github.io/2017/11/24/MongoDB-MEM-Management/index.html">
 <meta property="og:site_name" content="Alice &amp;&amp; Bob">
-<meta property="og:description" content="This post is about MongoDB memory management mechanism.All it’s using is Page Cache of System. This URL gives you more detailshttps://www.mongodb.com/presentations/mongodb-memory-management-demystifie">
-<meta property="og:updated_time" content="2017-11-25T00:21:51.000Z">
+<meta property="og:description" content="NEVER USE MONGODB ON PRODUCTION.  Here the guy also meet my problem: https://news.ycombinator.com/item?id=5704572  This post is about MongoDB memory management mechanism.All it’s using is Page Cache o">
+<meta property="og:updated_time" content="2017-12-22T17:44:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB MEM Management">
-<meta name="twitter:description" content="This post is about MongoDB memory management mechanism.All it’s using is Page Cache of System. This URL gives you more detailshttps://www.mongodb.com/presentations/mongodb-memory-management-demystifie">
+<meta name="twitter:description" content="NEVER USE MONGODB ON PRODUCTION.  Here the guy also meet my problem: https://news.ycombinator.com/item?id=5704572  This post is about MongoDB memory management mechanism.All it’s using is Page Cache o">
 
 
 
@@ -441,12 +441,16 @@
       
 
       
-        <p>This post is about MongoDB memory management mechanism.<br>All it’s using is Page Cache of System.</p>
+        <p>NEVER USE MONGODB ON PRODUCTION. </p>
+<p>Here the guy also meet my problem: <a href="https://news.ycombinator.com/item?id=5704572" target="_blank" rel="external">https://news.ycombinator.com/item?id=5704572</a> </p>
+<p>This post is about MongoDB memory management mechanism.<br>All it’s using is Page Cache of System.</p>
+<p>This is a good experience report: <a href="https://speakerdeck.com/mitsuhiko/a-year-of-mongodb" target="_blank" rel="external">https://speakerdeck.com/mitsuhiko/a-year-of-mongodb</a></p>
 <p>This URL gives you more details<br><a href="https://www.mongodb.com/presentations/mongodb-memory-management-demystified" target="_blank" rel="external">https://www.mongodb.com/presentations/mongodb-memory-management-demystified</a></p>
 <p>OK, this post is just for me to check commands to use, to management MongoDB. </p>
 <a id="more"></a>
 <h1 id="connect">1. connect</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongo 127.0.0.1:20001/<span class="variable">$&#123;DB_NAME&#125;</span> -u <span class="variable">$&#123;USER_NAME&#125;</span> -p <span class="variable">$&#123;PASSWORD&#125;</span></div></pre></td></tr></table></figure>
-<h1 id="db-stats">2. db.stats()</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; db.<span class="function"><span class="title">stats</span></span>()</div><div class="line">&#123;</div><div class="line">	<span class="string">"db"</span> : <span class="string">"xxxx"</span>, // this has been covered due to classification info </div><div class="line">	<span class="string">"collections"</span> : 4,</div><div class="line">	<span class="string">"objects"</span> : 39817003,</div><div class="line">	<span class="string">"avgObjSize"</span> : 113.20676571262784,</div><div class="line">	<span class="string">"dataSize"</span> : 4507554130,</div><div class="line">	<span class="string">"storageSize"</span> : 2112126976,</div><div class="line">	<span class="string">"numExtents"</span> : 0,</div><div class="line">	<span class="string">"indexes"</span> : 12,</div><div class="line">	<span class="string">"indexSize"</span> : 2265329664,</div><div class="line">	<span class="string">"ok"</span> : 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="db-working-set">2. db working set</h1><p>Use this to determine how much memory do you need of your working set under your current database.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&gt; &gt; db.runCommand(&#123;serverStatus: 1, workingSet: 1&#125;).tcmalloc.formattedString</div><div class="line">------------------------------------------------</div><div class="line">MALLOC:     7614540648 ( 7261.8 MiB) Bytes <span class="keyword">in</span> use by application</div><div class="line">MALLOC: +    236527616 (  225.6 MiB) Bytes <span class="keyword">in</span> page heap freelist</div><div class="line">MALLOC: +    657428112 (  627.0 MiB) Bytes <span class="keyword">in</span> central cache freelist</div><div class="line">MALLOC: +     53399376 (   50.9 MiB) Bytes <span class="keyword">in</span> transfer cache freelist</div><div class="line">MALLOC: +     17635000 (   16.8 MiB) Bytes <span class="keyword">in</span> thread cache freelists</div><div class="line">MALLOC: +     27570336 (   26.3 MiB) Bytes <span class="keyword">in</span> malloc metadata</div><div class="line">MALLOC:   ------------</div><div class="line">MALLOC: =   8607101088 ( 8208.4 MiB) Actual memory used (physical + swap)</div><div class="line">MALLOC: +    603160576 (  575.2 MiB) Bytes released to OS (aka unmapped)</div><div class="line">MALLOC:   ------------</div><div class="line">MALLOC: =   9210261664 ( 8783.6 MiB) Virtual address space used</div><div class="line">MALLOC:</div><div class="line">MALLOC:         326169              Spans <span class="keyword">in</span> use</div><div class="line">MALLOC:             56              Thread heaps <span class="keyword">in</span> use</div><div class="line">MALLOC:           8192              Tcmalloc page size</div><div class="line">------------------------------------------------</div><div class="line">Call ReleaseFreeMemory() to release freelist memory to the OS (via madvise()).</div><div class="line">Bytes released to the OS take up virtual address space but no physical memory.</div></pre></td></tr></table></figure></p>
+<h1 id="db-stats">3. db.stats()</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt; db.<span class="function"><span class="title">stats</span></span>()</div><div class="line">&#123;</div><div class="line">	<span class="string">"db"</span> : <span class="string">"xxxx"</span>, // this has been covered due to classification info </div><div class="line">	<span class="string">"collections"</span> : 4,</div><div class="line">	<span class="string">"objects"</span> : 39817003,</div><div class="line">	<span class="string">"avgObjSize"</span> : 113.20676571262784,</div><div class="line">	<span class="string">"dataSize"</span> : 4507554130,</div><div class="line">	<span class="string">"storageSize"</span> : 2112126976,</div><div class="line">	<span class="string">"numExtents"</span> : 0,</div><div class="line">	<span class="string">"indexes"</span> : 12,</div><div class="line">	<span class="string">"indexSize"</span> : 2265329664,</div><div class="line">	<span class="string">"ok"</span> : 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -502,6 +506,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/18/Install-Ganglia-Start/" rel="prev" title="Install Ganglia - Start">
+                Install Ganglia - Start <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -586,7 +594,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -597,7 +605,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -608,7 +616,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -650,7 +658,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#connect"><span class="nav-text">1. connect</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#db-stats"><span class="nav-text">2. db.stats()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#connect"><span class="nav-text">1. connect</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#db-working-set"><span class="nav-text">2. db working set</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#db-stats"><span class="nav-text">3. db.stats()</span></a></li></ol></div>
             
 
           </div>
