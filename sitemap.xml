@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://morganwu277.github.io/about/index.html</loc>
+    
+    <lastmod>2018-01-27T01:03:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/</loc>
     
-    <lastmod>2017-12-31T05:54:59.000Z</lastmod>
+    <lastmod>2018-01-20T22:52:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://morganwu277.github.io/2018/01/18/Nginx-Magics/</loc>
+    
+    <lastmod>2018-01-19T22:40:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/</loc>
+    
+    <lastmod>2018-01-03T06:46:21.000Z</lastmod>
     
   </url>
   
@@ -19,13 +40,6 @@
     <loc>https://morganwu277.github.io/2017/11/24/MongoDB-MEM-Management/</loc>
     
     <lastmod>2017-12-22T17:44:09.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/</loc>
-    
-    <lastmod>2017-12-19T01:11:08.000Z</lastmod>
     
   </url>
   
@@ -47,13 +61,6 @@
     <loc>https://morganwu277.github.io/2017/10/19/My-Fluentd-conf/</loc>
     
     <lastmod>2017-11-17T03:38:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/about/index.html</loc>
-    
-    <lastmod>2017-11-10T17:35:04.000Z</lastmod>
     
   </url>
   

@@ -104,7 +104,7 @@
 <meta property="og:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
 <meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/mysql-pmm.png">
 <meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/pmm-init.png">
-<meta property="og:updated_time" content="2017-12-31T05:54:59.000Z">
+<meta property="og:updated_time" content="2018-01-20T22:52:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Install Percona Monitoring and Management System">
 <meta name="twitter:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
@@ -464,10 +464,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker create \</div><div class="line">   -v /opt/prometheus/data \</div><div class="line">   -v /opt/consul-data \</div><div class="line">   -v /var/lib/mysql \</div><div class="line">   -v /var/lib/grafana \</div><div class="line">   --name pmm-data \</div><div class="line">   percona/pmm-server:latest /bin/<span class="literal">true</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>Launch PMM Server</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">   -p 8081:80 \ </div><div class="line">   --volumes-from pmm-data \</div><div class="line">   --name pmm-server \</div><div class="line">   --restart always \</div><div class="line">   percona/pmm-server:latest</div></pre></td></tr></table></figure>
-<p>the above <code>-p 8081:80</code> maps local 8081 port to container 80 port. </p>
 </li>
 </ol>
+<p><code>METRICS_RETENTION</code> only keeps 1 week data.<br><code>METRICS_MEMORY</code> will make sure pmm server use up to <code>393216*3/2KB</code> = 576MB. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">  -p 8081:80 \</div><div class="line">  -eMETRICS_RETENTION=168h \</div><div class="line">  -eMETRICS_MEMORY=393216 \</div><div class="line">  --volumes-from pmm-data \</div><div class="line">  --name pmm-server \</div><div class="line">  --restart always \</div><div class="line">  percona/pmm-server:latest</div></pre></td></tr></table></figure>
+<p>   the above <code>-p 8081:80</code> maps local 8081 port to container 80 port. </p>
 <p>After above steps, you open your <code>${IP}:8081</code>, you should be able to see start page of <code>Percona Monitoring and Management</code>. </p>
 <center><img src="/2017/12/26/Install-Percona-Monitoring-and-Management-System/pmm-init.png" alt="Percona Monitoring and Management Initial Page" title="Percona Monitoring and Management Initial Page"></center>
 
@@ -486,7 +487,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pmm-admin config --server 192.168.100.1:8081 <span class="comment"># here the port is your server port in PMM server, please notice the firewall rules</span></div><div class="line">OK, PMM server is alive.</div><div class="line"></div><div class="line">PMM Server      | 192.168.100.1</div><div class="line">Client Name     | ubuntu-amd641</div><div class="line">Client Address  | 192.168.200.1</div></pre></td></tr></table></figure>
 </li>
 <li><p>Add MySQL Instance to Monitor<br>Add the mysql instance by using <code>pmm-admin</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">pmm-admin add mysql --user root --password xxxxxxx</div><div class="line">pmm-admin list</div><div class="line">pmm-admin 1.5.3</div><div class="line"></div><div class="line">PMM Server      | ***.***.***.***:8081 </div><div class="line">Client Name     | ***.***.***.***</div><div class="line">Client Address  | ***.***.***.***</div><div class="line">Service Manager | linux-systemd</div><div class="line"></div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">SERVICE TYPE   NAME                          LOCAL PORT  RUNNING  DATA SOURCE                                 OPTIONS                                   </div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">mysql:queries  ***.***.***.***  -           YES      root:***@unix(/var/run/mysqld/mysqld.sock)  query_source=slowlog, query_examples=<span class="literal">true</span> </div><div class="line">linux:metrics  ***.***.***.***  42000       YES      -                                                                                     </div><div class="line">mysql:metrics  ***.***.***.***  42002       YES      root:***@unix(/var/run/mysqld/mysqld.sock)</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">pmm-admin add mysql --user root --password xxxxxxx </div><div class="line"><span class="comment">## plaese add `--disable-tablestats` if you do have lots of tables, like &gt; 300, or tablestats monotiring will take some time.</span></div><div class="line"></div><div class="line">pmm-admin list <span class="comment"># Please note, client address must be correct NIC IP, can't be an IP which pmm-server can't reach</span></div><div class="line">pmm-admin 1.5.3</div><div class="line"></div><div class="line">PMM Server      | ***.***.***.***:8081 </div><div class="line">Client Name     | ***.***.***.***</div><div class="line">Client Address  | ***.***.***.***</div><div class="line">Service Manager | linux-systemd</div><div class="line"></div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">SERVICE TYPE   NAME                          LOCAL PORT  RUNNING  DATA SOURCE                                 OPTIONS                                   </div><div class="line">-------------- ----------------------------- ----------- -------- ------------------------------------------- ------------------------------------------</div><div class="line">mysql:queries  ***.***.***.***  -           YES      root:***@unix(/var/run/mysqld/mysqld.sock)  query_source=slowlog, query_examples=<span class="literal">true</span> </div><div class="line">linux:metrics  ***.***.***.***  42000       YES      -                                                                                     </div><div class="line">mysql:metrics  ***.***.***.***  42002       YES      root:***@unix(/var/run/mysqld/mysqld.sock)</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>For more commands for <code>pmm-admin</code>, please review:<br><a href="https://www.percona.com/doc/percona-monitoring-and-management/pmm-admin.html#managing-pmm-client" target="_blank" rel="external">https://www.percona.com/doc/percona-monitoring-and-management/pmm-admin.html#managing-pmm-client</a> </p>
@@ -524,7 +525,14 @@
 <p>These lines need to be executed in PMM client host, and <code>***.***.***.***</code> is PMM server host, to <code>only</code> enable fetching metrics by PMM Server.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42000</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42001</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42002</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42003</div><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 42004</div></pre></td></tr></table></figure></p>
 <p>This line needs to be executed in PMM Server host, and <code>***.***.***.***</code> is the PMM client host, to <code>only</code> enable client to access PMM Server 8081 port.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ufw allow proto tcp from ***.***.***.*** to any port 8081</div><div class="line">ufw reject proto tcp to any port 8081</div></pre></td></tr></table></figure></p>
 <p>For more info, please refer to:<br><a href="https://www.percona.com/doc/percona-monitoring-and-management/glossary.terminology.html#term-ports" target="_blank" rel="external">https://www.percona.com/doc/percona-monitoring-and-management/glossary.terminology.html#term-ports</a></p>
-<h1 id="Nginx-Forward-Port-and-Setup-HTTP-Auth">5. Nginx Forward Port and Setup HTTP Auth</h1><p>Actually we still need the HTTPS setup, but that’s beyond our topic here. </p>
+<h1 id="Email-Alert-Configuration">5. Email Alert Configuration</h1><p>Go into docker instance and <code>vi /etc/grafana/grafana.ini</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># The full public facing url you use in browser, used for redirects and emails</div><div class="line"># If you use reverse proxy and sub path specify full url (with sub path)</div><div class="line">root_url = https://xxx.xxx.xxx/graph/ # This is your domain name</div><div class="line"></div><div class="line">#################################### SMTP / Emailing ##########################</div><div class="line">[smtp]</div><div class="line">enabled = true</div><div class="line">host = smtp.gmail.com:465</div><div class="line">user = username # without @gmail.com</div><div class="line"># If the password contains # or ; you have to wrap it with trippel quotes. Ex &quot;&quot;&quot;#password;&quot;&quot;&quot;</div><div class="line">password = stwixlxwxnmimfsfsf @ this is your app password</div><div class="line">;cert_file =</div><div class="line">;key_file =</div><div class="line">skip_verify = false</div><div class="line">from_address = username@gmail.com</div><div class="line">from_name = Grafana</div><div class="line"># EHLO identity in SMTP dialog (defaults to instance_name)</div><div class="line">ehlo_identity = xxx.xxx.xxx # again your domain name</div></pre></td></tr></table></figure></p>
+<p>NOTE: please do next things for your gmail: </p>
+<ol>
+<li>Enable IMAP/SMTP </li>
+<li>Open 2 factor login for Google Account</li>
+<li>Config app password for gmail and place above </li>
+</ol>
+<h1 id="Nginx-Forward-Port-and-Setup-HTTP-Auth">6. Nginx Forward Port and Setup HTTP Auth</h1><p>Actually we still need the HTTPS setup, but that’s beyond our topic here. </p>
 <ol>
 <li><p>Setup Nginx by using <code>apt-get install nginx</code> and then setup next site-conf</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">        listen 80 ;</div><div class="line">        listen [::]:80 ;</div><div class="line">        server_name ***.***.domain_name;</div><div class="line">        <span class="built_in">return</span> 301 https://***.***.domain_name<span class="variable">$request_uri</span>;</div><div class="line">&#125;</div><div class="line">server &#123;</div><div class="line">        listen 443 ssl;</div><div class="line">        listen [::]:443 ssl;</div><div class="line">        server_name ***.***.domain_name;</div><div class="line">        ssl_certificate /etc/nginx/ssl/self-domain.crt;</div><div class="line">        ssl_certificate_key /etc/nginx/ssl/self-domain.key;</div><div class="line"></div><div class="line">        access_log            /var/<span class="built_in">log</span>/nginx/pmm.access.log;</div><div class="line">        error_log            /var/<span class="built_in">log</span>/nginx/pmm.error.log;</div><div class="line"></div><div class="line">        auth_basic <span class="string">"Restricted Content"</span>;</div><div class="line">        auth_basic_user_file /etc/nginx/.htpasswd;</div><div class="line"></div><div class="line">        location / &#123;</div><div class="line">                include /etc/nginx/proxy_params;</div><div class="line">                proxy_set_header       Authorization <span class="string">""</span>;</div><div class="line">                proxy_pass          http://localhost:8081;</div><div class="line">                proxy_read_timeout  90s;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -536,7 +544,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nginx -t </div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h1 id="Highlights-and-Conclusion">6. Highlights and Conclusion</h1><ol>
+<h1 id="Highlights-and-Conclusion">7. Highlights and Conclusion</h1><ol>
 <li><code>PMM</code> is powerful to monitor MySQL</li>
 <li>Use <code>--iptables=false</code> if you install Docker into Ubuntu OS, which again, proves, CentOS is designed for Server.</li>
 <li>We can use <code>openssl</code> to setup http password file</li>
@@ -597,6 +605,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/18/Nginx-Magics/" rel="prev" title="Nginx Magics">
+                Nginx Magics <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -681,7 +693,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -692,7 +704,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -703,7 +715,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -745,7 +757,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Architecture-Diagram"><span class="nav-text">1. Architecture Diagram</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-PMM-Server"><span class="nav-text">2. Install PMM Server</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-using-Docker"><span class="nav-text">2.1. Install using Docker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-PMM-Client"><span class="nav-text">3. Install PMM Client</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu"><span class="nav-text">3.1. Ubuntu</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ports-and-Set-Firewall-Rules"><span class="nav-text">4. Ports and Set Firewall Rules</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx-Forward-Port-and-Setup-HTTP-Auth"><span class="nav-text">5. Nginx Forward Port and Setup HTTP Auth</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Highlights-and-Conclusion"><span class="nav-text">6. Highlights and Conclusion</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Architecture-Diagram"><span class="nav-text">1. Architecture Diagram</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-PMM-Server"><span class="nav-text">2. Install PMM Server</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-using-Docker"><span class="nav-text">2.1. Install using Docker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-PMM-Client"><span class="nav-text">3. Install PMM Client</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu"><span class="nav-text">3.1. Ubuntu</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ports-and-Set-Firewall-Rules"><span class="nav-text">4. Ports and Set Firewall Rules</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Email-Alert-Configuration"><span class="nav-text">5. Email Alert Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx-Forward-Port-and-Setup-HTTP-Auth"><span class="nav-text">6. Nginx Forward Port and Setup HTTP Auth</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Highlights-and-Conclusion"><span class="nav-text">7. Highlights and Conclusion</span></a></li></ol></div>
             
 
           </div>
@@ -768,7 +780,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
