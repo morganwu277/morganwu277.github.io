@@ -104,7 +104,7 @@
 <meta property="og:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
 <meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/mysql-pmm.png">
 <meta property="og:image" content="https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/pmm-init.png">
-<meta property="og:updated_time" content="2018-01-20T22:52:54.000Z">
+<meta property="og:updated_time" content="2018-02-15T06:26:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Install Percona Monitoring and Management System">
 <meta name="twitter:description" content="Recently I was exhausted about the Page Cleaner in MySQL issue, and in the end I just surrendered and installed this PMM and keep on monitoring. I thought I was able to solve everything via simple sho">
@@ -454,6 +454,7 @@
 <a id="more"></a>
 <h1 id="Architecture-Diagram">1. Architecture Diagram</h1><h1 id="Install-PMM-Server">2. Install PMM Server</h1><p>Server could install to any server, to be able to aggregate metrics and show web page with diagrams.</p>
 <h2 id="Install-using-Docker">2.1. Install using Docker</h2><p>Before this you need a docker environment and add current user as docker group.<br>Please refer to: <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04" target="_blank" rel="external">How To Install and Use Docker on Ubuntu 16.04</a><br>After you install Docker in Ubuntu, please add <code>--iptables=false</code> to <code>ExecStart=/usr/bin/dockerd -H fd://</code> in file <code>/etc/systemd/system/multi-user.target.wants/docker.service</code>, or you can’t use UFW to control iptable rules as you would like <span class="github-emoji" title="disappointed_relieved" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f625.png?v7">&#x1f625;</span>. For more info, please review:<br><a href="https://github.com/moby/moby/issues/4737#issuecomment-232362106" target="_blank" rel="external">https://github.com/moby/moby/issues/4737#issuecomment-232362106</a></p>
+<p>But from my own experiment, it shows me as if I configure <code>net.ipv4.ip_forward=1</code> in <code>/etc/sysctl.conf</code>, then it means IP FORWARD will be open itself, but not by Docker, so docker( <code>&gt; 1.13.x</code> ) won’t add a <code>iptables -P FORWARD DROP</code> by default, since Docker itself will think, FORWARD is not opened by me, if it’s opened by default, then it’s mean to be open there and Docker itself won’t change that behavior. </p>
 <p>For other ways to install PMM server, eg. AWS, please refer to: <a href="https://www.percona.com/doc/percona-monitoring-and-management/deploy/index.html#installing-pmm-server" target="_blank" rel="external">Installing PMM Server</a></p>
 <p>Let start! </p>
 <ol>

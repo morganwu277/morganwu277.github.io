@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://morganwu277.github.io/2017/06/29/Debug-Ansible/</loc>
+    
+    <lastmod>2018-02-15T06:50:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/</loc>
+    
+    <lastmod>2018-02-15T06:26:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/</loc>
+    
+    <lastmod>2018-02-14T18:31:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://morganwu277.github.io/about/index.html</loc>
     
     <lastmod>2018-02-08T05:20:41.000Z</lastmod>
@@ -12,27 +33,6 @@
     <loc>https://morganwu277.github.io/2018/01/18/Nginx-Magics/</loc>
     
     <lastmod>2018-01-27T01:07:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/2017/12/26/Install-Percona-Monitoring-and-Management-System/</loc>
-    
-    <lastmod>2018-01-20T22:52:54.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/</loc>
-    
-    <lastmod>2018-01-03T06:46:21.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/2017/06/29/Debug-Ansible/</loc>
-    
-    <lastmod>2017-12-26T20:22:49.000Z</lastmod>
     
   </url>
   
