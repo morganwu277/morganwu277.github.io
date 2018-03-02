@@ -102,6 +102,7 @@
 <meta property="og:url" content="https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/index.html">
 <meta property="og:site_name" content="Alice &amp;&amp; Bob">
 <meta property="og:description" content="I have been used many monitoring tools for over 4 years, but there has never been a tool which is so strongly strike my heart and meet my needs in the just right way. Most of them are focusing more on">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/Ganglia_my_cluster_Report.png">
 <meta property="og:updated_time" content="2018-02-14T18:31:31.000Z">
 <meta name="twitter:card" content="summary">
@@ -445,7 +446,7 @@
       
         <p>I have been used many monitoring tools for over 4 years, but there has never been a tool which is so strongly strike my heart and meet my needs in the just right way. Most of them are focusing more on the so-called extensible back-end storage, but not many of them has really meet the requirement of monitoring out of box. </p>
 <p>Of course, that could be the secret of their business money making. </p>
-<p>Anyway, most of this article follows <a href="https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/" target="_blank" rel="external">https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/</a> , just to give myself a quick notes to apply.</p>
+<p>Anyway, most of this article follows <a href="https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/" target="_blank" rel="noopener">https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/</a> , just to give myself a quick notes to apply.</p>
 <p>For more will become later in seperate posts, topics like: </p>
 <ul>
 <li>how to read graphs </li>
@@ -454,7 +455,7 @@
 <li>RRD file format structure analysis</li>
 </ul>
 <p>Long no pictures, I love pictures. Here is one for you to enjoy: </p>
-<center><img src="/2017/12/18/Install-Ganglia-Start/Ganglia_my_cluster_Report.png" alt="My Cluster Overview Performance" title="My Cluster Overview Performance"></center>
+<center><img src="/2017/12/18/Install-Ganglia-Start/Ganglia_my_cluster_Report.png" title="My Cluster Overview Performance"></center>
 
 
 <a id="more"></a>
@@ -481,10 +482,10 @@
 <h1 id="Install-Ganglia-Meta-Daemon-Node">3. Install Ganglia Meta Daemon Node</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install ganglia-monitor ganglia-monitor-python gmetad ganglia-webfrontend</div></pre></td></tr></table></figure>
 <h1 id="Customized-Metrics-Monitoring">4. Customized Metrics Monitoring</h1><p>References:</p>
 <ul>
-<li><a href="https://github.com/ganglia/monitor-core/wiki/Ganglia-Quick-Start" target="_blank" rel="external">Ganglia Quick Start</a></li>
-<li><a href="https://github.com/ganglia/monitor-core/wiki/Ganglia-Quick-Start#introduction" target="_blank" rel="external">Ganglia Deaf and Mute</a></li>
-<li><a href="https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/" target="_blank" rel="external">How to Install and Configure Ganglia Monitor on Ubuntu 16.04</a> </li>
-<li><a href="https://adamo.wordpress.com/2015/05/27/gmond-occupying-100-of-the-cpu/" target="_blank" rel="external">Gmond 100% CPU usage</a>, just use <code>deaf=yes</code></li>
+<li><a href="https://github.com/ganglia/monitor-core/wiki/Ganglia-Quick-Start" target="_blank" rel="noopener">Ganglia Quick Start</a></li>
+<li><a href="https://github.com/ganglia/monitor-core/wiki/Ganglia-Quick-Start#introduction" target="_blank" rel="noopener">Ganglia Deaf and Mute</a></li>
+<li><a href="https://hostpresto.com/community/tutorials/how-to-install-and-configure-ganglia-monitor-on-ubuntu-16-04/" target="_blank" rel="noopener">How to Install and Configure Ganglia Monitor on Ubuntu 16.04</a> </li>
+<li><a href="https://adamo.wordpress.com/2015/05/27/gmond-occupying-100-of-the-cpu/" target="_blank" rel="noopener">Gmond 100% CPU usage</a>, just use <code>deaf=yes</code></li>
 </ul>
 
       
@@ -629,7 +630,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -651,7 +652,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

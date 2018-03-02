@@ -1,0 +1,1322 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Redis,OOM," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Alice && Bob" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="This is a post of Golang Summary, for me to check out long time not writing program using Golang since 3 years ago.   1. Package1.1. Basic Every Go program is made up of packages. Which means, the ba">
+<meta name="keywords" content="Redis,OOM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go Summary">
+<meta property="og:url" content="https://morganwu277.github.io/2018/03/02/Golang-Summary/index.html">
+<meta property="og:site_name" content="Alice &amp;&amp; Bob">
+<meta property="og:description" content="This is a post of Golang Summary, for me to check out long time not writing program using Golang since 3 years ago.   1. Package1.1. Basic Every Go program is made up of packages. Which means, the ba">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-03-02T05:12:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go Summary">
+<meta name="twitter:description" content="This is a post of Golang Summary, for me to check out long time not writing program using Golang since 3 years ago.   1. Package1.1. Basic Every Go program is made up of packages. Which means, the ba">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://morganwu277.github.io/2018/03/02/Golang-Summary/"/>
+
+
+
+
+
+  <title>Go Summary | Alice && Bob</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-99580993-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alice && Bob</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Alice && Bob</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://morganwu277.github.io/2018/03/02/Golang-Summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morgan Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alice && Bob">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Go Summary</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-02T00:12:46-05:00">
+                2018-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/" itemprop="url" rel="index">
+                    <span itemprop="name">Database</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/NoSQL/" itemprop="url" rel="index">
+                    <span itemprop="name">NoSQL</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/NoSQL/In-Memory/" itemprop="url" rel="index">
+                    <span itemprop="name">In-Memory</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/02/Golang-Summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/02/Golang-Summary/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>This is a post of Golang Summary, for me to check out long time not writing program using Golang since 3 years ago. </p>
+<!--more-->
+<h1 id="Package">1. Package</h1><h2 id="Basic">1.1. Basic</h2><ul>
+<li>Every Go program is made up of packages. Which means, the <code>basic organization unit</code> of Go program is <code>package</code>, not file. </li>
+<li>Programs start running in package <code>main</code>.</li>
+<li>By convention, the package name is the same as the last element(<code>sub-package</code>) of the import path.<br>For instance, the <code>math/rand</code> package comprises files that begin with the statement <code>package rand</code>. </li>
+<li><p>Import packages using <code>factored import statement</code>. (variables declaration can also use <code>factored declare</code>) </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"math"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Printf(<span class="string">"Now you have %g problems."</span>, math.Sqrt(<span class="number">7</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Not using next statements, since they should be highly in a <a href="https://en.wikipedia.org/wiki/Cohesion_%28computer_science%29" target="_blank" rel="noopener">cohesion</a>: </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"><span class="keyword">import</span> <span class="string">"math"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>By convention, a name starts with capital letter will be exported. Eg. <code>Pi</code> in <code>math</code> package.<br>This means, when using <code>other package functions/fields</code>, it always starts with <code>CapitalLetters</code>. </p>
+</li>
+</ul>
+<h1 id="Functions">2. Functions</h1><h2 id="Basic-1">2.1. Basic</h2><ul>
+<li><p>Two or more <code>consecutive</code> named function parameters share a same type, we can omit the type all but the last. <code>x int, y int</code> can be shorted to <code>x, y int</code>. Eg. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(x, y <span class="keyword">string</span>)</span> <span class="params">(<span class="keyword">string</span>, <span class="keyword">string</span>)</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> y, x</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Naked return statements</code> should be used in only short function. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">split</span><span class="params">(sum <span class="keyword">int</span>)</span> <span class="params">(x, y <span class="keyword">int</span>)</span></span> &#123;</div><div class="line">	x = sum * <span class="number">4</span> / <span class="number">9</span></div><div class="line">	y = sum - x</div><div class="line">	<span class="keyword">return</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Variables">3. Variables</h1><h2 id="Basic-2">3.1. Basic</h2><ul>
+<li><p><code>var</code> statement can be a package/function level</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> i, j <span class="keyword">int</span> = <span class="number">1</span>, <span class="number">2</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">var</span> c, python, java = <span class="literal">true</span>, <span class="literal">false</span>, <span class="string">"no!"</span> <span class="comment">// variables type can be taken from the initializer  </span></div><div class="line">	fmt.Println(i, j, c, python, java)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Short Variable</code> can only be used inside a function using <code>:=</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">package main</div><div class="line"></div><div class="line">import &quot;fmt&quot;</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">	var i, j int = 1, 2</div><div class="line">	k := 3              // short variable </div><div class="line">	c, python, java := true, false, &quot;no!&quot; // short variable </div><div class="line"></div><div class="line">	fmt.Println(i, j, k, c, python, java)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Types">4. Types</h1><h2 id="Basic-3">4.1. Basic</h2><ul>
+<li><p>Go Basic Types</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">bool</span></div><div class="line"></div><div class="line"><span class="keyword">string</span></div><div class="line"></div><div class="line"><span class="keyword">int</span>  <span class="keyword">int8</span>  <span class="keyword">int16</span>  <span class="keyword">int32</span>  <span class="keyword">int64</span></div><div class="line"><span class="keyword">uint</span> <span class="keyword">uint8</span> <span class="keyword">uint16</span> <span class="keyword">uint32</span> <span class="keyword">uint64</span> <span class="keyword">uintptr</span></div><div class="line"></div><div class="line"><span class="keyword">byte</span> <span class="comment">// alias for uint8</span></div><div class="line"></div><div class="line"><span class="keyword">rune</span> <span class="comment">// alias for int32</span></div><div class="line">     <span class="comment">// represents a Unicode code point</span></div><div class="line"></div><div class="line"><span class="keyword">float32</span> <span class="keyword">float64</span></div><div class="line"></div><div class="line"><span class="keyword">complex64</span> <span class="keyword">complex128</span></div></pre></td></tr></table></figure>
+<p>The <code>int</code>, <code>uint</code>, and <code>uintptr</code> types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems. Normally we use <code>int</code> unless you have a specific reason to use a sized or unsigned integer type. </p>
+</li>
+<li><code>Zero Values</code>: Variables will be assigned to Zero Values if no explicit initial value. Eg. <code>0</code> for numeric types, <code>false</code> for boolean type,  <code>&quot;&quot;</code> for strings. </li>
+<li><code>T(v)</code> will convert value V to type T. <code>Explicit Type Conversion is required in Go</code>. </li>
+</ul>
+<h1 id="Constants">5. Constants</h1><h2 id="Basic-4">5.1. Basic</h2><ul>
+<li><code>const</code> is used before <code>Constants</code> declaration. Type can be only <code>character/string/boolean/numeric values</code>. </li>
+</ul>
+<h1 id="Flow-control-statements-For-If-Switch-Defer">6. Flow control statements: For/If/Switch/Defer</h1><h2 id="Basic-5">6.1. Basic</h2><ul>
+<li><p>For loop, the <code>init</code> and <code>post</code> statements are optional: </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sum := <span class="number">0</span></div><div class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</div><div class="line">	sum += i</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>or </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sum := <span class="number">1</span></div><div class="line"><span class="keyword">for</span> ; sum &lt; <span class="number">1000</span>; &#123;</div><div class="line">	sum += sum</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>for</code> is Go’s <code>while</code> without <code>;</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sum := <span class="number">1</span></div><div class="line"><span class="keyword">for</span> sum &lt; <span class="number">1000</span> &#123;  <span class="comment">// just is while</span></div><div class="line">	sum += sum</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>infinite loop</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">for</span> &#123;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>for loop with range</code>, can iterate the slices. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> pow = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">16</span>, <span class="number">32</span>, <span class="number">64</span>, <span class="number">128</span>&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> pow &#123; <span class="comment">// return with 2 values: index and corresponding value copy of data in that index</span></div><div class="line">		fmt.Printf(<span class="string">"2**%d = %d\n"</span>, i, v)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> pow &#123; <span class="comment">// return only the index</span></div><div class="line">		pow[i] = <span class="number">1</span> &lt;&lt; <span class="keyword">uint</span>(i) <span class="comment">// == 2**i</span></div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span> _, value := <span class="keyword">range</span> pow &#123; <span class="comment">// ignore the index, only need the value</span></div><div class="line">		fmt.Printf(<span class="string">"%d\n"</span>, value)</div><div class="line">	&#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>one short statement</code> before if condition, to make statements more closed for readable</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pow</span><span class="params">(x, n, lim <span class="keyword">float64</span>)</span> <span class="title">float64</span></span> &#123;</div><div class="line">	<span class="keyword">if</span> v := math.Pow(x, n); v &lt; lim &#123; <span class="comment">// only one statement is allowed here</span></div><div class="line">		<span class="keyword">return</span> v</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		fmt.Printf(<span class="string">"%g &gt;= %g\n"</span>, v, lim)</div><div class="line">	&#125; </div><div class="line">	<span class="comment">// After this if-else statement, v is not accessible any more</span></div><div class="line">	<span class="keyword">return</span> lim</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>switch</code> without break statement, but still can provide with a <code>short statement</code> before. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"runtime"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Print(<span class="string">"Go runs on "</span>)</div><div class="line">	<span class="keyword">switch</span> os := runtime.GOOS; os &#123; <span class="comment">// allow one short statement</span></div><div class="line">	<span class="keyword">case</span> <span class="string">"darwin"</span>:</div><div class="line">		fmt.Println(<span class="string">"OS X."</span>)</div><div class="line">	<span class="keyword">case</span> <span class="string">"linux"</span>:</div><div class="line">		fmt.Println(<span class="string">"Linux."</span>) <span class="comment">// no need for break</span></div><div class="line">	<span class="keyword">default</span>:</div><div class="line">		<span class="comment">// freebsd, openbsd,</span></div><div class="line">		<span class="comment">// plan9, windows...</span></div><div class="line">		fmt.Printf(<span class="string">"%s."</span>, os)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>switch without condition</code> is the same as <code>switch true</code>. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">t := time.Now()</div><div class="line"><span class="keyword">switch</span> &#123;</div><div class="line"><span class="keyword">case</span> t.Hour() &lt; <span class="number">12</span>:</div><div class="line">	fmt.Println(<span class="string">"Good morning!"</span>)</div><div class="line"><span class="keyword">case</span> t.Hour() &lt; <span class="number">17</span>:</div><div class="line">	fmt.Println(<span class="string">"Good afternoon."</span>)</div><div class="line"><span class="keyword">default</span>:</div><div class="line">	fmt.Println(<span class="string">"Good evening."</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>defer</code> function will be called once its enclosed function is returned. However, <code>deferred function parameters</code> will be eval inside the enclosed functions <code>immediately</code> at its declaration position. A stack will be generated when there is <code>defer</code> statements in go program and will be popped out using LIFO sequence. </p>
+</li>
+</ul>
+<h1 id="Data-Structure-Pointer-Struct-Slice-Map">7. Data Structure: Pointer/Struct/Slice/Map</h1><h2 id="Basic-6">7.1. Basic</h2><ul>
+<li><code>Pointer</code>: <code>*T</code> is pointer used to point to <code>type T</code>. <code>&amp; operator</code> will create a pointer that point to existing value. <code>* operator</code> will eval the value of the target variable. </li>
+<li><p><code>Struct</code>: collections of fields. We can use <code>(*p).X</code> to access <code>struct pointer p</code>‘s field <code>X</code>. To make it simple, we can just use <code>p.X</code>, which is implicit dereference. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</div><div class="line">	X, Y <span class="keyword">int</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ( <span class="comment">// use factored declare statements</span></div><div class="line">	v1 = Vertex&#123;<span class="number">1</span>, <span class="number">2</span>&#125;  <span class="comment">// has type Vertex</span></div><div class="line">	v2 = Vertex&#123;X: <span class="number">1</span>&#125;  <span class="comment">// Y:0 is implicit</span></div><div class="line">	v3 = Vertex&#123;&#125;      <span class="comment">// X:0 and Y:0</span></div><div class="line">)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    p := &amp;Vertex&#123;<span class="number">1</span>, <span class="number">2</span>&#125; <span class="comment">// has type *Vertex</span></div><div class="line">	fmt.Println(v1, p, v2, v3)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>[n]T</code> means <code>an array of type T with n size</code>. E.g, <code>var a [10]int</code>, means <code>int a[10]</code> in Java. </p>
+</li>
+<li><code>[]T</code> means <code>a slice of type T with dynamic size</code>. E.g, <code>a[1:4]</code> create a slice, containing elements in a indexed from 1 to 3. </li>
+<li><code>Slices does not store data, just describe a segment of the underlying array. They are more of array&#39;s references</code>. </li>
+<li>Array syntax and slice syntax: <code>[3]bool{true, true, false}</code> is an array, <code>[]bool{true, true, false}</code> is an anonymous array but then referenced using a slice.</li>
+<li><p><code>Slice default upper/lower boundary is array length/0.</code> E.g</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a [<span class="number">10</span>]<span class="keyword">int</span></div><div class="line"><span class="comment">// next 4 slices are equal </span></div><div class="line">a[<span class="number">0</span>:<span class="number">10</span>]</div><div class="line">a[:<span class="number">10</span>]</div><div class="line">a[<span class="number">0</span>:]</div><div class="line">a[:]</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>nil slice</code>: capacity/length is 0, and there is not underlying array for this slice. E.g, <code>var s []int</code>. </p>
+</li>
+<li><p>Use <code>make([]slice, len, cap)</code> to create a slice. E.g, </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a := make([]int, 5)  // len(a)=5</div><div class="line">b := make([]int, 0, 5) // len(b)=0, cap(b)=5</div></pre></td></tr></table></figure>
+</li>
+<li><p>Append elements to a slice and return with a <code>new generated slice</code>: <code>func append(s []T, vs ...T) []T</code>. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span></div><div class="line">	printSlice(s)</div><div class="line"></div><div class="line">	s = <span class="built_in">append</span>(s, <span class="number">0</span>)	<span class="comment">// append works on nil slices.</span></div><div class="line">	printSlice(s)</div><div class="line"></div><div class="line">	s = <span class="built_in">append</span>(s, <span class="number">1</span>)	<span class="comment">// The slice grows as needed.</span></div><div class="line">	printSlice(s)</div><div class="line"></div><div class="line">	s = <span class="built_in">append</span>(s, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) <span class="comment">// We can add more than one element at a time.</span></div><div class="line">	printSlice(s)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>map[KeyType]ValueType</code> is used to map keys to values.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</div><div class="line">	Lat, Long <span class="keyword">float64</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">string</span>]Vertex</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]Vertex)</div><div class="line">	m[<span class="string">"Bell Labs"</span>] = Vertex&#123;</div><div class="line">		<span class="number">40.68433</span>, <span class="number">-74.39967</span>,</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">var</span> m = <span class="keyword">map</span>[<span class="keyword">string</span>]Vertex&#123; <span class="comment">// styntax is like struct </span></div><div class="line">		<span class="string">"Bell Labs"</span>: Vertex&#123;</div><div class="line">			<span class="number">40.68433</span>, <span class="number">-74.39967</span>,</div><div class="line">		&#125;,</div><div class="line">		<span class="string">"Google"</span>: Vertex&#123;</div><div class="line">			<span class="number">37.42202</span>, <span class="number">-122.08408</span>,</div><div class="line">		&#125;,</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">var</span> m = <span class="keyword">map</span>[<span class="keyword">string</span>]Vertex&#123; </div><div class="line">		<span class="string">"Bell Labs"</span>: &#123;<span class="number">40.68433</span>, <span class="number">-74.39967</span>&#125;, <span class="comment">// Omit the Vertex type </span></div><div class="line">		<span class="string">"Google"</span>:    &#123;<span class="number">37.42202</span>, <span class="number">-122.08408</span>&#125;,</div><div class="line">	&#125;</div><div class="line">	fmt.Println(m[<span class="string">"Bell Labs"</span>])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>map basic operations</code>:</p>
+<ul>
+<li>insert/update key: <code>m[key] = elem</code></li>
+<li>get key: <code>elem = m[key]</code></li>
+<li>delete key: <code>delete(m, key)</code></li>
+<li>double assignment to check key existence: <code>elem, ok := m[key]</code> // ok will be true if exist, otherwise false</li>
+<li></li>
+</ul>
+</li>
+<li><code>Function Closure</code>: A closure is a function value that references variables from outside its body.<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">adder</span><span class="params">()</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="comment">// returns a closure</span></div><div class="line">	sum := <span class="number">0</span></div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(x <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="comment">// Each closure is bound to its own sum variable</span></div><div class="line">		sum += x</div><div class="line">		<span class="keyword">return</span> sum</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	pos, neg := adder(), adder()</div><div class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</div><div class="line">		fmt.Println(</div><div class="line">			pos(i),</div><div class="line">			neg(<span class="number">-2</span>*i),</div><div class="line">		)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Method-and-Interface">8. Method and Interface</h1><h2 id="Basic-7">8.1. Basic</h2><ul>
+<li><p><code>Method</code>: A function with a special <code>receiver</code> argument.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"math"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</div><div class="line">	X, Y <span class="keyword">float64</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Vertex)</span> <span class="title">Abs</span><span class="params">()</span> <span class="title">float64</span></span> &#123; <span class="comment">// receiver's type declaration and method declaration must be in the same package</span></div><div class="line">	<span class="keyword">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	v := Vertex&#123;<span class="number">3</span>, <span class="number">4</span>&#125;</div><div class="line">	fmt.Println(v.Abs()) <span class="comment">// likes v receives the message of Abs, v is the receiver </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Interface</code>: An <code>interface type</code> is defined as a set of method signatures. As long as some data structure implements all the methods declared int this <code>interface type</code>, it is an instance of this <code>interface type.</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"math"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> Abser <span class="keyword">interface</span> &#123;</div><div class="line">	Abs() <span class="keyword">float64</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">var</span> a Abser</div><div class="line">	f := MyFloat(-math.Sqrt2)</div><div class="line">	v := Vertex&#123;<span class="number">3</span>, <span class="number">4</span>&#125;</div><div class="line"></div><div class="line">	a = f  <span class="comment">// a MyFloat implements Abser, since MyFloat does have a method `Abs()`</span></div><div class="line">	a = &amp;v <span class="comment">// a *Vertex implements Abser, since *Vertex does have a method `Abs()`</span></div><div class="line"></div><div class="line">	<span class="comment">// In the following line, v is a Vertex (not *Vertex)</span></div><div class="line">	<span class="comment">// and does NOT implement Abser.</span></div><div class="line">	a = v</div><div class="line"></div><div class="line">	fmt.Println(a.Abs())</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> MyFloat <span class="keyword">float64</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f MyFloat)</span> <span class="title">Abs</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</div><div class="line">	<span class="keyword">if</span> f &lt; <span class="number">0</span> &#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">float64</span>(-f)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">float64</span>(f)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</div><div class="line">	X, Y <span class="keyword">float64</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v *Vertex)</span> <span class="title">Abs</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Interfaces are implemented implicitly. Implicit interfaces decouple the definition of an interface from its implementation, which could then appear in any package without prearrangement. In a word, you can define the interface/standard, everyone can implement it. This is a <code>pluggable thought into a language</code>.</p>
+</li>
+<li><code>Empty Interface</code>: interfaces which has 0 methods. They can be used to <code>process un-predictable</code> types. Eg. fmt.Println() accept <code>interface{}</code> parameters.</li>
+<li><p><code>Type assertion</code>: provides access to an interface value’s underlying concrete value. using <code>t := i.(T)</code> to assert <code>interface i</code> does have a concrete <code>type T</code> and assign this type’s underly value to <code>variable t</code>. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">var</span> i <span class="keyword">interface</span>&#123;&#125; = <span class="string">"hello"</span></div><div class="line"></div><div class="line">	s := i.(<span class="keyword">string</span>)</div><div class="line">	fmt.Println(s)</div><div class="line"></div><div class="line">	s, ok := i.(<span class="keyword">string</span>)</div><div class="line">	fmt.Println(s, ok)</div><div class="line"></div><div class="line">	f, ok := i.(<span class="keyword">float64</span>) <span class="comment">// no panic here, since we still have ok as false and f will be nil value of float64/type T</span></div><div class="line">	fmt.Println(f, ok)</div><div class="line">	f = i.(<span class="keyword">float64</span>) <span class="comment">//  panic: interface conversion: interface &#123;&#125; is string, not float64</span></div><div class="line">	fmt.Println(f)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Type switches</code>: permits several type assertions in series.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">switch</span> v := i.(<span class="keyword">type</span>) &#123;</div><div class="line"><span class="keyword">case</span> T:</div><div class="line">    <span class="comment">// here assert v has type T</span></div><div class="line"><span class="keyword">case</span> S:</div><div class="line">    <span class="comment">// here assert v has type S</span></div><div class="line"><span class="keyword">default</span>:</div><div class="line">    <span class="comment">// no match; here v has the same type as i</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>For Example, </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">do</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</div><div class="line">	<span class="keyword">switch</span> v := i.(<span class="keyword">type</span>) &#123;</div><div class="line">	<span class="keyword">case</span> <span class="keyword">int</span>:</div><div class="line">		fmt.Printf(<span class="string">"Twice %v is %v\n"</span>, v, v*<span class="number">2</span>)</div><div class="line">	<span class="keyword">case</span> <span class="keyword">string</span>:</div><div class="line">		fmt.Printf(<span class="string">"%q is %v bytes long\n"</span>, v, <span class="built_in">len</span>(v))</div><div class="line">	<span class="keyword">default</span>:</div><div class="line">		fmt.Printf(<span class="string">"I don't know about type %T!\n"</span>, v)</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	do(<span class="number">21</span>) <span class="comment">// output: Twice 21 is 42</span></div><div class="line">	do(<span class="string">"hello"</span>) <span class="comment">// output:  "hello" is 5 bytes long</span></div><div class="line">	do(<span class="literal">true</span>) <span class="comment">// output: I don't know about type bool!</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Stringer</code> interface in <code>fmt</code> package. It has a method <code>String() string</code>. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</div><div class="line">	Name <span class="keyword">string</span></div><div class="line">	Age  <span class="keyword">int</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Person)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> fmt.Sprintf(<span class="string">"%v (%v years)"</span>, p.Name, p.Age)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	a := Person&#123;<span class="string">"Arthur Dent"</span>, <span class="number">42</span>&#125;</div><div class="line">	z := Person&#123;<span class="string">"Zaphod Beeblebrox"</span>, <span class="number">9001</span>&#125;</div><div class="line">	fmt.Println(a, z) <span class="comment">// output: Arthur Dent (42 years) Zaphod Beeblebrox (9001 years)</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>error</code> interface in <code>fmt</code> package. it has a method <code>Error() string</code>. This is the so-called customized exception. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"math"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> ErrNegativeSqrt <span class="keyword">float64</span> <span class="comment">// we can wrap the value itself into this error and print info related to this obj inside the Error() method, this is a good practice</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e ErrNegativeSqrt)</span> <span class="title">Error</span><span class="params">()</span> <span class="title">string</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> fmt.Sprintf(<span class="string">"cannot Sqrt negative number: %v"</span>, <span class="keyword">float64</span>(e))</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sqrt</span><span class="params">(x <span class="keyword">float64</span>)</span> <span class="params">(<span class="keyword">float64</span>, error)</span></span> &#123;</div><div class="line">	<span class="keyword">if</span> x &lt; <span class="number">0</span> &#123;</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span>, ErrNegativeSqrt(x)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> math.Sqrt(<span class="keyword">float64</span>(x)), <span class="literal">nil</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Println(Sqrt(<span class="number">2</span>))  <span class="comment">// output: 1.4142135623730951 &lt;nil&gt;</span></div><div class="line">	fmt.Println(Sqrt(<span class="number">-3</span>)) <span class="comment">// output: 0 cannot Sqrt negative number: -3</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Concurrency">9. Concurrency</h1><h2 id="Basic-8">9.1. Basic</h2><ul>
+<li><code>Goroutine</code>: lightweight thread managed by the Go runtime. <code>go f(x, y, z)</code> starts a new goroutine running function f(x,y,z). The evaluation of parameters happens immediately, but execution happens later. </li>
+<li><p><code>Chanel</code>: typed conduit through which you can send and receive values with the channel operator, <code>&lt;-</code>.<br><strong>The data flows in the direction of the arrow</strong>. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ch &lt;- v    <span class="comment">// Send v to channel ch.</span></div><div class="line">v := &lt;-ch  <span class="comment">// Receive from ch, and</span></div><div class="line">           <span class="comment">// assign value to v.</span></div></pre></td></tr></table></figure>
+<p>Create a channel before using it: <code>ch := make(chan int)</code>. </p>
+</li>
+<li><p><code>Range/Close a channel</code>, use <code>close(ch)</code> from producer side to close a channel to tell the receiver no more items produced.<br><code>v, ok := &lt;-ch</code>, the <code>ok</code> will be false if <code>ch is already closed</code>.<br><code>for i := range c</code> will get value from channel <code>continuously</code> until it’s closed  </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">fibonacci</span><span class="params">(n <span class="keyword">int</span>, c <span class="keyword">chan</span> <span class="keyword">float64</span>)</span></span> &#123;</div><div class="line">	x, y := <span class="number">0.0</span>, <span class="number">1.0</span></div><div class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</div><div class="line">		c &lt;- x</div><div class="line">		x, y = y, x+y</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">close</span>(c)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">float64</span>, <span class="number">100</span>)</div><div class="line">	<span class="keyword">go</span> fibonacci(<span class="built_in">cap</span>(c), c)</div><div class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> c &#123; </div><div class="line">		fmt.Println(i)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>select statement</code>: select statement lets a goroutine wait on multiple communication operations. It <code>blocks</code> until one of its cases can run, then it executes that case. It chooses <code>one at random if multiple are ready</code>. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">fibonacci</span><span class="params">(c, quit <span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> &#123;</div><div class="line">	x, y := <span class="number">0</span>, <span class="number">1</span></div><div class="line">	<span class="keyword">for</span> &#123;					<span class="comment">// this is a inf loop </span></div><div class="line">		<span class="keyword">select</span> &#123;			<span class="comment">// implicitly we do have a goroutine here, it waits on multiple channels</span></div><div class="line">		<span class="keyword">case</span> c &lt;- x:</div><div class="line">			x, y = y, x+y</div><div class="line">		<span class="keyword">case</span> &lt;-quit:</div><div class="line">			fmt.Println(<span class="string">"quit"</span>)</div><div class="line">			<span class="keyword">return</span> 			<span class="comment">// this is quit condition for this inf loop</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</div><div class="line">	quit := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</div><div class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;				<span class="comment">// 1st goroutine </span></div><div class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</div><div class="line">			fmt.Println(&lt;-c)</div><div class="line">		&#125;</div><div class="line">		quit &lt;- <span class="number">0</span> 			<span class="comment">// removing this line will get this program stuck</span></div><div class="line">	&#125;()</div><div class="line">	fibonacci(c, quit)		<span class="comment">// 2nd goroutine, block next all statements</span></div><div class="line">	quit &lt;- <span class="number">1</span> 				<span class="comment">// this statement will never be executed since the above statement blocks if `quit &lt;- 0` is removed</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Time elapsed channel</code>: <code>time.Tick</code> and <code>time.After</code>. </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"time"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	tick := time.Tick(<span class="number">1000</span> * time.Millisecond) <span class="comment">// every 1 second, get a value from this channel</span></div><div class="line">	boom := time.After(<span class="number">5000</span> * time.Millisecond) <span class="comment">// after 5 second, get a value from this channel</span></div><div class="line">	<span class="keyword">for</span> &#123;</div><div class="line">		<span class="keyword">select</span> &#123;</div><div class="line">		<span class="keyword">case</span> x := &lt;-tick:</div><div class="line">			fmt.Println(<span class="string">"tick."</span>, x)</div><div class="line">		<span class="keyword">case</span> x := &lt;-boom:</div><div class="line">			fmt.Println(<span class="string">"BOOM!"</span>, x)</div><div class="line">			<span class="keyword">return</span></div><div class="line">		<span class="keyword">default</span>:</div><div class="line"><span class="comment">//			fmt.Println("    .")</span></div><div class="line">			time.Sleep(<span class="number">500</span> * time.Millisecond)</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Output:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tick. <span class="number">2009</span><span class="number">-11</span><span class="number">-10</span> <span class="number">23</span>:<span class="number">00</span>:<span class="number">01</span> +<span class="number">0000</span> UTC m=+<span class="number">1.000000001</span></div><div class="line">tick. <span class="number">2009</span><span class="number">-11</span><span class="number">-10</span> <span class="number">23</span>:<span class="number">00</span>:<span class="number">02</span> +<span class="number">0000</span> UTC m=+<span class="number">2.000000001</span></div><div class="line">tick. <span class="number">2009</span><span class="number">-11</span><span class="number">-10</span> <span class="number">23</span>:<span class="number">00</span>:<span class="number">03</span> +<span class="number">0000</span> UTC m=+<span class="number">3.000000001</span></div><div class="line">tick. <span class="number">2009</span><span class="number">-11</span><span class="number">-10</span> <span class="number">23</span>:<span class="number">00</span>:<span class="number">04</span> +<span class="number">0000</span> UTC m=+<span class="number">4.000000001</span></div><div class="line">BOOM! <span class="number">2009</span><span class="number">-11</span><span class="number">-10</span> <span class="number">23</span>:<span class="number">00</span>:<span class="number">05</span> +<span class="number">0000</span> UTC m=+<span class="number">5.000000001</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><code>range/close</code> or <code>select/quit channel</code> or <code>Tick/After</code> to do the goroutine synchronization using channel.</p>
+</li>
+<li><code>sync.Mutex</code> has <code>Lock/Unlock</code> which can also provide <code>shared-memory mechanism synchronization</code>.<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"sync"</span></div><div class="line">	<span class="string">"time"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">// SafeCounter is safe to use concurrently.</span></div><div class="line"><span class="keyword">type</span> SafeCounter <span class="keyword">struct</span> &#123;</div><div class="line">	v   <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span></div><div class="line">	mux sync.Mutex</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Inc increments the counter for the given key.</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *SafeCounter)</span> <span class="title">Inc</span><span class="params">(key <span class="keyword">string</span>)</span></span> &#123;</div><div class="line">	c.mux.Lock()</div><div class="line">	<span class="comment">// Lock so only one goroutine at a time can access the map c.v.</span></div><div class="line">	c.v[key]++</div><div class="line">	c.mux.Unlock()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Value returns the current value of the counter for the given key.</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *SafeCounter)</span> <span class="title">Value</span><span class="params">(key <span class="keyword">string</span>)</span> <span class="title">int</span></span> &#123;</div><div class="line">	c.mux.Lock()</div><div class="line">	<span class="comment">// Lock so only one goroutine at a time can access the map c.v.</span></div><div class="line">	<span class="keyword">defer</span> c.mux.Unlock()</div><div class="line">	<span class="keyword">return</span> c.v[key]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	c := SafeCounter&#123;v: <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)&#125;</div><div class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ &#123;</div><div class="line">		<span class="keyword">go</span> c.Inc(<span class="string">"somekey"</span>)</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	time.Sleep(time.Second)</div><div class="line">	fmt.Println(c.Value(<span class="string">"somekey"</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Build">10. Build</h1><h2 id="use-golang-docker-image-to-build">10.1. use golang docker image to build</h2><p>Use <code>golang:1.9</code> to build go program<br><a href="https://github.com/docker-library/docs/tree/master/golang#compile-your-app-inside-the-docker-container" target="_blank" rel="noopener">https://github.com/docker-library/docs/tree/master/golang#compile-your-app-inside-the-docker-container</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">APPNAME=passport</div><div class="line">BUILD_PATH=/usr/src/<span class="variable">$&#123;APPNAME&#125;</span></div><div class="line">GOLANG_IMG=<span class="string">"golang:1.9"</span></div><div class="line"></div><div class="line">docker run --rm -v <span class="string">"<span class="variable">$PWD</span>"</span>:<span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>"</span> -w <span class="variable">$&#123;BUILD_PATH&#125;</span> -e GOPATH=<span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>"</span> -e GOBIN=<span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>/bin"</span> -e CGO_ENABLED=0 -e GOOS=linux -e GOARCH=amd64 golang:1.9 go get -v &amp;&amp; go build -a -installsuffix cgo \</div><div class="line">	-ldflags <span class="string">"-s -w"</span> \</div><div class="line">	-o <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>/<span class="variable">$&#123;APPNAME&#125;</span>"</span> .</div></pre></td></tr></table></figure></p>
+<hr>
+<p>References:</p>
+<ul>
+<li><a href="https://tour.golang.org/" target="_blank" rel="noopener">A Tour of Go</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+            <a href="/tags/OOM/" rel="tag"># OOM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/18/Nginx-Magics/" rel="next" title="Nginx Magics">
+                <i class="fa fa-chevron-left"></i> Nginx Magics
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59378a9a24c914f0" async = "async" ></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Morgan Wu" />
+          <p class="site-author-name" itemprop="name">Morgan Wu</p>
+           
+              <p class="site-description motion-element" itemprop="description">此中有真意，欲辨已忘言。<br/> Just let it be. If it's meant to be, it will happen.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Package"><span class="nav-text">1. Package</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic"><span class="nav-text">1.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Functions"><span class="nav-text">2. Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-1"><span class="nav-text">2.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Variables"><span class="nav-text">3. Variables</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-2"><span class="nav-text">3.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Types"><span class="nav-text">4. Types</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-3"><span class="nav-text">4.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constants"><span class="nav-text">5. Constants</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-4"><span class="nav-text">5.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flow-control-statements-For-If-Switch-Defer"><span class="nav-text">6. Flow control statements: For/If/Switch/Defer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-5"><span class="nav-text">6.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Structure-Pointer-Struct-Slice-Map"><span class="nav-text">7. Data Structure: Pointer/Struct/Slice/Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-6"><span class="nav-text">7.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Method-and-Interface"><span class="nav-text">8. Method and Interface</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-7"><span class="nav-text">8.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Concurrency"><span class="nav-text">9. Concurrency</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-8"><span class="nav-text">9.1. Basic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Build"><span class="nav-text">10. Build</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#use-golang-docker-image-to-build"><span class="nav-text">10.1. use golang docker image to build</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Morgan Wu</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://morganwu277-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://morganwu277.github.io/2018/03/02/Golang-Summary/';
+          this.page.identifier = '2018/03/02/Golang-Summary/';
+          this.page.title = 'Go Summary';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://morganwu277-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

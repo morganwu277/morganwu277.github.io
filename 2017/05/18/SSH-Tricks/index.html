@@ -102,6 +102,7 @@
 <meta property="og:url" content="https://morganwu277.github.io/2017/05/18/SSH-Tricks/index.html">
 <meta property="og:site_name" content="Alice &amp;&amp; Bob">
 <meta property="og:description" content="You sometimes would see somebody doing something cool with SSH(Secure Shell), like without password, or even without key, or even more, port forwarding to break the firewall restrictions. This post wi">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://morganwu277.github.io/2017/05/18/SSH-Tricks/local_port_forward.png">
 <meta property="og:image" content="https://morganwu277.github.io/2017/05/18/SSH-Tricks/create_local_port_forward.png">
 <meta property="og:image" content="https://morganwu277.github.io/2017/05/18/SSH-Tricks/share_ssh_local_tunnel.png">
@@ -435,7 +436,7 @@
       
 
       
-        <p>You sometimes would see somebody doing something cool with SSH(<a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="external">Secure Shell</a>), like without password, or even without key, or even more, port forwarding to break the firewall restrictions.</p>
+        <p>You sometimes would see somebody doing something cool with SSH(<a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank" rel="noopener">Secure Shell</a>), like without password, or even without key, or even more, port forwarding to break the firewall restrictions.</p>
 <p>This post will discuss ssh tricks of authentications methods and port forwarding approaches.</p>
 <p>Three kinds of SSH authentication methods:</p>
 <ul>
@@ -468,13 +469,13 @@
 <li>Userid on both system has to be the same</li>
 </ul>
 <p>Here is an example that login into <code>server1</code> vagrant box:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Here we list the hostname and its config</span></div><div class="line">[09:51 PM morganwu@morgan-yinnut ~]$ cat ~/.ssh/config  |grep -A6 srv1 </div><div class="line">Host srv1</div><div class="line">    User vagrant</div><div class="line">    Port 2222</div><div class="line">    Hostname 127.0.0.1</div><div class="line">    IdentityFile /Users/morganwu/Developer/workspace/ssh_port_forward/server1/.vagrant/machines/default/virtualbox/private_key</div><div class="line">    StrictHostKeyChecking no</div><div class="line"></div><div class="line"><span class="comment"># Here we just ssh with an alias without username and hostname</span></div><div class="line">[09:51 PM morganwu@morgan-yinnut ~]$ ssh srv1</div><div class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</div><div class="line">@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @</div><div class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</div><div class="line">IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</div><div class="line">Someone could be eavesdropping on you right now (man-in-the-middle attack)!</div><div class="line">It is also possible that a host key has just been changed.</div><div class="line">The fingerprint <span class="keyword">for</span> the ECDSA key sent by the remote host is</div><div class="line">SHA256:jYEhZ8yXtOJFowmQnMyA+bHshrhX7H30vVQF9UyND48.</div><div class="line">Please contact your system administrator.</div><div class="line">Add correct host key <span class="keyword">in</span> /Users/morganwu/.ssh/known_hosts to get rid of this message.</div><div class="line">Offending ECDSA key <span class="keyword">in</span> /Users/morganwu/.ssh/known_hosts:247</div><div class="line">Password authentication is disabled to avoid man-in-the-middle attacks.</div><div class="line">Keyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.</div><div class="line">Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 3.13.0-112-generic x86_64)</div><div class="line"></div><div class="line"> * Documentation:  https://help.ubuntu.com/</div><div class="line"></div><div class="line">  System information as of Fri May 19 01:50:52 UTC 2017</div><div class="line"></div><div class="line">  System load:  0.28              Processes:           78</div><div class="line">  Usage of /:   3.6% of 39.34GB   Users logged <span class="keyword">in</span>:     0</div><div class="line">  Memory usage: 25%               IP address <span class="keyword">for</span> eth0: 10.0.2.15</div><div class="line">  Swap usage:   0%</div><div class="line"></div><div class="line">  Graph this data and manage this system at:</div><div class="line">    https://landscape.canonical.com/</div><div class="line"></div><div class="line">  Get cloud support with Ubuntu Advantage Cloud Guest:</div><div class="line">    http://www.ubuntu.com/business/services/cloud</div><div class="line"></div><div class="line">0 packages can be updated.</div><div class="line">0 updates are security updates.</div><div class="line"></div><div class="line">New release <span class="string">'16.04.2 LTS'</span> available.</div><div class="line">Run <span class="string">'do-release-upgrade'</span> to upgrade to it.</div><div class="line"></div><div class="line"></div><div class="line">Last login: Fri May 19 01:50:53 2017 from 10.0.2.2</div><div class="line">vagrant@vagrant-ubuntu-trusty-64:~$</div></pre></td></tr></table></figure></p>
-<h1 id="SSH-Forwarding">2. SSH Forwarding</h1><h2 id="SSH-Local-Normal-Port-Forwarding">2.1. SSH Local Normal Port Forwarding</h2><p>Here is the scenario why we need Port Forwarding: bypass the private network, or using the <a href="https://en.wikipedia.org/wiki/Jump_server" target="_blank" rel="external">Jumpbox</a>.</p>
+<h1 id="SSH-Forwarding">2. SSH Forwarding</h1><h2 id="SSH-Local-Normal-Port-Forwarding">2.1. SSH Local Normal Port Forwarding</h2><p>Here is the scenario why we need Port Forwarding: bypass the private network, or using the <a href="https://en.wikipedia.org/wiki/Jump_server" target="_blank" rel="noopener">Jumpbox</a>.</p>
 <center><img src="local_port_forward.png" alt="SSH Local Port Forwarding Scenario" title="SSH Local Port Forwarding Scenario"><br></center>
 
 <p>Now we want to access web server on <code>box2 via box1</code>. Here is how we create a local port forward.</p>
 <center><img src="create_local_port_forward.png" alt="Create a Tunnel from client to box 1" title="Create a Tunnel from client to box 1"></center>
 
-<p>Now we can type <code>localhost:8000</code> from <code>your-box</code>, this will forward the request to <code>box-2:80</code> via <code>box-1</code> ssh tunnel created above!<br>If we have multiple <code>box-2</code> here, this is the <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing)" target="_blank" rel="external">load balancing</a> model.</p>
+<p>Now we can type <code>localhost:8000</code> from <code>your-box</code>, this will forward the request to <code>box-2:80</code> via <code>box-1</code> ssh tunnel created above!<br>If we have multiple <code>box-2</code> here, this is the <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing)" target="_blank" rel="noopener">load balancing</a> model.</p>
 <p>We call this as <code>local port forwarding</code> instead of <code>remote port forwarding</code>, since the setup direction is the same as the resource access direction. This is also called the <code>normal tunnel</code> instead of the <code>reverse tunnel</code> via ssh. This can be done by following three steps:</p>
 <ul>
 <li>setup ssh connection from <code>your-box</code> to <code>box-1</code></li>
@@ -497,7 +498,7 @@
 <center><img src="remote_port_forward.png" alt="Create a Tunnel from your-box to box-1" title="Create a Tunnel from your-box to box-1"></center>
 
 <p>So you setup a ssh tunnel from <code>your-box</code> to <code>box-1</code> which has a public address while <code>your-box</code> doesn’t. But you would like to access <code>your-box</code> from <code>box-2</code> which is outside. Now you can only do this via <code>box-1</code>.</p>
-<p>If we have multiple <code>your-box</code> here, this is the so-called <code>reverse proxy</code> <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing)" target="_blank" rel="external">load balancing</a> model.</p>
+<p>If we have multiple <code>your-box</code> here, this is the so-called <code>reverse proxy</code> <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing)" target="_blank" rel="noopener">load balancing</a> model.</p>
 <p>So our command format is <code>ssh -R VIA_LISTEN_PORT:DEST_HOST:DEST_PORT VIA_HOST</code>,<br>This command will:</p>
 <ul>
 <li>open a ssh tunnel from <code>DEST_HOST</code> to <code>VIA_HOST</code></li>
@@ -512,7 +513,7 @@
 <hr>
 <p>References: </p>
 <ul>
-<li><a href="https://www.slideshare.net/zdennis/ssh-9115832" target="_blank" rel="external">https://www.slideshare.net/zdennis/ssh-9115832</a></li>
+<li><a href="https://www.slideshare.net/zdennis/ssh-9115832" target="_blank" rel="noopener">https://www.slideshare.net/zdennis/ssh-9115832</a></li>
 </ul>
 
       
@@ -655,7 +656,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -677,7 +678,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

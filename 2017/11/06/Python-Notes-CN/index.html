@@ -1,0 +1,1325 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,Book,Reading Notes," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Alice && Bob" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Before reading this book, I always go to online tutorials or www.python.org to get what I need, but never have a chance to see it in a big picture or systematic learning it.  And also a shame for me,">
+<meta name="keywords" content="Python,Book,Reading Notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python - Notes">
+<meta property="og:url" content="https://morganwu277.github.io/2017/11/06/Python-Notes-CN/index.html">
+<meta property="og:site_name" content="Alice &amp;&amp; Bob">
+<meta property="og:description" content="Before reading this book, I always go to online tutorials or www.python.org to get what I need, but never have a chance to see it in a big picture or systematic learning it.  And also a shame for me,">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-11-06T23:38:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python - Notes">
+<meta name="twitter:description" content="Before reading this book, I always go to online tutorials or www.python.org to get what I need, but never have a chance to see it in a big picture or systematic learning it.  And also a shame for me,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://morganwu277.github.io/2017/11/06/Python-Notes-CN/"/>
+
+
+
+
+
+  <title>Python - Notes | Alice && Bob</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-99580993-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alice && Bob</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Alice && Bob</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://morganwu277.github.io/2017/11/06/Python-Notes-CN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Morgan Wu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alice && Bob">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python - Notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-06T18:38:17-05:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Languages/" itemprop="url" rel="index">
+                    <span itemprop="name">Languages</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Languages/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Languages/Python/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/06/Python-Notes-CN/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/06/Python-Notes-CN/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Before reading this book, I always go to online tutorials or <a href="www.python.org">www.python.org</a> to get what I need, but never have a chance to see it in a big picture or systematic learning it. </p>
+<p>And also a shame for me, who does long time BigData/DevOps/SRE/Machine Learning, but never master Python language. And I don’t want this continue more, which is the reason for this blog, which could be useless for those python.</p>
+<p>This are just notes for me to pick up lost python notes, after reading Book &lt;<a href="http://www.apress.com/us/book/9781590599822" target="_blank" rel="external">Beginning Python: From Novice to Professional, 2nd Edition</a>&gt;. So I can’t guarantee it’s complete, but it should be my lost ones. </p>
+<p>Of course, I will add more notes after reading other materials, like memory management, type inference mechanism, I will also log some small tricks related with Python here. </p>
+<a id="more"></a>
+<p>I won’t give much explanation, most of them are just moving the manual and small tricks.  </p>
+<h1 id="Module">1. Module</h1><h2 id="import">1.1. import</h2><p>Use some function in a module, eg. <code>sqrt</code> in <code>math</code> module </p>
+<ol>
+<li><p>use the module name</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> math</div><div class="line">math.sqrt(<span class="number">5</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>don’t use the module name</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> math <span class="keyword">import</span> sqrt,fabs</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>sqrt(<span class="number">5</span>)</div><div class="line"><span class="number">2.23606797749979</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fabs(<span class="number">-9</span>)</div><div class="line"><span class="number">9.0</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>if two modules from different package, has the same name<br>To avoid name conflict.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> math <span class="keyword">import</span> sqrt <span class="keyword">as</span> standsqrt </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>standsqrt(<span class="number">5</span>)</div><div class="line"><span class="number">2.23606797749979</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> mymath <span class="keyword">import</span> sqrt <span class="keyword">as</span> mysqrt <span class="comment"># assume there is one</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mysqrt(<span class="number">5</span>)</div><div class="line"><span class="number">2.23606797749979</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="future">1.2. future</h2><p>This is a module for features that <code>could</code> be moved to standard package in the future.<br>eg.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</div><div class="line"><span class="number">1</span>/<span class="number">2</span> <span class="comment"># will be 0.5 automatically</span></div></pre></td></tr></table></figure></p>
+<h1 id="Functions">2. Functions</h1><h2 id="exec-in-a-scope">2.1. exec() in a scope</h2><p>We will execute this in our own scope, so that we won’t influence current namespace/scope.<br>This is kind of namespace isolation.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope=&#123;&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">exec</span> <span class="string">'sqrt=1'</span> <span class="keyword">in</span> scope <span class="comment"># we won't influence the sqrt() in global scope</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope[<span class="string">'sqrt'</span>]</div><div class="line"><span class="number">1</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope.keys()</div><div class="line">[<span class="string">'__builtins__'</span>, <span class="string">'sqrt'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope</div><div class="line">&#123;<span class="string">'__builtins__'</span>: &#123;<span class="string">'bytearray'</span>: &lt;type <span class="string">'bytearray'</span>&gt;, <span class="string">'IndexError'</span>: &lt;type <span class="string">'exceptions.IndexError'</span>&gt;, <span class="string">'all'</span>: &lt;built-<span class="keyword">in</span> function all&gt;, <span class="string">'help'</span>: Type help() <span class="keyword">for</span> interactive help, <span class="keyword">or</span> help(object) <span class="keyword">for</span> help about object., <span class="string">'vars'</span>: &lt;built-<span class="keyword">in</span> function vars&gt;, <span class="string">'SyntaxError'</span>: &lt;type <span class="string">'exceptions.SyntaxError'</span>&gt;, <span class="string">'unicode'</span>: &lt;type <span class="string">'unicode'</span>&gt;, <span class="string">'UnicodeDecodeError'</span>: &lt;type <span class="string">'exceptions.UnicodeDecodeError'</span>&gt;, <span class="string">'memoryview'</span>: &lt;type <span class="string">'memoryview'</span>&gt;, <span class="string">'isinstance'</span>: &lt;built-<span class="keyword">in</span> function isinstance&gt;, <span class="string">'copyright'</span>: Copyright (c) <span class="number">2001</span><span class="number">-2015</span> Python Software Foundation.</div><div class="line">All Rights Reserved.</div><div class="line">.......................</div><div class="line">.......................</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope[<span class="string">'__builtins__'</span>][<span class="string">'min'</span>](<span class="number">5</span>,<span class="number">2</span>)</div><div class="line"><span class="number">2</span></div></pre></td></tr></table></figure></p>
+<p>If we are using <code>scope=vars()</code> then we can change current execution context…<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>sqrt(<span class="number">4</span>)</div><div class="line"><span class="number">2.0</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope=vars() <span class="comment"># we are binding global session namespace to this scope</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope.keys()</div><div class="line">[<span class="string">'__builtins__'</span>, <span class="string">'sqrt'</span>, <span class="string">'__package__'</span>, <span class="string">'scope'</span>, <span class="string">'__name__'</span>, <span class="string">'__doc__'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope[<span class="string">'sqrt'</span>]=<span class="number">1</span> <span class="comment"># we are changing the global session namespace</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>sqrt</div><div class="line"><span class="number">1</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>sqrt(<span class="number">4</span>)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">TypeError: <span class="string">'int'</span> object <span class="keyword">is</span> <span class="keyword">not</span> callable</div></pre></td></tr></table></figure></p>
+<h2 id="eval-to-compute">2.2. eval() to compute</h2><ul>
+<li><code>eval</code> is used to compute the expression and return with the computed result.</li>
+<li><code>exec</code> only execute the literal python scripts, doesn’t return anything. </li>
+</ul>
+<p><code>eval()</code> could be executed on a specific scope, or the global scope.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>scope=&#123;<span class="string">'x'</span>:<span class="number">2</span>,<span class="string">'y'</span>:<span class="number">100</span>&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>eval(<span class="string">'x+y'</span>,scope)</div><div class="line"><span class="number">102</span></div></pre></td></tr></table></figure></p>
+<h2 id="input-raw-input">2.3. input()/raw_input()</h2><ul>
+<li><code>input</code>: read number</li>
+<li><code>raw_input</code>: read string<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>x = input(<span class="string">'x: '</span>)</div><div class="line">x: <span class="number">123</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>y = input(<span class="string">'y: '</span>)</div><div class="line">y: <span class="number">456</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> x*y</div><div class="line"><span class="number">56088</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="some-math-functions">2.4. some math functions</h2><h3 id="and-pow">2.4.1. ** and pow</h3><p><code>pow(2,3)</code> the same as <code>2**3</code>    </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>pow(<span class="number">2</span>,<span class="number">3</span>)</div><div class="line"><span class="number">8</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span>**<span class="number">3</span></div><div class="line"><span class="number">8</span></div></pre></td></tr></table></figure>
+<h3 id="abs-round-floor-ceil">2.4.2. abs/round/floor/ceil</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>round(<span class="number">1</span>/<span class="number">7.0</span>,<span class="number">10</span>)</div><div class="line"><span class="number">0.1428571429</span></div></pre></td></tr></table></figure>
+<h3 id="Computer-Floating-limitations">2.4.3. Computer Floating limitations</h3><p>Floatings numbers are using 2 base fractions to store.  <a href="https://docs.python.org/2/tutorial/floatingpoint.html" target="_blank" rel="external">Floating Point Arithmetic: Issues and Limitations</a></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>round(<span class="number">2.675</span>,<span class="number">2</span>)</div><div class="line"><span class="number">2.67</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> decimal <span class="keyword">import</span> Decimal</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>Decimal(<span class="number">2.675</span>)</div><div class="line">Decimal(<span class="string">'2.67499999999999982236431605997495353221893310546875'</span>)</div></pre></td></tr></table></figure>
+<h3 id="Flooring-division">2.4.4. Flooring division //</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">4</span>/<span class="number">3.0</span></div><div class="line"><span class="number">1.3333333333333333</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">4</span>//<span class="number">3.0</span></div><div class="line"><span class="number">1.0</span></div></pre></td></tr></table></figure>
+<h1 id="String">3. String</h1><h2 id="repr-str">3.1. repr()/str()</h2><ul>
+<li><code>str()</code>: convert to string </li>
+<li><code>repr()</code>: create a new String, containing existing value <figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>repr(<span class="number">1000000L</span>)</div><div class="line"><span class="string">'1000000L'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>str(<span class="number">1000000L</span>)</div><div class="line"><span class="string">'1000000'</span></div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="String-raw-String-Unicode-String">3.2. String/raw String/Unicode String</h2><p>raw string will record everything from source code, including newline and backslash.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">r'123 \</span></div><div class="line">... 456'</div><div class="line"><span class="string">'123 \\\n456'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'123 \</span></div><div class="line">... 456'</div><div class="line"><span class="string">'123 456'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'123 \</span></div><div class="line">... 456'</div><div class="line"><span class="string">u'123 456'</span></div></pre></td></tr></table></figure></p>
+<h2 id="format">3.3. format</h2><ul>
+<li><code>%s</code>: string</li>
+<li><code>%10.3f</code>: floating number with 3 digits, but width as 10, align to right</li>
+<li><code>%-10.3f</code>: floating number with 3 digits, but width as 10, align to left</li>
+<li><code>%d</code>/<code>%i</code>: decimal number with sign</li>
+<li>other <a href="https://docs.python.org/2/library/stdtypes.html#string-formatting-operations" target="_blank" rel="external">string-formatting-operations</a></li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"Jun Lei, Are %s OK?"</span> % <span class="string">'You'</span></div><div class="line"><span class="string">'Jun Lei, Are You OK?'</span></div></pre></td></tr></table></figure>
+<h2 id="String-functions">3.4. String functions</h2><ol>
+<li>constants: <code>string.printable</code>/<code>string.letters</code>/<code>string.digits</code>/<code>string.lowercase</code>/<code>string.uppercase</code></li>
+<li><code>&quot;Hello World&quot;.find(&quot;hello&quot;)</code>: return the 1st index of <code>hello</code> in the <code>Hello World</code></li>
+<li><code>find()</code>/<code>join()</code>/<code>split()/lower()/capitalize()/islower()/swapcase()/title()/istitle()/upper()/isupper()</code></li>
+<li><code>strip()</code></li>
+</ol>
+<h1 id="Data-Structure">4. Data Structure</h1><h2 id="list">4.1. list</h2><h3 id="Slice">4.1.1. Slice</h3><ol>
+<li>1st <code>inclusive</code>, 2nd <code>exclusive</code></li>
+<li>using step in slice, step could be negative, <code>numbers[0:10:2]</code> and <code>numbers[8::-2]</code></li>
+<li>without step, it’s implicitly set as <code>1</code>. Which means, 1st postion has too be at the left side than 2nd position.</li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">3</span>:<span class="number">6</span>]</div><div class="line">[<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">-3</span>:<span class="number">-1</span>]</div><div class="line">[<span class="number">8</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">-3</span>:<span class="number">0</span>] <span class="comment"># 1) the 1st is at the right of 2nd position, return empty</span></div><div class="line">[]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">-3</span>:<span class="number">1</span>] <span class="comment"># the 1st is at the right of 2nd position, return empty</span></div><div class="line">[]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">-3</span>:]</div><div class="line">[<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[:<span class="number">3</span>]</div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">0</span>:<span class="number">10</span>:<span class="number">2</span>] <span class="comment"># 2) here we do have step length as 2</span></div><div class="line">[<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers[<span class="number">8</span>::<span class="number">-2</span>]</div><div class="line">[<span class="number">9</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>]</div></pre></td></tr></table></figure>
+<p><strong><code>Can use negative index</code></strong> is very powerful at sometimes.<br>Next is to generate fibonacci number sequence.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>fibs=[<span class="number">0</span>,<span class="number">1</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">10</span>):</div><div class="line"><span class="meta">... </span>    fibs.append(fibs[<span class="number">-2</span>]+fibs[<span class="number">-1</span>])</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fibs</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">21</span>, <span class="number">34</span>, <span class="number">55</span>]</div></pre></td></tr></table></figure></p>
+<h3 id="add-multiply-of-list">4.1.2. add/multiply of list</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers+numbers <span class="comment"># join, or concatenation</span></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers*<span class="number">3</span> <span class="comment"># multiply, or occur again</span></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</div></pre></td></tr></table></figure>
+<h3 id="list-Misc">4.1.3. list Misc.</h3><ol>
+<li><code>len()</code>/<code>min()</code>/<code>max()/del numbers[2]/numbers[1:]=[3,4,5,6,7]</code></li>
+<li><code>in</code> to check membership: <code>if 1 in numbers:</code></li>
+</ol>
+<h3 id="list-object-function">4.1.4. list object function</h3><ol>
+<li><code>numbers.append(10)</code>: append a value</li>
+<li><code>numbers.count(10)</code></li>
+<li><code>numbers.index(10)</code>: return the 1st index of 10</li>
+<li><code>numbers.extend([10,11])</code>: append a list</li>
+<li><code>numbers.insert(3,10)</code>: insert 10 at the index of 3</li>
+<li><code>numbers.pop()</code>: remove last value in the list, and <strong>return the value</strong></li>
+<li><code>numbers.pop(0)</code>: remove 1st value in the list, and <strong>return the value</strong></li>
+<li><code>numbers.remove(10)</code>: remove element of 10 in the list</li>
+<li><code>numbers.reverse()</code></li>
+<li><code>numbers.sort()</code>: will sort the existing numbers list</li>
+<li><code>sorted(numbers)</code>: will return one sorted numbers, but existing one won’t change</li>
+<li><code>numbers.sort(reverse=True)</code>: will sort the existing numbers list, but in reverse order</li>
+<li><code>numbers.sort(key=len)</code>: using <code>len()</code> function to sort</li>
+<li><code>numbers.sort(cmp)</code>: using <code>cmp(x,y)</code> function to sort,<code>cmp(x,y)</code> must be defined first</li>
+<li><code>cmp/key/reverse</code> can also be applied to <code>sorted()</code> function </li>
+<li><code>reversed(numbers)</code>: will return reversed numbers, but existing one won’t change</li>
+</ol>
+<ul>
+<li>Note: <ol>
+<li><code>pop()</code> will <strong>change</strong> the list object itself and return the popped list element value.</li>
+<li>Using <code>pop()</code> and <code>append()</code> can implement the <code>Stack</code> data structure. </li>
+</ol>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.append(<span class="number">1</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.count(<span class="number">1</span>)</div><div class="line"><span class="number">2</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.append(<span class="number">1</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers.count(<span class="number">1</span>)</div><div class="line"><span class="number">3</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>numbers</div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">1</span>]</div></pre></td></tr></table></figure>
+<h2 id="Tuple-Immutable-list">4.2. Tuple: Immutable list</h2><p>Because tuple is immutable, so it can be the key of dictionary, however, list can not.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>(<span class="number">43</span>)</div><div class="line"><span class="number">43</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>(<span class="number">43</span>,) <span class="comment"># tuple with one element, has to contains a comma</span></div><div class="line">(<span class="number">43</span>,)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">3</span>*(<span class="number">43</span>)</div><div class="line"><span class="number">129</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">3</span>*(<span class="number">43</span>,)</div><div class="line">(<span class="number">43</span>, <span class="number">43</span>, <span class="number">43</span>)</div></pre></td></tr></table></figure></p>
+<h2 id="Dictionary">4.3. Dictionary</h2><p>Several features:</p>
+<ol>
+<li><p>Automatically added, could use misc. key types.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>x=&#123;&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x[<span class="string">'1'</span>]=<span class="number">1</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x[<span class="number">1</span>]=<span class="string">'1'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x</div><div class="line">&#123;<span class="string">'1'</span>: <span class="number">1</span>, <span class="number">1</span>: <span class="string">'1'</span>&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> x[<span class="string">'1'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x</div><div class="line">&#123;<span class="number">1</span>: <span class="string">'1'</span>&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Membership check in <code>keys</code>. When you do membership check using <code>in</code>, it checks the keys of the dictionary.<br> using <code>k in d</code>… </p>
+</li>
+</ol>
+<h3 id="Several-functions-based-on-dictionary">4.3.1. Several functions based on dictionary</h3><ol>
+<li><code>clear()</code>: clear a dict in-place.</li>
+<li><code>copy()</code>: do a shallow copy of a dict.</li>
+<li><p><code>fromkeys(param:list)</code>: use the given list as the newly created dict keys’ names.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;&#125;.fromkeys([<span class="string">'age'</span>,<span class="string">'name'</span>])</div><div class="line">&#123;<span class="string">'age'</span>: <span class="keyword">None</span>, <span class="string">'name'</span>: <span class="keyword">None</span>&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>&#123;&#125;.fromkeys([<span class="string">'age'</span>,<span class="string">'name'</span>], <span class="string">'defaultval'</span>)</div><div class="line">&#123;<span class="string">'age'</span>: <span class="string">'defaultval'</span>, <span class="string">'name'</span>: <span class="string">'defaultval'</span>&#125; <span class="comment"># provide default values instead of using `None`</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><code>get(k)</code>: will return <code>None</code> if key doesn’t exist. However, <code>d[k]</code> will give an error. </p>
+</li>
+<li><p><code>items()</code>/<code>iteritems()</code>: get the items of dict, <code>iteritems()</code> return an iterator which is more efficient and can even convert to a list. We also have <code>keys()</code>/<code>iterkeys()</code> and <code>values()</code>/<code>itervalues()</code>.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>list(x.iteritems())</div><div class="line">[(<span class="number">1</span>, <span class="string">'1'</span>)]</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>setdefault(k,default_v)</code>: will get the value of key <code>k</code>, if <code>k</code> not exist, set it and return with <code>default_v</code> value.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>x</div><div class="line">&#123;<span class="number">1</span>: <span class="string">'1'</span>&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x.setdefault(<span class="string">'123'</span>,<span class="number">123</span>) <span class="comment"># will use the default value</span></div><div class="line"><span class="number">123</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x.setdefault(<span class="string">'123'</span>,<span class="number">-11111</span>) <span class="comment"># won't use the default value again</span></div><div class="line"><span class="number">123</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><code>pop(k)</code>: return with corresponding key <code>k</code> and remove it from dict.</p>
+</li>
+<li><code>popitem()</code>: return with random key and remove it from dict.</li>
+<li><code>update(another_dict)</code>: using <code>another_dict</code> to update current dict, for same key, will replace, for non-exist keys, will add. </li>
+</ol>
+<h3 id="Iterate-the-dict">4.3.2. Iterate the dict</h3><p><code>for k,v in d.items()</code></p>
+<h2 id="Sequence-Unpacking-Iteralbe-Unpacking">4.4. Sequence Unpacking/Iteralbe Unpacking</h2><p>Assign a sequence of values to a sequence of variables.<br>These two sequences at the left/right side should have the same element numbers.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>x</div><div class="line">&#123;<span class="number">1</span>: <span class="string">'1'</span>, <span class="string">'123'</span>: <span class="number">123</span>&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a,b=x.iteritems()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a</div><div class="line">(<span class="number">1</span>, <span class="string">'1'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>b</div><div class="line">(<span class="string">'123'</span>, <span class="number">123</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>k,v=x.popitem()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>k</div><div class="line"><span class="string">'123'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>v</div><div class="line"><span class="number">123</span></div></pre></td></tr></table></figure></p>
+<h2 id="Several-functions-of-these-data-structures">4.5. Several functions of these data structures</h2><h3 id="xrange-range">4.5.1. xrange() / range()</h3><ul>
+<li><code>xrange()</code>: will return with a generator and using lazy create.</li>
+<li><code>range()</code>: will create the whole seq once.<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">10</span>):</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> x</div><div class="line"><span class="meta">... </span></div><div class="line"><span class="number">0</span></div><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">4</span></div><div class="line"><span class="number">5</span></div><div class="line"><span class="number">6</span></div><div class="line"><span class="number">7</span></div><div class="line"><span class="number">8</span></div><div class="line"><span class="number">9</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>range(<span class="number">10</span>)</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>range(<span class="number">1</span>,<span class="number">10</span>)</div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="zip">4.5.2. zip()</h3><p>Merge two sequence and return a tuple list.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>x=(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>y=(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>zip(x,y)</div><div class="line">[(<span class="number">1</span>, <span class="string">'a'</span>), (<span class="number">2</span>, <span class="string">'b'</span>), (<span class="number">3</span>, <span class="string">'c'</span>)]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l=zip(x,y) <span class="comment"># to a tuple list</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l</div><div class="line">[(<span class="number">1</span>, <span class="string">'a'</span>), (<span class="number">2</span>, <span class="string">'b'</span>), (<span class="number">3</span>, <span class="string">'c'</span>)]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>d=dict(l) <span class="comment"># to a dict</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>d</div><div class="line">&#123;<span class="number">1</span>: <span class="string">'a'</span>, <span class="number">2</span>: <span class="string">'b'</span>, <span class="number">3</span>: <span class="string">'c'</span>&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="enumerate-provide-with-iterate-index-in-seq">4.5.3. enumerate() provide with iterate index in seq</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>d</div><div class="line">&#123;<span class="number">1</span>: <span class="string">'a'</span>, <span class="number">2</span>: <span class="string">'b'</span>, <span class="number">3</span>: <span class="string">'c'</span>&#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i,v <span class="keyword">in</span> enumerate(d):</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'i:'</span>,i</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'v:'</span>,v</div><div class="line"><span class="meta">... </span></div><div class="line">i: <span class="number">0</span></div><div class="line">v: <span class="number">1</span></div><div class="line">i: <span class="number">1</span></div><div class="line">v: <span class="number">2</span></div><div class="line">i: <span class="number">2</span></div><div class="line">v: <span class="number">3</span></div></pre></td></tr></table></figure>
+<h3 id="list-comprehension-�б��Z�ʽ">4.5.4. list comprehension(�б��Ƶ�ʽ)</h3><p>The ability to generate partial-order data is really a magic here.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>[x*x <span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">10</span>)]</div><div class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>[x*x <span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">10</span>) <span class="keyword">if</span> x%<span class="number">3</span>==<span class="number">0</span>] <span class="comment"># conditional filter</span></div><div class="line">[<span class="number">9</span>, <span class="number">36</span>, <span class="number">81</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>[(x,y) <span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">3</span>) <span class="keyword">for</span> y <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">3</span>)] <span class="comment"># full combination</span></div><div class="line">[(<span class="number">1</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">1</span>), (<span class="number">2</span>, <span class="number">2</span>)]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>[(x,y) <span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">3</span>) <span class="keyword">for</span> y <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">3</span>) <span class="keyword">if</span> x&gt;=y] <span class="comment"># partial-order data</span></div><div class="line">[(<span class="number">1</span>, <span class="number">1</span>), (<span class="number">2</span>, <span class="number">1</span>), (<span class="number">2</span>, <span class="number">2</span>)]</div></pre></td></tr></table></figure></p>
+<h3 id="built-in-help-print-the-doc">4.5.5. built-in help, print the doc</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; help(enumerate) # will be prompted with next window</div><div class="line">&gt;&gt;&gt; </div><div class="line"></div><div class="line">Help on class enumerate in module __builtin__:</div><div class="line"></div><div class="line">class enumerate(object)</div><div class="line"> |  enumerate(iterable[, start]) -&gt; iterator for index, value of iterable</div><div class="line"> |  </div><div class="line"> |  Return an enumerate object.  iterable must be another object that supports</div><div class="line"> |  iteration.  The enumerate object yields pairs containing a count (from</div><div class="line"> |  start, which defaults to zero) and a value yielded by the iterable argument.</div><div class="line"> |  enumerate is useful for obtaining an indexed list:</div><div class="line"> |      (0, seq[0]), (1, seq[1]), (2, seq[2]), ...</div><div class="line"> |  </div><div class="line"> |  Methods defined here:</div><div class="line"> |  </div><div class="line"> |  __getattribute__(...)</div><div class="line"> |      x.__getattribute__('name') &lt;==&gt; x.name</div><div class="line"> |  </div><div class="line"> |  __iter__(...)</div><div class="line"> |      x.__iter__() &lt;==&gt; iter(x)</div><div class="line"> |  </div><div class="line"> |  next(...)</div><div class="line"> |      x.next() -&gt; the next value, or raise StopIteration</div><div class="line"> |  </div><div class="line"> |  ----------------------------------------------------------------------</div><div class="line"> |  Data and other attributes defined here:</div><div class="line"> |  </div><div class="line"> |  __new__ = &lt;built-in method __new__ of type object&gt;</div><div class="line"> |      T.__new__(S, ...) -&gt; a new object with type S, a subtype of T</div><div class="line">(END)</div></pre></td></tr></table></figure>
+<h1 id="Grammer">5. Grammer</h1><h2 id="is-and">5.1. is and ==</h2><ul>
+<li><code>is</code>: like <code>==</code> in Java.</li>
+<li><code>==</code>: like <code>equals</code> in Java. </li>
+</ul>
+<h2 id="assert">5.2. assert</h2><p>Use assert statement when we think the check is really important and the assert condition should always be satisfied. </p>
+<h2 id="function-and-parameters">5.3. function and parameters</h2><h3 id="position-parameter-and-naming-parameter">5.3.1. position parameter and naming parameter</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(pos1,pos2,name1=<span class="string">'default_val1'</span>,name2=<span class="string">'default_val2'</span>)</span>:</span></div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'pos1:'</span>, pos1</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'pos2:'</span>, pos2</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'name1='</span>,name1</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'name2='</span>,name2</div><div class="line"><span class="meta">... </span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fun(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>) <span class="comment"># all use position parameters</span></div><div class="line">pos1: <span class="number">1</span></div><div class="line">pos2: <span class="number">2</span></div><div class="line">name1= <span class="number">3</span></div><div class="line">name2= <span class="number">4</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fun(<span class="number">1</span>,<span class="number">2</span>,name2=<span class="number">4</span>) <span class="comment"># skip a naming parameter</span></div><div class="line">pos1: <span class="number">1</span></div><div class="line">pos2: <span class="number">2</span></div><div class="line">name1= default_val1</div><div class="line">name2= <span class="number">4</span></div></pre></td></tr></table></figure>
+<h3 id="unlimited-parameters-of-and">5.3.2. unlimited parameters of * and **</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(*args,**kwargs)</span>:</span></div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'args:'</span>, args</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> <span class="string">'kwargs: '</span>, kwargs</div><div class="line"><span class="meta">... </span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fun(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>fun(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,a=<span class="number">1</span>,b=<span class="number">2</span>,c=<span class="number">3</span>)</div><div class="line">args: (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</div><div class="line">kwargs:  &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'c'</span>: <span class="number">3</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;</div></pre></td></tr></table></figure>
+<h1 id="Useful-modules">6. Useful modules</h1><h2 id="bisect-to-do-binary-search">6.1. bisect to do binary search</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> bisect <span class="keyword">import</span> *</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data = [(<span class="string">'red'</span>, <span class="number">5</span>), (<span class="string">'blue'</span>, <span class="number">1</span>), (<span class="string">'yellow'</span>, <span class="number">8</span>), (<span class="string">'black'</span>, <span class="number">0</span>)]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data.sort(key=<span class="keyword">lambda</span> r: r[<span class="number">1</span>])<span class="comment"># sort use values</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>keys = [r[<span class="number">1</span>] <span class="keyword">for</span> r <span class="keyword">in</span> data]  <span class="comment"># precomputed list of keys</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data[bisect_left(keys, <span class="number">0</span>)]   <span class="comment"># bisect_left: Locate the insertion point for x in a to `maintain sorted order`.</span></div><div class="line">(<span class="string">'black'</span>, <span class="number">0</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data[bisect_left(keys, <span class="number">1</span>)]</div><div class="line">(<span class="string">'blue'</span>, <span class="number">1</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data[bisect_left(keys, <span class="number">5</span>)]</div><div class="line">(<span class="string">'red'</span>, <span class="number">5</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data[bisect_left(keys, <span class="number">8</span>)]</div><div class="line">(<span class="string">'yellow'</span>, <span class="number">8</span>)</div></pre></td></tr></table></figure>
+<h2 id="map-filter-reduce-functions">6.2. map/filter/reduce functions</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>map(<span class="keyword">lambda</span> x: x*x,xrange(<span class="number">10</span>))</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>] </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>[x*x <span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">10</span>)] <span class="comment"># same effect as map</span></div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>filter(<span class="keyword">lambda</span> x: x%<span class="number">3</span>==<span class="number">0</span>,xrange(<span class="number">10</span>)) </div><div class="line">[<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data=[x <span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">10</span>) <span class="keyword">if</span> x%<span class="number">3</span>==<span class="number">0</span>] <span class="comment"># same effect as filter</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>data</div><div class="line">[<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>reduce(<span class="keyword">lambda</span> x,y: x+y, data)</div><div class="line"><span class="number">18</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>sum(data) <span class="comment"># same result as the above reduce</span></div><div class="line"><span class="number">18</span></div></pre></td></tr></table></figure>
+<h1 id="OOP-in-Python">7. OOP in Python</h1><h2 id="Implement-OOP-features">7.1. Implement OOP features</h2><p>Next example combines these features together:</p>
+<ul>
+<li>multiple inheritance</li>
+<li>private method</li>
+<li>public method</li>
+<li>static method</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span><span class="params">(Person, Entity)</span>:</span>  	<span class="comment"># multiple inheritance, not recommended</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__private_method</span><span class="params">(self)</span>:</span><span class="keyword">pass</span>	<span class="comment"># private methods</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">public_method</span><span class="params">(self)</span>:</span><span class="keyword">pass</span>	<span class="comment"># public methods</span></div><div class="line"><span class="meta">    @staticmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">static_method</span><span class="params">()</span>:</span><span class="keyword">pass</span>		<span class="comment"># static methods, in Python could be replaced using module function instead of a static method</span></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">class_method</span><span class="params">(cls)</span>:</span><span class="keyword">pass</span>		<span class="comment"># class method</span></div></pre></td></tr></table></figure>
+<h2 id="Interface-and-Reflection">7.2. Interface and Reflection</h2><ul>
+<li><code>hasattr(obj/class, method_name)</code>: indicate if obj has the <code>method_name</code> method</li>
+<li><code>callable()</code></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Book/" rel="tag"># Book</a>
+          
+            <a href="/tags/Reading-Notes/" rel="tag"># Reading Notes</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/20/CloudFlare-doesn-t-support-ETag/" rel="next" title="CloudFlare doesn't support ETag">
+                <i class="fa fa-chevron-left"></i> CloudFlare doesn't support ETag
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/24/MongoDB-MEM-Management/" rel="prev" title="MongoDB MEM Management">
+                MongoDB MEM Management <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59378a9a24c914f0" async = "async" ></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Morgan Wu" />
+          <p class="site-author-name" itemprop="name">Morgan Wu</p>
+           
+              <p class="site-description motion-element" itemprop="description">此中有真意，欲辨已忘言。<br/> Just let it be. If it's meant to be, it will happen.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Module"><span class="nav-text">1. Module</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import"><span class="nav-text">1.1. import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#future"><span class="nav-text">1.2. future</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Functions"><span class="nav-text">2. Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#exec-in-a-scope"><span class="nav-text">2.1. exec() in a scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eval-to-compute"><span class="nav-text">2.2. eval() to compute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#input-raw-input"><span class="nav-text">2.3. input()/raw_input()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#some-math-functions"><span class="nav-text">2.4. some math functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#and-pow"><span class="nav-text">2.4.1. ** and pow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#abs-round-floor-ceil"><span class="nav-text">2.4.2. abs/round/floor/ceil</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Computer-Floating-limitations"><span class="nav-text">2.4.3. Computer Floating limitations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flooring-division"><span class="nav-text">2.4.4. Flooring division //</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#String"><span class="nav-text">3. String</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#repr-str"><span class="nav-text">3.1. repr()/str()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-raw-String-Unicode-String"><span class="nav-text">3.2. String/raw String/Unicode String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#format"><span class="nav-text">3.3. format</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-functions"><span class="nav-text">3.4. String functions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Structure"><span class="nav-text">4. Data Structure</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-text">4.1. list</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Slice"><span class="nav-text">4.1.1. Slice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-multiply-of-list"><span class="nav-text">4.1.2. add/multiply of list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-Misc"><span class="nav-text">4.1.3. list Misc.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-object-function"><span class="nav-text">4.1.4. list object function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tuple-Immutable-list"><span class="nav-text">4.2. Tuple: Immutable list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dictionary"><span class="nav-text">4.3. Dictionary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Several-functions-based-on-dictionary"><span class="nav-text">4.3.1. Several functions based on dictionary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Iterate-the-dict"><span class="nav-text">4.3.2. Iterate the dict</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequence-Unpacking-Iteralbe-Unpacking"><span class="nav-text">4.4. Sequence Unpacking/Iteralbe Unpacking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Several-functions-of-these-data-structures"><span class="nav-text">4.5. Several functions of these data structures</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xrange-range"><span class="nav-text">4.5.1. xrange() / range()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zip"><span class="nav-text">4.5.2. zip()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enumerate-provide-with-iterate-index-in-seq"><span class="nav-text">4.5.3. enumerate() provide with iterate index in seq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-comprehension-�б��Z�ʽ"><span class="nav-text">4.5.4. list comprehension(�б��Ƶ�ʽ)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#built-in-help-print-the-doc"><span class="nav-text">4.5.5. built-in help, print the doc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Grammer"><span class="nav-text">5. Grammer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#is-and"><span class="nav-text">5.1. is and ==</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#assert"><span class="nav-text">5.2. assert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#function-and-parameters"><span class="nav-text">5.3. function and parameters</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#position-parameter-and-naming-parameter"><span class="nav-text">5.3.1. position parameter and naming parameter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unlimited-parameters-of-and"><span class="nav-text">5.3.2. unlimited parameters of * and **</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Useful-modules"><span class="nav-text">6. Useful modules</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bisect-to-do-binary-search"><span class="nav-text">6.1. bisect to do binary search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-filter-reduce-functions"><span class="nav-text">6.2. map/filter/reduce functions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OOP-in-Python"><span class="nav-text">7. OOP in Python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Implement-OOP-features"><span class="nav-text">7.1. Implement OOP features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Interface-and-Reflection"><span class="nav-text">7.2. Interface and Reflection</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Morgan Wu</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://morganwu277-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://morganwu277.github.io/2017/11/06/Python-Notes-CN/';
+          this.page.identifier = '2017/11/06/Python-Notes-CN/';
+          this.page.title = 'Python - Notes';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://morganwu277-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
