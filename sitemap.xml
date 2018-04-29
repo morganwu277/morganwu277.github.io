@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://morganwu277.github.io/2018/01/18/Nginx-Magics/</loc>
+    
+    <lastmod>2018-04-29T20:08:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://morganwu277.github.io/2018/04/16/Accounting/</loc>
     
-    <lastmod>2018-04-16T19:59:43.000Z</lastmod>
+    <lastmod>2018-04-16T20:02:49.000Z</lastmod>
     
   </url>
   
@@ -47,13 +54,6 @@
     <loc>https://morganwu277.github.io/about/index.html</loc>
     
     <lastmod>2018-02-08T05:20:41.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/2018/01/18/Nginx-Magics/</loc>
-    
-    <lastmod>2018-01-27T01:07:46.000Z</lastmod>
     
   </url>
   
