@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://morganwu277.github.io/about/index.html</loc>
+    
+    <lastmod>2018-07-18T18:42:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://morganwu277.github.io/2017/06/29/Debug-Ansible/</loc>
+    
+    <lastmod>2018-07-03T20:07:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://morganwu277.github.io/2018/06/27/Terraform-and-Infrastructure-as-Code/</loc>
+    
+    <lastmod>2018-07-02T21:14:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://morganwu277.github.io/2018/06/25/AWS-Go-Through/</loc>
+    
+    <lastmod>2018-06-28T04:50:18.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://morganwu277.github.io/2018/06/19/from-mutex-to-distributed-lock/</loc>
     
     <lastmod>2018-06-21T02:25:22.000Z</lastmod>
@@ -9,23 +37,9 @@
   </url>
   
   <url>
-    <loc>https://morganwu277.github.io/about/index.html</loc>
-    
-    <lastmod>2018-06-19T20:01:16.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://morganwu277.github.io/2017/12/18/Install-Ganglia-Start/</loc>
     
     <lastmod>2018-06-19T02:48:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://morganwu277.github.io/2017/06/29/Debug-Ansible/</loc>
-    
-    <lastmod>2018-06-11T19:17:40.000Z</lastmod>
     
   </url>
   
