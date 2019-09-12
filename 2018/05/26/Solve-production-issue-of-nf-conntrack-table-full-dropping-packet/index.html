@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://morganwu277.github.io/2018/05/26/Solve-production-issue-of-nf-conntrack-table-full-dropping-packet/conntrack_error.jpg">
 <meta property="og:image" content="https://morganwu277.github.io/2018/05/26/Solve-production-issue-of-nf-conntrack-table-full-dropping-packet/iptables-5chain-4table.png">
 <meta property="og:image" content="https://morganwu277.github.io/2018/05/26/Solve-production-issue-of-nf-conntrack-table-full-dropping-packet/netfilter-hooks.png">
-<meta property="og:updated_time" content="2018-05-27T05:47:23.000Z">
+<meta property="og:updated_time" content="2019-09-12T02:42:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nf_conntrack: table full, dropping packet">
 <meta name="twitter:description" content="Today I found an online server in monitoring channel, alert saying Timtout connection to xxx.xxx.com which is one of our production entrance servers and then the story began …">
@@ -465,7 +465,7 @@
 <p>So, in one word, <code>conntrack</code> is created to record connection state to inspect into traffic and avoid DDoS security issue. </p>
 <h2 id="Just-tell-me-how-to-solve-it">2.1. Just tell me how to solve it</h2><p>From the error above, we can know <code>conntrack table is full.</code> How to review the table size? By typing <code>cat /proc/sys/net/netfilter/nf_conntrack_count</code>. We can get the size.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@localhost:/<span class="comment"># cat /proc/sys/net/netfilter/nf_conntrack_count</span></div><div class="line">76390</div></pre></td></tr></table></figure></p>
 <p>What’s the maximum size? You can get it by typing <code>cat /proc/sys/net/netfilter/nf_conntrack_max</code>. </p>
-<p>Let’s just increase it. Recommended size: <code>CONNTRACK_MAX = RAMSIZE (in bytes) / 16384 / (ARCH / 32)</code>. Eg, I have 8GB RAM in x86_64 OS, so I made it as <code>8*1024^3/16384/2=262144</code>, which is of course larger as the <code>nf_conntrack_count</code>.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sysctl -w net.netfilter.nf_conntrack_max=262144</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.netfilter.nf_conntrack_max=262144"</span> &gt;&gt; /etc/sysctl.cnof</div></pre></td></tr></table></figure></p>
+<p>Let’s just increase it. Recommended size: <code>CONNTRACK_MAX = RAMSIZE (in bytes) / 16384 / (ARCH / 32)</code>. Eg, I have 8GB RAM in x86_64 OS, so I made it as <code>8*1024^3/16384/2=262144</code>, which is of course larger as the <code>nf_conntrack_count</code>.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sysctl -w net.netfilter.nf_conntrack_max=262144</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.netfilter.nf_conntrack_max=262144"</span> &gt;&gt; /etc/sysctl.conf</div></pre></td></tr></table></figure></p>
 <p>Just after that, it works. Network latency becomes good now and no packet loss. </p>
 <h2 id="What-if-it-really-exceed-this-max-limit">2.2. What if it really exceed this max limit?</h2><ul>
 <li>Option 1. We can remove the module of <code>state</code>, but that will make iptables not providing with full compatible APIs.</li>
@@ -745,7 +745,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
